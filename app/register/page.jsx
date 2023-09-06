@@ -1,5 +1,4 @@
 "use client"
-import "bootstrap/dist/css/bootstrap.min.css";
 import Link from "next/link";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -30,7 +29,7 @@ export default function Register() {
                     <Form.Control type="password" placeholder="Repeat password" />
                 </Form.Group>
                 
-                <Button className="mb-4 w-100 shadow-sm" variant="secondary" type="submit">
+                <Button className="mb-4 w-100 shadow-sm" variant="primary" type="submit">
                     Sign up
                 </Button>
 

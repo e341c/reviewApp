@@ -8,18 +8,32 @@ import Form from "react-bootstrap/Form";
 import Figure from "react-bootstrap/Figure";
 import { Rating } from "react-simple-star-rating";
 import { Typeahead } from "react-bootstrap-typeahead";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 export default function Review() {
     const [multiSelections, setMultiSelections] = useState([]);
+    const inputRef = useRef(null);
     const [rating, setRating] = useState(0);
+    const [file, setFile] = useState(null)
 
     const options = ["asd", "movies", "fun"];
 
+    const handleButtonClick = () => {
+        inputRef.current?.click();
+    };
+
+    const handleFileChange = (e) => {
+        const files = e.target.files;
+        if (files.length > 0) {
+            setFile(URL.createObjectURL(e.target.files[0]));
+        } else {
+            setFile(null);
+        }
+    };
+
     const handleRating = (rate) => {
         setRating(rate);
-
-        // other logic
     };
 
     const onPointerEnter = () => console.log("Enter");
@@ -28,25 +42,30 @@ export default function Review() {
 
     return (
         <main>
-            <Header />
             <Form style={{ marginTop: "100px" }}>
                 <div className="container d-flex justify-content-center">
-                    <Figure>
-                        <Figure.Image
-                            width={156}
-                            height={231}
-                            alt="156x231"
-                            src="holder.js/171x180"
-                        />
+                    <Figure className="me-5 mt-2">
                         <div
                             style={{
                                 width: "156px",
                                 height: "231px",
-                                background: "red",
                             }}
-                            className="me-5 mt-2"
-                        ></div>
-                        <Figure.Caption>Your image</Figure.Caption>
+                            className="mb-3 border rounded overflow-hidden"
+                        >
+                            <Figure.Image
+                                alt=""
+                                src={file}
+                                className="object-fit-cover"
+                                style={{
+                                    width: "156px",
+                                    height: "231px",
+                                }}
+                            />
+                        </div>
+                        <Form.Group controlId="formFile">
+                            <Form.Control type="file" hidden ref={inputRef} onChange={handleFileChange}/>
+                            <Button onClick={handleButtonClick} className="w-100" variant="primary">Choose image</Button>
+                        </Form.Group>
                     </Figure>
 
                     <div className="w-50">
@@ -97,6 +116,7 @@ export default function Review() {
                                 options={options}
                                 placeholder="Choose several tags..."
                                 selected={multiSelections}
+                                className="text-body"
                             />
                         </Form.Group>
 
@@ -132,7 +152,7 @@ export default function Review() {
                         </Form.Group>
 
                         <Button
-                            variant="secondary"
+                            variant="primary"
                             className="shadow-sm"
                             style={{ width: "180px" }}
                         >

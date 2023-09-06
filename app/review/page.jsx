@@ -1,13 +1,9 @@
 "use client";
-import Header from "@/components/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 
 export default function Review() {
     return (
         <main>
-            <Header />
             <section className="container d-flex" style={{ marginTop: "100px" }}>
                 <div
                     style={{

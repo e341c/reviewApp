@@ -1,0 +1,9 @@
+.rbt-token{
+    background-color: rgba(222, 226, 230, 0.9) !important;
+    color: blueviolet !important;
+    font-weight: 600;
+}
+.btn-close{
+    filter: none !important;
+    font-weight: 600 !important;
+}
