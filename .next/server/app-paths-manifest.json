@@ -1,6 +1,13 @@
 {
+  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/page": "app/page.js",
   "/login/page": "app/login/page.js",
   "/profile/page": "app/profile/page.js",
-  "/privacy/page": "app/privacy/page.js"
+  "/review/page": "app/review/page.js",
+  "/register/page": "app/register/page.js",
+  "/privacy/page": "app/privacy/page.js",
+  "/review/add/page": "app/review/add/page.js",
+  "/review/test/page": "app/review/test/page.js",
+  "/review/upload/page": "app/review/upload/page.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js"
 }

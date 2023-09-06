@@ -1,0 +1,13 @@
+{
+  "/favicon.ico/route": "/favicon.ico",
+  "/page": "/",
+  "/login/page": "/login",
+  "/profile/page": "/profile",
+  "/review/page": "/review",
+  "/register/page": "/register",
+  "/privacy/page": "/privacy",
+  "/review/add/page": "/review/add",
+  "/review/test/page": "/review/test",
+  "/review/upload/page": "/review/upload",
+  "/api/auth/[...nextauth]/route": "/api/auth/[...nextauth]"
+}

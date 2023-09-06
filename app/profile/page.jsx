@@ -82,6 +82,7 @@ export default function Profile() {
                     </div>
                     <MyReviews reviews={reviews} />
                 </div>
+                {data && 
                 <div className="w-25">
                     <div className="p-3 shadow rounded">
                         <img src="/images/avatar.jpeg" alt="" className="img-fluid rounded mb-3" />
@@ -95,6 +96,7 @@ export default function Profile() {
                         </DropdownButton>
                     </div>
                 </div>
+                }
             </div>
         </div>
     );
