@@ -12,12 +12,12 @@ export default function Home() {
     console.log(data);
         
     if(isLoading){
-        return <p className="container">Loading...</p>
+        return <p>Loading...</p>
     }
 
     if(error){
         console.log(error);
-        return <p className="container">{error.message}</p>
+        return <p>{error.message}</p>
     }
 
 

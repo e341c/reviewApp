@@ -10,6 +10,6 @@ export const GET = async(req) => {
 
         return new NextResponse(JSON.stringify(reviews), {status:200})   
     } catch (error) {
-        return new NextResponse("Database error", {status:500})   
+        return new NextResponse(error, {status:500})   
     }
 }
