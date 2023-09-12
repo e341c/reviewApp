@@ -55,7 +55,16 @@ var next_response = __webpack_require__(89335);
 var db = __webpack_require__(56575);
 // EXTERNAL MODULE: ./models/Review.js
 var Review = __webpack_require__(13707);
+// EXTERNAL MODULE: ./models/User.js
+var User = __webpack_require__(24946);
+// EXTERNAL MODULE: ./models/Category.js
+var Category = __webpack_require__(859);
+// EXTERNAL MODULE: ./models/Tags.js
+var Tags = __webpack_require__(9597);
 ;// CONCATENATED MODULE: ./app/api/review/add/route.js
+
+
+
 
 
 
@@ -65,6 +74,9 @@ const POST = async (req)=>{
     console.log(body);
     try {
         await (0,db/* default */.Z)();
+        await User/* default */.Z.find();
+        await Category/* default */.Z.find();
+        await Tags/* default */.Z.find();
         await newReview.save();
         return new next_response/* default */.Z(body, {
             status: 201
@@ -117,7 +129,7 @@ const originalPathname = "/api/review/add/route";
 var __webpack_require__ = require("../../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [587,501,335,88], () => (__webpack_exec__(45127)));
+var __webpack_exports__ = __webpack_require__.X(0, [587,501,335,641], () => (__webpack_exec__(45127)));
 module.exports = __webpack_exports__;
 
 })();

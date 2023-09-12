@@ -19,7 +19,7 @@ module.exports = require("os");
 
 /***/ }),
 
-/***/ 8995:
+/***/ 3346:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -54,24 +54,8 @@ var route_kind = __webpack_require__(19513);
 var next_response = __webpack_require__(89335);
 // EXTERNAL MODULE: ./utils/db.js
 var db = __webpack_require__(56575);
-// EXTERNAL MODULE: external "mongoose"
-var external_mongoose_ = __webpack_require__(11185);
-var external_mongoose_default = /*#__PURE__*/__webpack_require__.n(external_mongoose_);
-;// CONCATENATED MODULE: ./models/Category.js
-
-const { Schema } = (external_mongoose_default());
-const categorySchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    key: {
-        type: Number,
-        required: true
-    }
-});
-/* harmony default export */ const Category = ((external_mongoose_default()).models.Category || external_mongoose_default().model("Category", categorySchema));
-
+// EXTERNAL MODULE: ./models/Category.js
+var Category = __webpack_require__(859);
 ;// CONCATENATED MODULE: ./app/api/review/category/route.js
 
 
@@ -79,7 +63,7 @@ const categorySchema = new Schema({
 const GET = async (req)=>{
     try {
         await (0,db/* default */.Z)();
-        const category = await Category.find();
+        const category = await Category/* default */.Z.find();
         return new next_response/* default */.Z(JSON.stringify(category), {
             status: 201
         });
@@ -98,10 +82,10 @@ const POST = async (req)=>{
     ];
     try {
         await (0,db/* default */.Z)();
-        const lentgh = await Category.count();
+        const lentgh = await Category/* default */.Z.count();
         if (lentgh === 0) {
             data.map((item, index)=>{
-                new Category({
+                new Category/* default */.Z({
                     name: item,
                     key: index
                 }).save();
@@ -152,6 +136,31 @@ const originalPathname = "/api/review/category/route";
 
 /***/ }),
 
+/***/ 859:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Z: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11185);
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_0__);
+
+const { Schema } = (mongoose__WEBPACK_IMPORTED_MODULE_0___default());
+const categorySchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    key: {
+        type: Number,
+        required: true
+    }
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((mongoose__WEBPACK_IMPORTED_MODULE_0___default().models).Category || mongoose__WEBPACK_IMPORTED_MODULE_0___default().model("Category", categorySchema));
+
+
+/***/ }),
+
 /***/ 56575:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -180,7 +189,7 @@ const connect = async ()=>{
 var __webpack_require__ = require("../../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [587,501,335], () => (__webpack_exec__(8995)));
+var __webpack_exports__ = __webpack_require__.X(0, [587,501,335], () => (__webpack_exec__(3346)));
 module.exports = __webpack_exports__;
 
 })();

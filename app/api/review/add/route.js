@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import connect from "@/utils/db";
 import Review from "@/models/Review";
+import User from "@/models/User";
+import Category from "@/models/Category";
+import Tags from "@/models/Tags";
 
 export const POST = async (req) => {
     const body = await req.json()
@@ -11,6 +14,9 @@ export const POST = async (req) => {
 
     try {
         await connect();
+        await User.find()
+        await Category.find()
+        await Tags.find()
 
         await newReview.save();
 
