@@ -8,6 +8,10 @@
   "/privacy/page": "/privacy",
   "/review/add/page": "/review/add",
   "/review/test/page": "/review/test",
-  "/review/upload/page": "/review/upload",
-  "/api/auth/[...nextauth]/route": "/api/auth/[...nextauth]"
+  "/api/review/route": "/api/review",
+  "/api/auth/[...nextauth]/route": "/api/auth/[...nextauth]",
+  "/api/review/category/route": "/api/review/category",
+  "/api/review/tags/route": "/api/review/tags",
+  "/api/auth/register/route": "/api/auth/register",
+  "/api/review/add/route": "/api/review/add"
 }

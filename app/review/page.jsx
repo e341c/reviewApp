@@ -1,10 +1,9 @@
 "use client";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Review() {
     return (
         <main>
-            <section className="container d-flex" style={{ marginTop: "100px" }}>
+            <section className="d-flex" style={{ marginTop: "100px" }}>
                 <div
                     style={{
                         width: "156px",

@@ -1,8 +1,6 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
-
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons'

@@ -12,12 +12,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en">
+        <html lang="en" >
             <body>
                 <AuthProvider>
                     <ThemeProvider>
                         <Header />
-                        <div style={{marginTop: "40px"}}>
+                        <div className="container" style={{marginTop: "70px"}}>
                             {children}
                         </div>
                     </ThemeProvider>

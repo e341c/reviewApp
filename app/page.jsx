@@ -1,66 +1,30 @@
 "use client";
-import Reviews from "@/components/reviews/Reviews";
+import Review from "@/components/Review";
+import axios from "axios";
+import useSWR, { preload } from 'swr'
 
 export default function Home() {
-    const reviews = [
-        {
-            id: 1,
-            reviewTitle: "My first review",
-            itemTitle: "Forrest Gump",
-            category: "movies",
-            tags: ["tag1", "tag2", "tag3"],
-            text: "This is text of reiveiw....",
-            rate: 8,
-            author: "Author of review",
-            reviewLikes: 10,
-            reviewRate: 3
-        },
-        {
-            id: 4,
-            reviewTitle: "My review 2",
-            itemTitle: "Forrest Gump",
-            category: "movies",
-            tags: ["tag1", "tag2", "tag3"],
-            text: "This is text of reiveiw....",
-            rate: 8,
-            author: "Author of review",
-            reviewLikes: 10,
-            reviewRate: 5
-        },
-        {
-            id: 3,
-            reviewTitle: "My review 3",
-            itemTitle: "Forrest Gump",
-            category: "movies",
-            tags: ["tag1", "tag2", "tag3"],
-            text: "This is text of reiveiw....",
-            rate: 8,
-            author: "Author of review",
-            reviewLikes: 10,
-            reviewRate: 1
-        },
-        {
-            id: 5,
-            reviewTitle: "My review 4",
-            itemTitle: "Forrest Gump",
-            category: "movies",
-            tags: ["tag1", "tag2", "tag3"],
-            text: "This is __text__ of reiveiw....",
-            rate: 8,
-            author: "Author of review",
-            reviewLikes: 10,
-            reviewRate: 2
-        },
-    ]
+    const { data, error, isLoading } = useSWR('/api/reviews', async () => {
+        const res = await axios.get('/api/review')
+        return res.data
+    })
+
+    console.log(data);
+        
+    if(isLoading){
+        return <p className="container">Loading...</p>
+    }
+
+    if(error){
+        console.log(error);
+        return <p className="container">{error.message}</p>
+    }
+
 
     return (
-        <main className="vh-100">
-            <div style={{ marginTop: "100px" }}>
-                <div className="container">
-                    <h1 className="display-3 mb-5">HOME PAGE</h1>
-                    <Reviews reviews={reviews} />
-                </div>
-            </div>
-        </main>
+        <div className="vh-100">        
+            <h1 className="display-3 mb-5">HOME PAGE</h1>
+            {data.map(item => <Review reviewData={item}/>)}
+        </div>
     );
 }

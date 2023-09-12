@@ -8,6 +8,10 @@
   "/privacy/page": "app/privacy/page.js",
   "/review/add/page": "app/review/add/page.js",
   "/review/test/page": "app/review/test/page.js",
-  "/review/upload/page": "app/review/upload/page.js",
-  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js"
+  "/api/review/route": "app/api/review/route.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/api/review/category/route": "app/api/review/category/route.js",
+  "/api/review/tags/route": "app/api/review/tags/route.js",
+  "/api/auth/register/route": "app/api/auth/register/route.js",
+  "/api/review/add/route": "app/api/review/add/route.js"
 }

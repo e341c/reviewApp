@@ -5,6 +5,20 @@ exports.id = 912;
 exports.ids = [912];
 exports.modules = {
 
+/***/ 38013:
+/***/ ((module) => {
+
+module.exports = require("mongodb");
+
+/***/ }),
+
+/***/ 11185:
+/***/ ((module) => {
+
+module.exports = require("mongoose");
+
+/***/ }),
+
 /***/ 39491:
 /***/ ((module) => {
 
@@ -82,7 +96,7 @@ module.exports = require("zlib");
 
 /***/ }),
 
-/***/ 79063:
+/***/ 39427:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -120,12 +134,72 @@ var next_auth_default = /*#__PURE__*/__webpack_require__.n(next_auth);
 var facebook = __webpack_require__(86576);
 // EXTERNAL MODULE: ./node_modules/next-auth/providers/google.js
 var google = __webpack_require__(51989);
+// EXTERNAL MODULE: ./node_modules/next-auth/providers/credentials.js
+var credentials = __webpack_require__(42446);
+// EXTERNAL MODULE: ./node_modules/@auth/mongodb-adapter/index.js
+var mongodb_adapter = __webpack_require__(90389);
+// EXTERNAL MODULE: external "mongodb"
+var external_mongodb_ = __webpack_require__(38013);
+;// CONCATENATED MODULE: ./app/lib/mongodb.js
+// This approach is taken from https://github.com/vercel/next.js/tree/canary/examples/with-mongodb
+
+if (!process.env.MONGODB_URI) {
+    throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
+}
+const uri = process.env.MONGODB_URI;
+const options = {};
+let client;
+let clientPromise;
+if (false) {} else {
+    client = new external_mongodb_.MongoClient(uri, options);
+    clientPromise = client.connect();
+}
+/* harmony default export */ const mongodb = (clientPromise);
+
+// EXTERNAL MODULE: ./utils/db.js
+var db = __webpack_require__(56575);
+// EXTERNAL MODULE: ./models/User.js
+var User = __webpack_require__(24946);
+// EXTERNAL MODULE: ./node_modules/bcryptjs/index.js
+var bcryptjs = __webpack_require__(54989);
+var bcryptjs_default = /*#__PURE__*/__webpack_require__.n(bcryptjs);
 ;// CONCATENATED MODULE: ./app/api/auth/[...nextauth]/route.js
 
 
 
+
+
+
+
+
+
 const handler = next_auth_default()({
+    adapter: (0,mongodb_adapter/* MongoDBAdapter */.dJ)(mongodb),
     providers: [
+        (0,credentials/* default */.Z)({
+            id: "credentials",
+            name: "Credentials",
+            async authorize (credentials) {
+                await (0,db/* default */.Z)();
+                try {
+                    const user = await User/* default */.Z.findOne({
+                        email: credentials.email
+                    });
+                    if (user) {
+                        const isPasswordCorrect = await bcryptjs_default().compare(credentials.password, user.password);
+                        if (isPasswordCorrect) {
+                            return user;
+                        } else {
+                            throw new Error("Wrong Credentials!");
+                        }
+                    } else {
+                        throw new Error("User not found!");
+                    }
+                } catch (err) {
+                    throw new Error(err);
+                }
+            }
+        }),
         (0,facebook/* default */.Z)({
             clientId: process.env.FACEBOOK_ID,
             clientSecret: process.env.FACEBOOK_SECRET
@@ -134,7 +208,24 @@ const handler = next_auth_default()({
             clientId: process.env.GOOGLE_ID,
             clientSecret: process.env.GOOGLE_SECRET
         })
-    ]
+    ],
+    callbacks: {
+        session: async ({ session, token })=>{
+            if (session?.user) {
+                session.user.id = token.uid;
+            }
+            return session;
+        },
+        jwt: async ({ user, token })=>{
+            if (user) {
+                token.uid = user.id;
+            }
+            return token;
+        }
+    },
+    session: {
+        strategy: "jwt"
+    }
 });
 
 
@@ -170,6 +261,60 @@ const originalPathname = "/api/auth/[...nextauth]/route";
 
 //# sourceMappingURL=app-route.js.map
 
+/***/ }),
+
+/***/ 24946:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Z: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11185);
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_0__);
+
+const { Schema } = (mongoose__WEBPACK_IMPORTED_MODULE_0___default());
+const userSchema = new Schema({
+    name: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    email: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
+}, {
+    timestamps: true
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((mongoose__WEBPACK_IMPORTED_MODULE_0___default().models).User || mongoose__WEBPACK_IMPORTED_MODULE_0___default().model("User", userSchema));
+
+
+/***/ }),
+
+/***/ 56575:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Z: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11185);
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_0__);
+
+const connect = async ()=>{
+    try {
+        await mongoose__WEBPACK_IMPORTED_MODULE_0___default().connect(process.env.MONGODB_URI);
+    } catch (error) {
+        throw new Error("Connection failed!");
+    }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connect);
+
+
 /***/ })
 
 };
@@ -179,7 +324,7 @@ const originalPathname = "/api/auth/[...nextauth]/route";
 var __webpack_require__ = require("../../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [587,501,809], () => (__webpack_exec__(79063)));
+var __webpack_exports__ = __webpack_require__.X(0, [587,501,989,159], () => (__webpack_exec__(39427)));
 module.exports = __webpack_exports__;
 
 })();
