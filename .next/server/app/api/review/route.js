@@ -67,7 +67,7 @@ const GET = async (req)=>{
             status: 200
         });
     } catch (error) {
-        return new next_response/* default */.Z("Database error", {
+        return new next_response/* default */.Z(error, {
             status: 500
         });
     }

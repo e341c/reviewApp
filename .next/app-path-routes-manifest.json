@@ -2,16 +2,16 @@
   "/favicon.ico/route": "/favicon.ico",
   "/page": "/",
   "/login/page": "/login",
-  "/profile/page": "/profile",
-  "/review/page": "/review",
   "/register/page": "/register",
+  "/profile/page": "/profile",
   "/privacy/page": "/privacy",
+  "/review/page": "/review",
   "/review/add/page": "/review/add",
   "/review/test/page": "/review/test",
   "/api/review/route": "/api/review",
   "/api/auth/[...nextauth]/route": "/api/auth/[...nextauth]",
-  "/api/review/category/route": "/api/review/category",
-  "/api/review/tags/route": "/api/review/tags",
+  "/api/review/add/route": "/api/review/add",
   "/api/auth/register/route": "/api/auth/register",
-  "/api/review/add/route": "/api/review/add"
+  "/api/review/tags/route": "/api/review/tags",
+  "/api/review/category/route": "/api/review/category"
 }

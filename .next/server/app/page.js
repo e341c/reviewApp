@@ -413,14 +413,12 @@ function Home() {
     console.log(data);
     if (isLoading) {
         return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-            className: "container",
             children: "Loading..."
         });
     }
     if (error) {
         console.log(error);
         return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-            className: "container",
             children: error.message
         });
     }
@@ -474,7 +472,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [587,20,258,933,543,146,666,773], () => (__webpack_exec__(12466)));
+var __webpack_exports__ = __webpack_require__.X(0, [587,20,258,933,543,146,448,773], () => (__webpack_exec__(12466)));
 module.exports = __webpack_exports__;
 
 })();

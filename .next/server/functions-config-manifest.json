@@ -1,9 +1,9 @@
 {
   "version": 1,
   "functions": {
-    "/api/auth/register": {},
     "/api/review/add": {},
     "/api/review": {},
+    "/api/auth/register": {},
     "/api/review/category": {},
     "/api/review/tags": {}
   }
