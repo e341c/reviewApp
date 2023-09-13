@@ -41,7 +41,8 @@ var route_namespaceObject = {};
 __webpack_require__.r(route_namespaceObject);
 __webpack_require__.d(route_namespaceObject, {
   GET: () => (GET),
-  POST: () => (POST)
+  POST: () => (POST),
+  revalidate: () => (revalidate)
 });
 
 // EXTERNAL MODULE: ./node_modules/next/dist/server/node-polyfill-headers.js
@@ -60,6 +61,7 @@ var Category = __webpack_require__(859);
 
 
 
+const revalidate = 10;
 const GET = async (req)=>{
     try {
         await (0,db/* default */.Z)();

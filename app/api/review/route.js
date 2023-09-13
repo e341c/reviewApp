@@ -7,6 +7,7 @@ import Category from "@/models/Category"
 import User from "@/models/User"
 import Tags from "@/models/Tags"
 
+export const revalidate = 10
 export const GET = async(req) => {
     try {
         await connect()

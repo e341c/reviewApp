@@ -3,15 +3,15 @@
   "/page": "/",
   "/login/page": "/login",
   "/privacy/page": "/privacy",
+  "/review/page": "/review",
   "/profile/page": "/profile",
   "/register/page": "/register",
-  "/review/page": "/review",
   "/review/add/page": "/review/add",
   "/review/test/page": "/review/test",
   "/api/review/route": "/api/review",
   "/api/auth/[...nextauth]/route": "/api/auth/[...nextauth]",
+  "/api/auth/register/route": "/api/auth/register",
   "/api/review/add/route": "/api/review/add",
   "/api/review/category/route": "/api/review/category",
-  "/api/auth/register/route": "/api/auth/register",
   "/api/review/tags/route": "/api/review/tags"
 }

@@ -1,10 +1,10 @@
 {
   "version": 1,
   "functions": {
-    "/api/auth/register": {},
     "/api/review/add": {},
-    "/api/review/category": {},
     "/api/review": {},
-    "/api/review/tags": {}
+    "/api/review/tags": {},
+    "/api/auth/register": {},
+    "/api/review/category": {}
   }
 }

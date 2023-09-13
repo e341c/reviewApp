@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import connect from "@/utils/db"
 import Tags from "@/models/Tags"
 
+export const revalidate = 10
 export const GET = async(req) => {
     try {
         await connect()

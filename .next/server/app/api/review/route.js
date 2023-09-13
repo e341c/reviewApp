@@ -40,7 +40,8 @@ __webpack_require__.d(__webpack_exports__, {
 var route_namespaceObject = {};
 __webpack_require__.r(route_namespaceObject);
 __webpack_require__.d(route_namespaceObject, {
-  GET: () => (GET)
+  GET: () => (GET),
+  revalidate: () => (revalidate)
 });
 
 // EXTERNAL MODULE: ./node_modules/next/dist/server/node-polyfill-headers.js
@@ -70,6 +71,7 @@ var Tags = __webpack_require__(9597);
 
 
 
+const revalidate = 10;
 const GET = async (req)=>{
     try {
         await (0,db/* default */.Z)();

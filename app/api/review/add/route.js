@@ -5,6 +5,7 @@ import User from "@/models/User";
 import Category from "@/models/Category";
 import Tags from "@/models/Tags";
 
+export const revalidate = 10
 export const POST = async (req) => {
     const body = await req.json()
 

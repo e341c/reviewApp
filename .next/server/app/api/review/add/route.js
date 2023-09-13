@@ -40,7 +40,8 @@ __webpack_require__.d(__webpack_exports__, {
 var route_namespaceObject = {};
 __webpack_require__.r(route_namespaceObject);
 __webpack_require__.d(route_namespaceObject, {
-  POST: () => (POST)
+  POST: () => (POST),
+  revalidate: () => (revalidate)
 });
 
 // EXTERNAL MODULE: ./node_modules/next/dist/server/node-polyfill-headers.js
@@ -68,6 +69,7 @@ var Tags = __webpack_require__(9597);
 
 
 
+const revalidate = 10;
 const POST = async (req)=>{
     const body = await req.json();
     const newReview = new Review/* default */.Z(body);

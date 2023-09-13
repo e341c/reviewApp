@@ -3,15 +3,15 @@
   "/page": "app/page.js",
   "/login/page": "app/login/page.js",
   "/privacy/page": "app/privacy/page.js",
+  "/review/page": "app/review/page.js",
   "/profile/page": "app/profile/page.js",
   "/register/page": "app/register/page.js",
-  "/review/page": "app/review/page.js",
   "/review/add/page": "app/review/add/page.js",
   "/review/test/page": "app/review/test/page.js",
   "/api/review/route": "app/api/review/route.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/api/auth/register/route": "app/api/auth/register/route.js",
   "/api/review/add/route": "app/api/review/add/route.js",
   "/api/review/category/route": "app/api/review/category/route.js",
-  "/api/auth/register/route": "app/api/auth/register/route.js",
   "/api/review/tags/route": "app/api/review/tags/route.js"
 }
