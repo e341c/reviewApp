@@ -13,7 +13,7 @@ import { useSession } from "next-auth/react";
 library.add(faCheckSquare, faCoffee, faSearch, faCircleHalfStroke)
 
 export default function Header() {
-    const {status} = useSession()
+    const {data, status} = useSession()
 
     return (
         <header style={{position:"fixed", top: "0", left: "0", right: "0"}} className="bg-body shadow z-3">
@@ -34,7 +34,7 @@ export default function Header() {
                         </Link>
                     </div>}
                     {status === "authenticated" && <div className="d-flex me-4">
-                        <Link href={"/profile"} className="nav-link me-2">
+                        <Link href={`/profile`} className="nav-link me-2">
                             <strong>Profile</strong>
                         </Link>
                     </div>}

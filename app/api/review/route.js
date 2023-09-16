@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server"
 import connect from "@/utils/db"
 import Review from "@/models/Review"
-import "@/models/User"
-import "@/models/Category"
 import Category from "@/models/Category"
 import User from "@/models/User"
 import Tags from "@/models/Tags"

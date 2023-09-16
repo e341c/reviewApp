@@ -10,96 +10,121 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Review from "@/components/Review";
 
-export default function Review() {
-    const [file, setFile] = useState(null);
-    const [categories, setCategories] = useState([])
-    const [tagsOptions, setTagsOptions] = useState([])
+export default function AddReview() {
     const inputRef = useRef(null);
+    const [categories, setCategories] = useState([]);
+    const [tagsOptions, setTagsOptions] = useState([]);
     const router = useRouter();
+    const [upload, setUpload] = useState(false);
+    const [preview, setPreview] = useState(null);
+    const [imgPreview, setImgPreview] = useState();
 
-    const [titleReview, setTitleReview] = useState()
-    const [titleItem, setTitleItem] = useState()
+    const [titleReview, setTitleReview] = useState();
+    const [titleItem, setTitleItem] = useState();
     const [tags, setTags] = useState([]);
     const [rating, setRating] = useState(0);
-    const [desc, setDesc] = useState()
-    const [category, setCategory] = useState()
-    const [error, setError] = useState()
+    const [desc, setDesc] = useState();
+    const [category, setCategory] = useState();
+    const [file, setFile] = useState(null);
 
-    const {data: session, status} = useSession()
+    const [error, setError] = useState();
 
-    console.log(session, status);
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+        setImgPreview(URL.createObjectURL(e.target.files[0]));
+    };
 
     const handleButtonClick = () => {
         inputRef.current?.click();
     };
 
-    const handleFileChange = (e) => {
-        const files = e.target.files;
-        if (files.length > 0) {
-            setFile(URL.createObjectURL(e.target.files[0]));
-        } else {
-            setFile(null);
-        }
-    };
+    const { data: session, status } = useSession();
 
     const handleRating = (rate) => {
         setRating(rate);
     };
 
+    const bodyFormData = new FormData()
+
+    bodyFormData.append("titleReview", titleReview)
+    bodyFormData.append("titleItem", titleItem)
+    bodyFormData.append("category", category)
+    bodyFormData.append("desc", desc)
+    bodyFormData.append("author", session?.user.id)
+    bodyFormData.append("rating", rating)
+    bodyFormData.append("likes", 0)
+    bodyFormData.append("file", file)
+    tags.forEach(item => {
+        bodyFormData.append("tags", JSON.stringify(item))
+    })
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const body = {
-            titleReview,
-            titleItem,
-            category,
-            tags,
-            img: file,
-            desc,
-            author: session.user.id,
-            rating,
-            reviewRating: 0,
-            likes: 0
-        }
-        console.log(body);
+        setUpload(true);
 
         try {
-            const res = await axios.post("/api/review/add", body);
-            if(res.status === 201) router.push('/')
+            const res = await axios.post("/api/review/add", bodyFormData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    "Access-Control-Allow-Origin": "*",
+                },
+            });
+            console.log(res);
+            setUpload(false);
+            if (res.status === 201) router.push("/");
         } catch (err) {
             setError(err);
             console.log(err);
+            setUpload(false);
         }
     };
 
     useEffect(() => {
-        const getCategory = async() => {
+        const getCategory = async () => {
             try {
-                const res = await axios.get('/api/review/category').then(responce => responce.data)
-                setCategories(res)
+                const res = await axios
+                    .get("/api/category")
+                    .then((responce) => responce.data);
+                setCategories(res);
             } catch (error) {
                 console.log(error);
             }
-        }
-        getCategory()
+        };
+        getCategory();
 
-        const getTags = async() => {
+        const getTags = async () => {
             try {
-                const res = await axios.get('/api/review/tags').then(responce => responce.data)
-                setTagsOptions(res)
+                const res = await axios
+                    .get("/api/tags")
+                    .then((responce) => responce.data);
+                setTagsOptions(res);
             } catch (error) {
                 console.log(error);
             }
-        }
-        getTags()
-    },[])
+        };
+        getTags();
+    }, []);
 
     return (
         <main>
+            {preview && (
+                <div className=" position-absolute top-0 start-0 end-0 bottom-0 z-2 bg-body pb-5">
+                    <Review reviewData={body} />
+                    <Button
+                        variant="secondary"
+                        className="mb-5"
+                        onClick={(e) => setPreview(false)}
+                    >
+                        Close preview
+                    </Button>
+                </div>
+            )}
             <Form onSubmit={handleSubmit} style={{ marginTop: "100px" }}>
                 <div className="d-flex justify-content-center">
                     <div className="me-5 mt-2">
+                        {upload && <p>Loading...</p>}
                         <div
                             style={{
                                 width: "156px",
@@ -107,35 +132,35 @@ export default function Review() {
                             }}
                             className="mb-4 rounded overflow-hidden border"
                         >
-                            {/* {!file && <p>Review image here</p> } */}
                             <img
                                 alt=""
-                                src={file}
+                                src={imgPreview}
                                 className="object-fit-cover"
                                 style={{
                                     width: "158px",
                                     height: "234px",
                                     textIndent: "100vw",
-                                    marginLeft: '-2px',
-                                    marginTop: '-2px'
+                                    marginLeft: "-2px",
+                                    marginTop: "-2px",
                                 }}
                             />
                         </div>
-                        <Form.Group controlId="formFile">
-                            <Form.Control
-                                type="file"
-                                hidden
-                                ref={inputRef}
-                                onChange={handleFileChange}
-                            />
-                            <Button
-                                onClick={handleButtonClick}
-                                className="w-100"
-                                variant="primary"
-                            >
-                                Choose image
-                            </Button>
-                        </Form.Group>
+                        <input
+                            ref={inputRef}
+                            type="file"
+                            accept="image/*"
+                            name="image"
+                            id="selectFile"
+                            hidden
+                            onChange={handleFileChange}
+                        />
+                        <Button
+                            onClick={handleButtonClick}
+                            className="w-100"
+                            variant="primary"
+                        >
+                            Choose image
+                        </Button>
                     </div>
 
                     <div className="w-50">
@@ -162,18 +187,22 @@ export default function Review() {
                                 onChange={(e) => setTitleItem(e.target.value)}
                             />
                         </Form.Group>
-                        
+
                         <Form.Group className="mb-3">
                             <Form.Label>Choice category</Form.Label>
                             <InputGroup>
                                 <Form.Select
                                     name="category"
                                     aria-label="category"
-                                    onChange={(e) => setCategory(e.target.value)}
+                                    onChange={(e) =>
+                                        setCategory(e.target.value)
+                                    }
                                 >
                                     <option>Choose category</option>
-                                    {categories.map(item => (
-                                        <option value={item._id}>{item.name}</option>
+                                    {categories.map((item) => (
+                                        <option value={item._id} key={item.key}>
+                                            {item.name}
+                                        </option>
                                     ))}
                                 </Form.Select>
                             </InputGroup>
@@ -199,12 +228,8 @@ export default function Review() {
                                 name="desc"
                                 as="textarea"
                                 rows={4}
-                                style={{ resize: "none" }}
-                                placeholder="Text of review (with markdown formation) Lorem ipsum,
-                                dolor sit amet consectetur adipisicing elit. Sunt,
-                                expedita incidunt accusantium dolores ipsam praesentium
-                                et! Nesciunt iusto at, deleniti voluptas nihil vitae non
-                                necessitatibus autem a, odit minus consequuntur!"
+                                maxLength={4096}
+                                placeholder="Text of review"
                                 onChange={(e) => setDesc(e.target.value)}
                             />
                         </Form.Group>
@@ -217,15 +242,23 @@ export default function Review() {
                                 onClick={handleRating}
                             />
                         </Form.Group>
-
-                        <Button
-                            type="submit"
-                            variant="primary"
-                            className="shadow-sm"
-                            style={{ width: "180px" }}
-                        >
-                            Submit
-                        </Button>
+                        <div>
+                            <Button
+                                variant="secondary"
+                                className="me-5"
+                                onClick={(e) => setPreview(true)}
+                            >
+                                Preview
+                            </Button>
+                            <Button
+                                type="submit"
+                                variant="primary"
+                                className="shadow-sm"
+                                style={{ width: "180px" }}
+                            >
+                                Submit
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </Form>

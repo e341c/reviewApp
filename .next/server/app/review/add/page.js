@@ -244,6 +244,14 @@ module.exports = require("path");
 
 /***/ }),
 
+/***/ 77282:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("process");
+
+/***/ }),
+
 /***/ 12781:
 /***/ ((module) => {
 
@@ -404,16 +412,16 @@ Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_re
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Review)
+/* harmony export */   "default": () => (/* binding */ AddReview)
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(56786);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_bootstrap_InputGroup__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(9136);
-/* harmony import */ var react_bootstrap_InputGroup__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_InputGroup__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var react_bootstrap_InputGroup__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(9136);
+/* harmony import */ var react_bootstrap_InputGroup__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_InputGroup__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(93780);
 /* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(39486);
-/* harmony import */ var react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(39486);
+/* harmony import */ var react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var react_simple_star_rating__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(99933);
 /* harmony import */ var react_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(14545);
 /* harmony import */ var react_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_2__);
@@ -423,9 +431,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_bootstrap_typeahead_css_Typeahead_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_typeahead_css_Typeahead_css__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var next_auth_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(74284);
 /* harmony import */ var next_auth_react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(next_auth_react__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(93258);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(93258);
 /* harmony import */ var next_navigation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(57114);
 /* harmony import */ var next_navigation__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(next_navigation__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _components_Review__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(7159);
 /* __next_internal_client_entry_do_not_use__ default auto */ 
 
 
@@ -438,62 +447,69 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function Review() {
-    const [file, setFile] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(null);
+
+function AddReview() {
+    const inputRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)(null);
     const [categories, setCategories] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([]);
     const [tagsOptions, setTagsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([]);
-    const inputRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)(null);
     const router = (0,next_navigation__WEBPACK_IMPORTED_MODULE_6__.useRouter)();
+    const [upload, setUpload] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false);
+    const [preview, setPreview] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(null);
+    const [imgPreview, setImgPreview] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)();
     const [titleReview, setTitleReview] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)();
     const [titleItem, setTitleItem] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)();
     const [tags, setTags] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([]);
     const [rating, setRating] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(0);
     const [desc, setDesc] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)();
     const [category, setCategory] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)();
+    const [file, setFile] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(null);
     const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)();
-    const { data: session, status } = (0,next_auth_react__WEBPACK_IMPORTED_MODULE_5__.useSession)();
-    console.log(session, status);
+    const handleFileChange = (e)=>{
+        setFile(e.target.files[0]);
+        setImgPreview(URL.createObjectURL(e.target.files[0]));
+    };
     const handleButtonClick = ()=>{
         inputRef.current?.click();
     };
-    const handleFileChange = (e)=>{
-        const files = e.target.files;
-        if (files.length > 0) {
-            setFile(URL.createObjectURL(e.target.files[0]));
-        } else {
-            setFile(null);
-        }
-    };
+    const { data: session, status } = (0,next_auth_react__WEBPACK_IMPORTED_MODULE_5__.useSession)();
     const handleRating = (rate)=>{
         setRating(rate);
     };
+    const bodyFormData = new FormData();
+    bodyFormData.append("titleReview", titleReview);
+    bodyFormData.append("titleItem", titleItem);
+    bodyFormData.append("category", category);
+    bodyFormData.append("desc", desc);
+    bodyFormData.append("author", session?.user.id);
+    bodyFormData.append("rating", rating);
+    bodyFormData.append("likes", 0);
+    bodyFormData.append("file", file);
+    tags.forEach((item)=>{
+        bodyFormData.append("tags", JSON.stringify(item));
+    });
     const handleSubmit = async (e)=>{
         e.preventDefault();
-        const body = {
-            titleReview,
-            titleItem,
-            category,
-            tags,
-            img: file,
-            desc,
-            author: session.user.id,
-            rating,
-            reviewRating: 0,
-            likes: 0
-        };
-        console.log(body);
+        setUpload(true);
         try {
-            const res = await axios__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .Z.post("/api/review/add", body);
+            const res = await axios__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z.post("/api/review/add", bodyFormData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+            console.log(res);
+            setUpload(false);
             if (res.status === 201) router.push("/");
         } catch (err) {
             setError(err);
             console.log(err);
+            setUpload(false);
         }
     };
     (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(()=>{
         const getCategory = async ()=>{
             try {
-                const res = await axios__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .Z.get("/api/review/category").then((responce)=>responce.data);
+                const res = await axios__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z.get("/api/category").then((responce)=>responce.data);
                 setCategories(res);
             } catch (error) {
                 console.log(error);
@@ -502,7 +518,7 @@ function Review() {
         getCategory();
         const getTags = async ()=>{
             try {
-                const res = await axios__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .Z.get("/api/review/tags").then((responce)=>responce.data);
+                const res = await axios__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z.get("/api/tags").then((responce)=>responce.data);
                 setTagsOptions(res);
             } catch (error) {
                 console.log(error);
@@ -510,179 +526,204 @@ function Review() {
         };
         getTags();
     }, []);
-    return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("main", {
-        children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default()), {
-            onSubmit: handleSubmit,
-            style: {
-                marginTop: "100px"
-            },
-            children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "d-flex justify-content-center",
+    return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("main", {
+        children: [
+            preview && /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                className: " position-absolute top-0 start-0 end-0 bottom-0 z-2 bg-body pb-5",
                 children: [
-                    /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                        className: "me-5 mt-2",
-                        children: [
-                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
-                                style: {
-                                    width: "156px",
-                                    height: "231px"
-                                },
-                                className: "mb-4 rounded overflow-hidden border",
-                                children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("img", {
-                                    alt: "",
-                                    src: file,
-                                    className: "object-fit-cover",
-                                    style: {
-                                        width: "158px",
-                                        height: "234px",
-                                        textIndent: "100vw",
-                                        marginLeft: "-2px",
-                                        marginTop: "-2px"
-                                    }
-                                })
-                            }),
-                            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default().Group), {
-                                controlId: "formFile",
-                                children: [
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default().Control), {
-                                        type: "file",
-                                        hidden: true,
-                                        ref: inputRef,
-                                        onChange: handleFileChange
-                                    }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_9___default()), {
-                                        onClick: handleButtonClick,
-                                        className: "w-100",
-                                        variant: "primary",
-                                        children: "Choose image"
-                                    })
-                                ]
-                            })
-                        ]
+                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Review__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .Z, {
+                        reviewData: body
                     }),
-                    /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                        className: "w-50",
-                        children: [
-                            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default().Group), {
-                                className: "mb-3",
-                                children: [
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default().Label), {
-                                        children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h2", {
-                                            children: "Title of review"
-                                        })
-                                    }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default().Control), {
-                                        type: "text",
-                                        name: "titleReview",
-                                        placeholder: "Enter title of your review",
-                                        onChange: (e)=>setTitleReview(e.target.value)
-                                    })
-                                ]
-                            }),
-                            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default().Group), {
-                                className: "mb-3",
-                                children: [
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default().Label), {
-                                        children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
-                                            children: "Title of movie, book, game, etc"
-                                        })
-                                    }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default().Control), {
-                                        type: "text",
-                                        name: "titleItem",
-                                        placeholder: "Enter title of movie, book, game, etc...",
-                                        onChange: (e)=>setTitleItem(e.target.value)
-                                    })
-                                ]
-                            }),
-                            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default().Group), {
-                                className: "mb-3",
-                                children: [
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default().Label), {
-                                        children: "Choice category"
-                                    }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_InputGroup__WEBPACK_IMPORTED_MODULE_10___default()), {
-                                        children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default().Select), {
-                                            name: "category",
-                                            "aria-label": "category",
-                                            onChange: (e)=>setCategory(e.target.value),
-                                            children: [
-                                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("option", {
-                                                    children: "Choose category"
-                                                }),
-                                                categories.map((item)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("option", {
-                                                        value: item._id,
-                                                        children: item.name
-                                                    }))
-                                            ]
-                                        })
-                                    })
-                                ]
-                            }),
-                            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default().Group), {
-                                className: "mb-3",
-                                children: [
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default().Label), {
-                                        children: "Enter tags for your review"
-                                    }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(react_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_2__.Typeahead, {
-                                        id: "basic-typeahead-multiple",
-                                        labelKey: "name",
-                                        multiple: true,
-                                        onChange: setTags,
-                                        options: tagsOptions,
-                                        placeholder: "Choose several tags...",
-                                        selected: tags,
-                                        className: "text-body"
-                                    })
-                                ]
-                            }),
-                            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default().Group), {
-                                className: "mb-3",
-                                controlId: "desc",
-                                children: [
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default().Label), {
-                                        children: "Your review"
-                                    }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default().Control), {
-                                        name: "desc",
-                                        as: "textarea",
-                                        rows: 4,
-                                        style: {
-                                            resize: "none"
-                                        },
-                                        placeholder: "Text of review (with markdown formation) Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt, expedita incidunt accusantium dolores ipsam praesentium et! Nesciunt iusto at, deleniti voluptas nihil vitae non necessitatibus autem a, odit minus consequuntur!",
-                                        onChange: (e)=>setDesc(e.target.value)
-                                    })
-                                ]
-                            }),
-                            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default().Group), {
-                                className: "mb-4 d-flex flex-column",
-                                children: [
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_8___default().Label), {
-                                        children: "Your grade from 0 - 10"
-                                    }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(react_simple_star_rating__WEBPACK_IMPORTED_MODULE_1__/* .Rating */ .i, {
-                                        size: 25,
-                                        iconsCount: 10,
-                                        onClick: handleRating
-                                    })
-                                ]
-                            }),
-                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_9___default()), {
-                                type: "submit",
-                                variant: "primary",
-                                className: "shadow-sm",
-                                style: {
-                                    width: "180px"
-                                },
-                                children: "Submit"
-                            })
-                        ]
+                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_9___default()), {
+                        variant: "secondary",
+                        className: "mb-5",
+                        onClick: (e)=>setPreview(false),
+                        children: "Close preview"
                     })
                 ]
+            }),
+            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10___default()), {
+                onSubmit: handleSubmit,
+                style: {
+                    marginTop: "100px"
+                },
+                children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                    className: "d-flex justify-content-center",
+                    children: [
+                        /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                            className: "me-5 mt-2",
+                            children: [
+                                upload && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                                    children: "Loading..."
+                                }),
+                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
+                                    style: {
+                                        width: "156px",
+                                        height: "231px"
+                                    },
+                                    className: "mb-4 rounded overflow-hidden border",
+                                    children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("img", {
+                                        alt: "",
+                                        src: imgPreview,
+                                        className: "object-fit-cover",
+                                        style: {
+                                            width: "158px",
+                                            height: "234px",
+                                            textIndent: "100vw",
+                                            marginLeft: "-2px",
+                                            marginTop: "-2px"
+                                        }
+                                    })
+                                }),
+                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("input", {
+                                    ref: inputRef,
+                                    type: "file",
+                                    accept: "image/*",
+                                    name: "image",
+                                    id: "selectFile",
+                                    hidden: true,
+                                    onChange: handleFileChange
+                                }),
+                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_9___default()), {
+                                    onClick: handleButtonClick,
+                                    className: "w-100",
+                                    variant: "primary",
+                                    children: "Choose image"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                            className: "w-50",
+                            children: [
+                                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10___default().Group), {
+                                    className: "mb-3",
+                                    children: [
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10___default().Label), {
+                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h2", {
+                                                children: "Title of review"
+                                            })
+                                        }),
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10___default().Control), {
+                                            type: "text",
+                                            name: "titleReview",
+                                            placeholder: "Enter title of your review",
+                                            onChange: (e)=>setTitleReview(e.target.value)
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10___default().Group), {
+                                    className: "mb-3",
+                                    children: [
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10___default().Label), {
+                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
+                                                children: "Title of movie, book, game, etc"
+                                            })
+                                        }),
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10___default().Control), {
+                                            type: "text",
+                                            name: "titleItem",
+                                            placeholder: "Enter title of movie, book, game, etc...",
+                                            onChange: (e)=>setTitleItem(e.target.value)
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10___default().Group), {
+                                    className: "mb-3",
+                                    children: [
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10___default().Label), {
+                                            children: "Choice category"
+                                        }),
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_InputGroup__WEBPACK_IMPORTED_MODULE_11___default()), {
+                                            children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10___default().Select), {
+                                                name: "category",
+                                                "aria-label": "category",
+                                                onChange: (e)=>setCategory(e.target.value),
+                                                children: [
+                                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("option", {
+                                                        children: "Choose category"
+                                                    }),
+                                                    categories.map((item)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("option", {
+                                                            value: item._id,
+                                                            children: item.name
+                                                        }, item.key))
+                                                ]
+                                            })
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10___default().Group), {
+                                    className: "mb-3",
+                                    children: [
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10___default().Label), {
+                                            children: "Enter tags for your review"
+                                        }),
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(react_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_2__.Typeahead, {
+                                            id: "basic-typeahead-multiple",
+                                            labelKey: "name",
+                                            multiple: true,
+                                            onChange: setTags,
+                                            options: tagsOptions,
+                                            placeholder: "Choose several tags...",
+                                            selected: tags,
+                                            className: "text-body"
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10___default().Group), {
+                                    className: "mb-3",
+                                    controlId: "desc",
+                                    children: [
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10___default().Label), {
+                                            children: "Your review"
+                                        }),
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10___default().Control), {
+                                            name: "desc",
+                                            as: "textarea",
+                                            rows: 4,
+                                            maxLength: 4096,
+                                            placeholder: "Text of review",
+                                            onChange: (e)=>setDesc(e.target.value)
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10___default().Group), {
+                                    className: "mb-4 d-flex flex-column",
+                                    children: [
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_10___default().Label), {
+                                            children: "Your grade from 0 - 10"
+                                        }),
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(react_simple_star_rating__WEBPACK_IMPORTED_MODULE_1__/* .Rating */ .i, {
+                                            size: 25,
+                                            iconsCount: 10,
+                                            onClick: handleRating
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                                    children: [
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_9___default()), {
+                                            variant: "secondary",
+                                            className: "me-5",
+                                            onClick: (e)=>setPreview(true),
+                                            children: "Preview"
+                                        }),
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_9___default()), {
+                                            type: "submit",
+                                            variant: "primary",
+                                            className: "shadow-sm",
+                                            style: {
+                                                width: "180px"
+                                            },
+                                            children: "Submit"
+                                        })
+                                    ]
+                                })
+                            ]
+                        })
+                    ]
+                })
             })
-        })
+        ]
     });
 }
 
@@ -722,7 +763,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [587,20,258,933,287,390,122,448], () => (__webpack_exec__(67953)));
+var __webpack_exports__ = __webpack_require__.X(0, [587,20,258,543,287,390,996,685,171,935,773], () => (__webpack_exec__(67953)));
 module.exports = __webpack_exports__;
 
 })();

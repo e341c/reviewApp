@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
                 <AuthProvider>
                     <ThemeProvider>
                         <Header />
-                        <div className="container" style={{marginTop: "70px"}}>
+                        <div className="container position-relative" style={{marginTop: "100px"}}>
                             {children}
                         </div>
                     </ThemeProvider>

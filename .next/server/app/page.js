@@ -388,6 +388,18 @@ Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_re
 
 /***/ }),
 
+/***/ 78128:
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 50831, 23));
+Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 56926, 23));
+Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 44282, 23));
+Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 16505, 23));
+Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 52987, 23));
+Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 31232, 23))
+
+/***/ }),
+
 /***/ 90394:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -406,7 +418,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Home() {
-    const { data, error, isLoading } = (0,swr__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .ZP)("/api/reviews", async ()=>{
+    const { data, error, isLoading } = (0,swr__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .ZP)("/api/review", async ()=>{
         const res = await axios__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z.get("/api/review");
         return res.data;
     });
@@ -420,6 +432,11 @@ function Home() {
         console.log(error);
         return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
             children: error.message
+        });
+    }
+    if (data.length === 0) {
+        return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+            children: "There are no reviews here yet"
         });
     }
     return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
@@ -472,7 +489,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [587,20,258,933,543,146,448,773], () => (__webpack_exec__(12466)));
+var __webpack_exports__ = __webpack_require__.X(0, [587,20,258,543,146,171,773], () => (__webpack_exec__(12466)));
 module.exports = __webpack_exports__;
 
 })();

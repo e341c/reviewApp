@@ -188,6 +188,54 @@ module.exports = require("next/dist/shared/lib/utils");
 
 /***/ }),
 
+/***/ 39491:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("assert");
+
+/***/ }),
+
+/***/ 82361:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("events");
+
+/***/ }),
+
+/***/ 57147:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("fs");
+
+/***/ }),
+
+/***/ 13685:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("http");
+
+/***/ }),
+
+/***/ 95687:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("https");
+
+/***/ }),
+
+/***/ 22037:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("os");
+
+/***/ }),
+
 /***/ 71017:
 /***/ ((module) => {
 
@@ -204,11 +252,43 @@ module.exports = require("process");
 
 /***/ }),
 
+/***/ 12781:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("stream");
+
+/***/ }),
+
+/***/ 76224:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("tty");
+
+/***/ }),
+
 /***/ 57310:
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("url");
+
+/***/ }),
+
+/***/ 73837:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("util");
+
+/***/ }),
+
+/***/ 59796:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("zlib");
 
 /***/ }),
 
@@ -329,16 +409,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(52196);
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(42050);
-/* harmony import */ var react_bootstrap_Dropdown__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(86220);
-/* harmony import */ var react_bootstrap_Dropdown__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Dropdown__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var react_bootstrap_DropdownButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(4920);
-/* harmony import */ var react_bootstrap_DropdownButton__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_DropdownButton__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(42050);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11440);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var next_auth_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(74284);
 /* harmony import */ var next_auth_react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_auth_react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components_Review__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7159);
+/* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(97146);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(93258);
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(93780);
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _components_ProfileReview__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(63116);
 /* __next_internal_client_entry_do_not_use__ default auto */ 
 
 
@@ -348,75 +428,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function Profile() {
-    const { data, status } = (0,next_auth_react__WEBPACK_IMPORTED_MODULE_3__.useSession)();
-    const reviews = [
-        {
-            id: 1,
-            reviewTitle: "My first review",
-            itemTitle: "Forrest Gump",
-            category: "movies",
-            tags: [
-                "tag1",
-                "tag2",
-                "tag3"
-            ],
-            text: "This is text of reiveiw....",
-            rate: 8,
-            author: "Erik",
-            reviewLikes: 10,
-            reviewRate: 3
-        },
-        {
-            id: 4,
-            reviewTitle: "My review 2",
-            itemTitle: "Forrest Gump",
-            category: "movies",
-            tags: [
-                "tag1",
-                "tag2",
-                "tag3"
-            ],
-            text: "This is text of reiveiw....",
-            rate: 8,
-            author: "Erik",
-            reviewLikes: 10,
-            reviewRate: 5
-        },
-        {
-            id: 3,
-            reviewTitle: "My review 3",
-            itemTitle: "Forrest Gump",
-            category: "movies",
-            tags: [
-                "tag1",
-                "tag2",
-                "tag3"
-            ],
-            text: "This is text of reiveiw....",
-            rate: 8,
-            author: "Erik",
-            reviewLikes: 10,
-            reviewRate: 1
-        },
-        {
-            id: 5,
-            reviewTitle: "My review 4",
-            itemTitle: "Forrest Gump",
-            category: "movies",
-            tags: [
-                "tag1",
-                "tag2",
-                "tag3"
-            ],
-            text: "This is __text__ of reiveiw....",
-            rate: 8,
-            author: "Erik",
-            reviewLikes: 10,
-            reviewRate: 3
-        }
-    ];
-    console.log(data, status);
+
+function Profile({ params }) {
+    const { data: session, status } = (0,next_auth_react__WEBPACK_IMPORTED_MODULE_3__.useSession)();
+    const id = session?.user.id;
+    console.log(session);
+    const { data, error, isLoading } = (0,swr__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .ZP)(`/api/profile/${id}`, async ()=>{
+        const res = await axios__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z.get(`/api/profile/${id}`);
+        return res.data;
+    });
+    console.log(data);
+    if (isLoading) {
+        return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+            children: "Loading..."
+        });
+    }
+    if (error) {
+        console.log(error);
+        return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+            children: error.message
+        });
+    }
     return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
         children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
             className: "d-flex",
@@ -433,13 +465,13 @@ function Profile() {
                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h1", {
                                     children: "Your reviews"
                                 }),
-                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
+                                id === session?.user.id && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
                                     children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((next_link__WEBPACK_IMPORTED_MODULE_2___default()), {
                                         href: "/review/add",
                                         className: "btn btn-primary",
                                         children: [
                                             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__.FontAwesomeIcon, {
-                                                icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__/* .faPlus */ .r8p,
+                                                icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_7__/* .faPlus */ .r8p,
                                                 style: {
                                                     width: "14px",
                                                     height: "16px"
@@ -451,12 +483,16 @@ function Profile() {
                                 })
                             ]
                         }),
-                        reviews.map((item)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Review__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z, {
-                                reviewData: item
-                            }, item.id))
+                        data[1].length === 0 && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                            children: "There are no reviews here yet"
+                        }),
+                        data[1]?.map((item)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_ProfileReview__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z, {
+                                reviewData: item,
+                                id: id
+                            }))
                     ]
                 }),
-                data && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
+                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
                     className: "w-25",
                     children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                         className: "p-3 shadow rounded",
@@ -467,10 +503,10 @@ function Profile() {
                                 className: "img-fluid rounded mb-3"
                             }),
                             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                children: data.user.name
+                                children: session?.user.name
                             }),
                             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                children: data.user.email
+                                children: session?.user.email
                             }),
                             /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
                                 children: [
@@ -478,7 +514,7 @@ function Profile() {
                                     /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("strong", {
                                         children: [
                                             " ",
-                                            reviews.length,
+                                            data[1]?.length,
                                             " "
                                         ]
                                     }),
@@ -488,7 +524,7 @@ function Profile() {
                             /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
                                 children: [
                                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__.FontAwesomeIcon, {
-                                        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__/* .faHeart */ .m6i
+                                        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_7__/* .faHeart */ .m6i
                                     }),
                                     "\xa0",
                                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("strong", {
@@ -497,20 +533,10 @@ function Profile() {
                                     "\xa0likes"
                                 ]
                             }),
-                            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_DropdownButton__WEBPACK_IMPORTED_MODULE_6___default()), {
-                                variant: "primary",
-                                title: "More actions",
-                                children: [
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Dropdown__WEBPACK_IMPORTED_MODULE_7___default().Item), {
-                                        href: "#/action-1",
-                                        children: "Edit profile"
-                                    }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Dropdown__WEBPACK_IMPORTED_MODULE_7___default().Item), {
-                                        className: "text-danger",
-                                        onClick: ()=>(0,next_auth_react__WEBPACK_IMPORTED_MODULE_3__.signOut)(),
-                                        children: "Log Out"
-                                    })
-                                ]
+                            id === session?.user.id && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_8___default()), {
+                                variant: "outline-danger",
+                                onClick: ()=>(0,next_auth_react__WEBPACK_IMPORTED_MODULE_3__.signOut)(),
+                                children: "Log Out"
                             })
                         ]
                     })
@@ -556,7 +582,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [587,20,933,287,543,901,390,920,448,773], () => (__webpack_exec__(64913)));
+var __webpack_exports__ = __webpack_require__.X(0, [587,20,258,543,146,287,390,901,220,171,935,116], () => (__webpack_exec__(64913)));
 module.exports = __webpack_exports__;
 
 })();

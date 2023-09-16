@@ -36,10 +36,6 @@ const reviewSchema = new Schema(
             type: Schema.Types.ObjectId, ref: 'User',
             required: true,
         },
-        reviewRating:{
-            type: Number,
-            required: true,
-        },
         likes:{
             type: Number,
             required: true,

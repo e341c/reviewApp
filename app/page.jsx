@@ -4,7 +4,7 @@ import axios from "axios";
 import useSWR, { preload } from 'swr'
 
 export default function Home() {
-    const { data, error, isLoading } = useSWR('/api/reviews', async () => {
+    const { data, error, isLoading } = useSWR('/api/review', async () => {
         const res = await axios.get('/api/review')
         return res.data
     })
@@ -20,6 +20,9 @@ export default function Home() {
         return <p>{error.message}</p>
     }
 
+    if(data.length === 0){
+        return <p>There are no reviews here yet</p>
+    }
 
     return (
         <div className="vh-100">        

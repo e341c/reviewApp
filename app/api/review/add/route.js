@@ -4,24 +4,80 @@ import Review from "@/models/Review";
 import User from "@/models/User";
 import Category from "@/models/Category";
 import Tags from "@/models/Tags";
+import { v4 as uuid } from "uuid";
+import { PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
+import s3Client from "@/app/lib/s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
-export const revalidate = 10
+async function uploadImageToS3(file, fileName) {
+    const params = {
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: `${fileName}`,
+        Body: file,
+    };
+
+    const command = new PutObjectCommand(params);
+    const res = await s3Client.send(command);
+
+    const getCommand = new GetObjectCommand(params);
+    const url = await getSignedUrl(s3Client, getCommand, { expiresIn: 3600 });
+
+    return url;
+}
+
+export const revalidate = 10;
+
 export const POST = async (req) => {
-    const body = await req.json()
-
-    const newReview = new Review(body);
-
-    console.log(body);
+    const formData = await req.formData();
 
     try {
         await connect();
-        await User.find()
-        await Category.find()
-        await Tags.find()
+        await User.find();
+        await Category.find();
+        await Tags.find();
+
+        const file = formData.get("file");
+        const titleReview = formData.get("titleReview");
+        const titleItem = formData.get("titleItem");
+        const category = formData.get("category");
+        const tags = formData.getAll("tags");
+        const desc = formData.get("desc");
+        const likes = formData.get("likes");
+        const author = formData.get("author");
+        const rating = formData.get("rating");
+        const reviewRating = formData.get("reviewRating");
+
+        console.log(tags);
+
+        if (!file) {
+            return new NextResponse("File blob is required", { status: 400 });
+        }
+
+        const mimeType = file.type;
+        const fileExtension = mimeType.split("/")[1];
+
+        const buffer = Buffer.from(await file.arrayBuffer());
+        const fileName = uuid() + "." + fileExtension;
+        const url = await uploadImageToS3(buffer, fileName, mimeType);
+
+        const cloudFront = "https://d2ykbx43rxyrs3.cloudfront.net/" + fileName;
+
+        const newReview = new Review({
+            titleReview,
+            titleItem,
+            category,
+            tags,
+            img: cloudFront,
+            desc,
+            likes,
+            rating,
+            reviewRating,
+            author,
+        });
 
         await newReview.save();
 
-        return new NextResponse(body, { status: 201 });
+        return new NextResponse("Review created", { status: 201 });
     } catch (error) {
         return new NextResponse(error, { status: 500 });
     }
