@@ -27,7 +27,7 @@ export default function Home() {
     return (
         <div className="vh-100">        
             <h1 className="display-3 mb-5">HOME PAGE</h1>
-            {data.map(item => <Review reviewData={item}/>)}
+            {data?.map(item => <Review reviewData={item}/>)}
         </div>
     );
 }

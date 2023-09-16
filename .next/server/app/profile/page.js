@@ -409,16 +409,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(52196);
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(42050);
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(42050);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11440);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var next_auth_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(74284);
 /* harmony import */ var next_auth_react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_auth_react__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(97146);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(93258);
-/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(93780);
-/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(93258);
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(93780);
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var _components_ProfileReview__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(63116);
+/* harmony import */ var next_navigation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(57114);
+/* harmony import */ var next_navigation__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(next_navigation__WEBPACK_IMPORTED_MODULE_6__);
 /* __next_internal_client_entry_do_not_use__ default auto */ 
 
 
@@ -429,12 +431,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 function Profile({ params }) {
+    const router = (0,next_navigation__WEBPACK_IMPORTED_MODULE_6__.useRouter)();
     const { data: session, status } = (0,next_auth_react__WEBPACK_IMPORTED_MODULE_3__.useSession)();
+    if (!session) router.push("/");
     const id = session?.user.id;
     console.log(session);
     const { data, error, isLoading } = (0,swr__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .ZP)(`/api/profile/${id}`, async ()=>{
-        const res = await axios__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z.get(`/api/profile/${id}`);
+        const res = await axios__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .Z.get(`/api/profile/${id}`);
         return res.data;
     });
     console.log(data);
@@ -471,7 +476,7 @@ function Profile({ params }) {
                                         className: "btn btn-primary",
                                         children: [
                                             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__.FontAwesomeIcon, {
-                                                icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_7__/* .faPlus */ .r8p,
+                                                icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_8__/* .faPlus */ .r8p,
                                                 style: {
                                                     width: "14px",
                                                     height: "16px"
@@ -524,7 +529,7 @@ function Profile({ params }) {
                             /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
                                 children: [
                                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__.FontAwesomeIcon, {
-                                        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_7__/* .faHeart */ .m6i
+                                        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_8__/* .faHeart */ .m6i
                                     }),
                                     "\xa0",
                                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("strong", {
@@ -533,7 +538,7 @@ function Profile({ params }) {
                                     "\xa0likes"
                                 ]
                             }),
-                            id === session?.user.id && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_8___default()), {
+                            id === session?.user.id && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_9___default()), {
                                 variant: "outline-danger",
                                 onClick: ()=>(0,next_auth_react__WEBPACK_IMPORTED_MODULE_3__.signOut)(),
                                 children: "Log Out"
@@ -582,7 +587,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [587,20,258,543,146,287,390,901,220,171,935,116], () => (__webpack_exec__(64913)));
+var __webpack_exports__ = __webpack_require__.X(0, [587,20,258,543,146,655,390,901,220,448,116], () => (__webpack_exec__(64913)));
 module.exports = __webpack_exports__;
 
 })();

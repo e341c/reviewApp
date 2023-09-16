@@ -92,7 +92,7 @@ function Review({ reviewData }) {
                                         children: [
                                             "Author: \xa0",
                                             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((next_link__WEBPACK_IMPORTED_MODULE_2___default()), {
-                                                href: reviewData?.author._id === session.user.id ? "/profile" : `/profile/${reviewData?.author?._id}`,
+                                                href: reviewData?.author?._id === session?.user?.id ? "/profile" : `/profile/${reviewData?.author?._id}`,
                                                 className: "text-primary",
                                                 children: reviewData?.author.name
                                             })

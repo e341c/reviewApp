@@ -8,9 +8,13 @@ import useSWR from "swr";
 import axios from "axios";
 import { Button } from "react-bootstrap";
 import ProfileReview from "@/components/ProfileReview";
+import { useRouter } from "next/navigation";
 
 export default function Profile({params}) {
+    const router = useRouter()
     const {data: session, status} = useSession()
+
+    if(!session) router.push('/')
 
     const id = session?.user.id
 

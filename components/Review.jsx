@@ -33,7 +33,7 @@ export default function Review({reviewData}) {
                     <div className='d-flex justify-content-between'>
                         <p>Review likes: {reviewData?.likes}</p>
                         {reviewData.author.name && <p>Author: &nbsp;
-                            <Link href={reviewData?.author._id === session.user.id ? '/profile' : `/profile/${reviewData?.author?._id}`} className='text-primary'>
+                            <Link href={reviewData?.author?._id === session?.user?.id ? '/profile' : `/profile/${reviewData?.author?._id}`} className='text-primary'>
                                 {reviewData?.author.name}
                             </Link> 
                         </p>}
