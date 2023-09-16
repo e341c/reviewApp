@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import useSWR from "swr";
 import axios from "axios";
 import ProfileReview from "@/components/ProfileReview";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 
 export default function Profile({params}) {
     const {id} = params

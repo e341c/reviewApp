@@ -435,9 +435,6 @@ __webpack_require__.r(__webpack_exports__);
 function Profile({ params }) {
     const router = (0,next_navigation__WEBPACK_IMPORTED_MODULE_6__.useRouter)();
     const { data: session, status } = (0,next_auth_react__WEBPACK_IMPORTED_MODULE_3__.useSession)();
-    if (!session) {
-        return router.push("/");
-    }
     const id = session?.user.id;
     console.log(session);
     const { data, error, isLoading } = (0,swr__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .ZP)(`/api/profile/${id}`, async ()=>{

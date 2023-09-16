@@ -1,14 +1,14 @@
 {
   "version": 1,
   "functions": {
-    "/api/category": {},
-    "/api/auth/register": {},
     "/api/profile": {},
     "/api/profile/[id]": {},
-    "/api/review/[id]": {},
-    "/api/review/add": {},
-    "/api/review/delete/[id]": {},
+    "/api/auth/register": {},
+    "/api/category": {},
     "/api/review": {},
+    "/api/review/add": {},
+    "/api/review/[id]": {},
+    "/api/review/delete/[id]": {},
     "/api/tags": {}
   }
 }
