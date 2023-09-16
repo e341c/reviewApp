@@ -14,7 +14,7 @@ export default function Profile({params}) {
     const router = useRouter()
     const {data: session, status} = useSession()
 
-    if(!session) router.push('/')
+    if(!session) {return router.push('/')}
 
     const id = session?.user.id
 

@@ -1,12 +1,9 @@
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import Link from "next/link";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import useSWR from "swr";
 import axios from "axios";
-import { Button } from "react-bootstrap";
 import ProfileReview from "@/components/ProfileReview";
 import { useRouter } from "next/navigation";
 
