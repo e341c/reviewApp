@@ -1,0 +1,27 @@
+/*********************
+-- Table of contents
+
+- Custom variables 
+- Bootstrap functions
+- Bootstrap variables
+- Bootstrap mixins
+- Custom map amends
+- Custom utilities
+- Bootstrap main import
+
+***********************
+*/
+
+
+// Import our variable overrides.
+// Go here to set custom values for Bootstrap vars
+@import "./abstracts/variables";
+// @import "./abstracts/variables-dark"
+
+// Import Bootstrap functions, vars and mixins
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+// Bootstrap main import
+@import "~bootstrap/scss/bootstrap";

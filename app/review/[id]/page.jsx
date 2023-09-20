@@ -2,20 +2,20 @@
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { Rating } from "react-simple-star-rating";
 import useSWR from "swr";
 
 export default function Review({params}) {
     const {id} = params
     const router = useRouter();
-
+    const [tags, setTags] = useState([]);
+    
     const { data, error, isLoading } = useSWR(`/api/review/${id}`, async () => {
         const res = await axios.get(`/api/review/${id}`)
+        setTags(JSON.parse(JSON.stringify(res.data.tags)))
         return res.data
-    })
-
-    console.log(data);
+    }, { refreshInterval: 100 });
 
     if(isLoading){
         return <p>Loading...</p>
@@ -32,36 +32,32 @@ export default function Review({params}) {
 
     return (
         <div className="mb-5">
-            <div className="d-flex">
-                <div className="me-5 mt-2">
-                    <img
-                        src={data?.img}
-                        alt=""
-                        style={{
-                            width: "156px",
-                            height: "231px",
-                            background: "red",
-                        }}
-                        className='object-fit-cover'
-                    />
+            <div className="row">
+                <div className="col col-auto mb-3" style={{ maxWidth: "150px" }}>
+                    <img src={data?.img} alt="" className="object-fit-cover w-100 h-auto" style={{ minWidth: "70px" }} />
                 </div>
-                <div className="w-75">
+                <div className="col w-75" style={{minWidth: "240px"}}>
                     <h2>{data?.titleReview}</h2>
                     <h4>{data?.titleItem}</h4>
-                    <p>{data?.category.name}</p>
-                    <p>{data?.tags.map((item) => item.name + " ")}</p>
-                    <ReactMarkdown>{data?.desc}</ReactMarkdown>
-                    <p>Rate: {data?.rating}</p>
-                    <div className="d-flex justify-content-between">
-                        <p>Review likes: {data?.likes}</p>
-                        <p>Author: &nbsp;
-                            <Link href={`/profile/${data?.author._id}`} className='text-primary'>
-                                {data?.author.name}
+                    <p>Category:&nbsp;{data?.category.name}</p>
+                    <p>
+                        {tags?.map((item) => {
+                            const parseItem = JSON.parse(item);
+                            return parseItem.name + " ";
+                        })}
+                    </p>
+                    <p>Author rate: {data?.rating}</p>
+                    <div className="row">
+                        <p className="col col-auto me-auto">Likes: {data?.likes}</p>
+                        <p className="col col-auto">Review written by&nbsp;
+                            <Link href={`/profile/${data?.author?._id}`} className='text-primary'>
+                                {data?.author?.name}
                             </Link> 
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> 
+                <ReactMarkdown className="mt-4">{data?.desc}</ReactMarkdown>
             <hr className="w-100" />
         </div>
     );

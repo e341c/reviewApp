@@ -12,9 +12,7 @@ import { useState } from "react";
 export default function Login() {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const { data, status } = useSession();
-
-    console.log(data, status);
+    const { data: session, status } = useSession();
 
     const router = useRouter();
 
@@ -36,9 +34,9 @@ export default function Login() {
     };
 
     return (
-        <main className="w-100 vh-100 d-flex justify-content-center align-items-center">
+        <main className="w-100 h-100 d-flex justify-content-center align-items-center">
             <div
-                className="p-4 d-flex flex-column align-items-center body-bg shadow-lg"
+                className="mt-5 p-4 d-flex flex-column align-items-center body-bg shadow-lg"
                 style={{ border: "0", borderRadius: "8px", minWidth: "340px" }}
             >
                 <Form onSubmit={handleSubmit}>
@@ -67,40 +65,30 @@ export default function Login() {
                         Submit
                     </Button>
 
-                    <div className="mb-3 d-flex align-items-center justify-content-between">
+                    <div className="mb-2 d-flex align-items-center justify-content-between">
                         <hr style={{ width: "7rem" }} />
                         <strong className="mx-3">OR</strong>
                         <hr style={{ width: "7rem" }} />
                     </div>
                 </Form>
                 <div className="mb-4 d-flex">
-                    <Nav.Item className="mx-4" onClick={() => signIn("google")}>
-                        <Nav.Link href={"#"}>
-                            {" "}
-                            <FontAwesomeIcon icon={faGoogle} size="2xl" />{" "}
-                        </Nav.Link>
-                    </Nav.Item>
+                    <Button variant="link text-body" className="mx-3" onClick={() => signIn("google")}>    
+                        <FontAwesomeIcon icon={faGoogle} size="2xl" />
+                    </Button>
 
-                    <Nav.Item
-                        className="mx-4"
-                        onClick={() => signIn("facebook")}
-                    >
-                        <Nav.Link href={"#"}>
-                            {" "}
-                            <FontAwesomeIcon
-                                icon={faFacebook}
-                                size="2xl"
-                            />{" "}
-                        </Nav.Link>
-                    </Nav.Item>
+                    <Button variant="link text-body" className="mx-3" onClick={() => signIn("facebook")}>    
+                        <FontAwesomeIcon
+                                    icon={faFacebook}
+                                    size="2xl"
+                                />
+                    </Button>
                 </div>
 
                 <p>
-                    Don't have an account?{" "}
+                    Don't have an account?&nbsp;
                     <Link href={"/register"}>
-                        {" "}
-                        <strong>Signup now</strong>{" "}
-                    </Link>{" "}
+                        <strong>Signup now</strong>
+                    </Link>
                 </p>
             </div>
         </main>

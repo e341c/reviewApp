@@ -1,7 +1,7 @@
 (() => {
 var exports = {};
-exports.id = 178;
-exports.ids = [178];
+exports.id = 4178;
+exports.ids = [4178];
 exports.modules = {
 
 /***/ 18038:
@@ -433,15 +433,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Profile({ params }) {
-    const router = (0,next_navigation__WEBPACK_IMPORTED_MODULE_6__.useRouter)();
     const { data: session, status } = (0,next_auth_react__WEBPACK_IMPORTED_MODULE_3__.useSession)();
     const id = session?.user.id;
-    console.log(session);
     const { data, error, isLoading } = (0,swr__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .ZP)(`/api/profile/${id}`, async ()=>{
         const res = await axios__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .Z.get(`/api/profile/${id}`);
         return res.data;
+    }, {
+        refreshInterval: 100
     });
-    console.log(data);
     if (isLoading) {
         return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
             children: "Loading..."
@@ -455,13 +454,68 @@ function Profile({ params }) {
     }
     return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
         children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-            className: "d-flex",
+            className: "row",
             style: {
-                marginTop: "100px"
+                marginTop: "80px"
             },
             children: [
                 /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                    className: "me-5 w-75",
+                    className: "col col-md-3 mb-4",
+                    style: {
+                        minWidth: "260px"
+                    },
+                    children: [
+                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h1", {
+                            className: "mb-4",
+                            children: "Your profile"
+                        }),
+                        /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                            className: "p-4 shadow rounded",
+                            children: [
+                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                                    children: session?.user.name
+                                }),
+                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                                    children: session?.user.email
+                                }),
+                                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
+                                    children: [
+                                        "Reviews:\xa0",
+                                        /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("strong", {
+                                            children: [
+                                                " ",
+                                                data[1]?.length,
+                                                " "
+                                            ]
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
+                                    children: [
+                                        "Likes:\xa0",
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("strong", {
+                                            children: "120"
+                                        }),
+                                        "\xa0",
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__.FontAwesomeIcon, {
+                                            icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_8__/* .faHeart */ .m6i
+                                        })
+                                    ]
+                                }),
+                                id === session?.user.id && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_9___default()), {
+                                    variant: "outline-danger",
+                                    onClick: ()=>(0,next_auth_react__WEBPACK_IMPORTED_MODULE_3__.signOut)(),
+                                    children: "Log Out"
+                                })
+                            ]
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                    className: "col",
+                    style: {
+                        minWidth: "70%"
+                    },
                     children: [
                         /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                             className: "mb-4 d-flex justify-content-between",
@@ -470,6 +524,7 @@ function Profile({ params }) {
                                     children: "Your reviews"
                                 }),
                                 id === session?.user.id && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
+                                    className: "pt-2",
                                     children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((next_link__WEBPACK_IMPORTED_MODULE_2___default()), {
                                         href: "/review/add",
                                         className: "btn btn-primary",
@@ -495,55 +550,6 @@ function Profile({ params }) {
                                 id: id
                             }))
                     ]
-                }),
-                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
-                    className: "w-25",
-                    children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                        className: "p-3 shadow rounded",
-                        children: [
-                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("img", {
-                                src: "/images/avatar.jpeg",
-                                alt: "",
-                                className: "img-fluid rounded mb-3"
-                            }),
-                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                children: session?.user.name
-                            }),
-                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                children: session?.user.email
-                            }),
-                            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
-                                children: [
-                                    " ",
-                                    /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("strong", {
-                                        children: [
-                                            " ",
-                                            data[1]?.length,
-                                            " "
-                                        ]
-                                    }),
-                                    " reviews "
-                                ]
-                            }),
-                            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
-                                children: [
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__.FontAwesomeIcon, {
-                                        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_8__/* .faHeart */ .m6i
-                                    }),
-                                    "\xa0",
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("strong", {
-                                        children: "120"
-                                    }),
-                                    "\xa0likes"
-                                ]
-                            }),
-                            id === session?.user.id && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_9___default()), {
-                                variant: "outline-danger",
-                                onClick: ()=>(0,next_auth_react__WEBPACK_IMPORTED_MODULE_3__.signOut)(),
-                                children: "Log Out"
-                            })
-                        ]
-                    })
                 })
             ]
         })
@@ -586,7 +592,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [587,20,258,543,146,655,390,901,220,448,116], () => (__webpack_exec__(64913)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,9927,8543,1241,6220,5618,3116], () => (__webpack_exec__(64913)));
 module.exports = __webpack_exports__;
 
 })();

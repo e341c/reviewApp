@@ -1,7 +1,7 @@
 (() => {
 var exports = {};
-exports.id = 626;
-exports.ids = [626];
+exports.id = 2626;
+exports.ids = [2626];
 exports.modules = {
 
 /***/ 18038:
@@ -188,6 +188,54 @@ module.exports = require("next/dist/shared/lib/utils");
 
 /***/ }),
 
+/***/ 39491:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("assert");
+
+/***/ }),
+
+/***/ 82361:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("events");
+
+/***/ }),
+
+/***/ 57147:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("fs");
+
+/***/ }),
+
+/***/ 13685:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("http");
+
+/***/ }),
+
+/***/ 95687:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("https");
+
+/***/ }),
+
+/***/ 22037:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("os");
+
+/***/ }),
+
 /***/ 71017:
 /***/ ((module) => {
 
@@ -196,11 +244,43 @@ module.exports = require("path");
 
 /***/ }),
 
+/***/ 12781:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("stream");
+
+/***/ }),
+
+/***/ 76224:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("tty");
+
+/***/ }),
+
 /***/ 57310:
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("url");
+
+/***/ }),
+
+/***/ 73837:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("util");
+
+/***/ }),
+
+/***/ 59796:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("zlib");
 
 /***/ }),
 
@@ -327,9 +407,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(52196);
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _fortawesome_free_brands_svg_icons__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(42900);
-/* harmony import */ var react_bootstrap_Nav__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(72581);
-/* harmony import */ var react_bootstrap_Nav__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Nav__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _fortawesome_free_brands_svg_icons__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(42900);
 /* harmony import */ var next_auth_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(74284);
 /* harmony import */ var next_auth_react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_auth_react__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var next_navigation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(57114);
@@ -349,8 +427,7 @@ __webpack_require__.r(__webpack_exports__);
 function Login() {
     const [email, setEmail] = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)();
     const [password, setPassword] = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)();
-    const { data, status } = (0,next_auth_react__WEBPACK_IMPORTED_MODULE_3__.useSession)();
-    console.log(data, status);
+    const { data: session, status } = (0,next_auth_react__WEBPACK_IMPORTED_MODULE_3__.useSession)();
     const router = (0,next_navigation__WEBPACK_IMPORTED_MODULE_4__.useRouter)();
     if (status === "loading") {
         return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
@@ -368,9 +445,9 @@ function Login() {
         });
     };
     return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("main", {
-        className: "w-100 vh-100 d-flex justify-content-center align-items-center",
+        className: "w-100 h-100 d-flex justify-content-center align-items-center",
         children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-            className: "p-4 d-flex flex-column align-items-center body-bg shadow-lg",
+            className: "mt-5 p-4 d-flex flex-column align-items-center body-bg shadow-lg",
             style: {
                 border: "0",
                 borderRadius: "8px",
@@ -419,7 +496,7 @@ function Login() {
                             children: "Submit"
                         }),
                         /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                            className: "mb-3 d-flex align-items-center justify-content-between",
+                            className: "mb-2 d-flex align-items-center justify-content-between",
                             children: [
                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("hr", {
                                     style: {
@@ -442,53 +519,35 @@ function Login() {
                 /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                     className: "mb-4 d-flex",
                     children: [
-                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Nav__WEBPACK_IMPORTED_MODULE_8___default().Item), {
-                            className: "mx-4",
+                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_7___default()), {
+                            variant: "link text-body",
+                            className: "mx-3",
                             onClick: ()=>(0,next_auth_react__WEBPACK_IMPORTED_MODULE_3__.signIn)("google"),
-                            children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Nav__WEBPACK_IMPORTED_MODULE_8___default().Link), {
-                                href: "#",
-                                children: [
-                                    " ",
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-                                        icon: _fortawesome_free_brands_svg_icons__WEBPACK_IMPORTED_MODULE_9__/* .faGoogle */ .xYR,
-                                        size: "2xl"
-                                    }),
-                                    " "
-                                ]
+                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
+                                icon: _fortawesome_free_brands_svg_icons__WEBPACK_IMPORTED_MODULE_8__/* .faGoogle */ .xYR,
+                                size: "2xl"
                             })
                         }),
-                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Nav__WEBPACK_IMPORTED_MODULE_8___default().Item), {
-                            className: "mx-4",
+                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_7___default()), {
+                            variant: "link text-body",
+                            className: "mx-3",
                             onClick: ()=>(0,next_auth_react__WEBPACK_IMPORTED_MODULE_3__.signIn)("facebook"),
-                            children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Nav__WEBPACK_IMPORTED_MODULE_8___default().Link), {
-                                href: "#",
-                                children: [
-                                    " ",
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-                                        icon: _fortawesome_free_brands_svg_icons__WEBPACK_IMPORTED_MODULE_9__/* .faFacebook */ .neY,
-                                        size: "2xl"
-                                    }),
-                                    " "
-                                ]
+                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
+                                icon: _fortawesome_free_brands_svg_icons__WEBPACK_IMPORTED_MODULE_8__/* .faFacebook */ .neY,
+                                size: "2xl"
                             })
                         })
                     ]
                 }),
                 /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
                     children: [
-                        "Don't have an account?",
-                        " ",
-                        /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((next_link__WEBPACK_IMPORTED_MODULE_1___default()), {
+                        "Don't have an account?\xa0",
+                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((next_link__WEBPACK_IMPORTED_MODULE_1___default()), {
                             href: "/register",
-                            children: [
-                                " ",
-                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("strong", {
-                                    children: "Signup now"
-                                }),
-                                " "
-                            ]
-                        }),
-                        " "
+                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("strong", {
+                                children: "Signup now"
+                            })
+                        })
                     ]
                 })
             ]
@@ -532,7 +591,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [587,20,655,901,550,448], () => (__webpack_exec__(76407)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,9927,2900,5618], () => (__webpack_exec__(76407)));
 module.exports = __webpack_exports__;
 
 })();

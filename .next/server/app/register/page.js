@@ -1,7 +1,7 @@
 (() => {
 var exports = {};
-exports.id = 11;
-exports.ids = [11];
+exports.id = 4011;
+exports.ids = [4011];
 exports.modules = {
 
 /***/ 18038:
@@ -439,10 +439,10 @@ function Register() {
         }
     };
     return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("main", {
-        className: "w-100 vh-100 d-flex justify-content-center align-items-center",
+        className: "w-100 h-100 d-flex justify-content-center align-items-center",
         children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_5___default()), {
             onSubmit: handleSubmit,
-            className: "p-4 d-flex flex-column align-items-center bg-body shadow-lg",
+            className: "mt-5 mb-5 p-4 d-flex flex-column align-items-center bg-body shadow-lg",
             style: {
                 border: "0",
                 borderRadius: "8px",
@@ -510,19 +510,13 @@ function Register() {
                 }),
                 /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
                     children: [
-                        "Alreade have an account?",
-                        " ",
-                        /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((next_link__WEBPACK_IMPORTED_MODULE_1___default()), {
+                        "Alreade have an account? &nbspl;",
+                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((next_link__WEBPACK_IMPORTED_MODULE_1___default()), {
                             href: "/login",
-                            children: [
-                                " ",
-                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("strong", {
-                                    children: "Login now"
-                                }),
-                                " "
-                            ]
-                        }),
-                        " "
+                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("strong", {
+                                children: "Login now"
+                            })
+                        })
                     ]
                 })
             ]
@@ -557,14 +551,6 @@ const __default__ = proxy.default;
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__default__);
 
-/***/ }),
-
-/***/ 57114:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-module.exports = __webpack_require__(90696)
-
-
 /***/ })
 
 };
@@ -574,7 +560,7 @@ module.exports = __webpack_require__(90696)
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [587,20,258,448], () => (__webpack_exec__(24987)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,9927,5618], () => (__webpack_exec__(24987)));
 module.exports = __webpack_exports__;
 
 })();

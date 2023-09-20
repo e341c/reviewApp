@@ -1,6 +1,46 @@
 {
-  "sortedMiddleware": [],
-  "middleware": {},
+  "sortedMiddleware": [
+    "/"
+  ],
+  "middleware": {
+    "/": {
+      "files": [
+        "prerender-manifest.js",
+        "server/edge-runtime-webpack.js",
+        "server/middleware.js"
+      ],
+      "name": "middleware",
+      "page": "/",
+      "matchers": [
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/review\\/add(.json)?[\\/#\\?]?$",
+          "originalSource": "/review/add"
+        },
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/profile(.json)?[\\/#\\?]?$",
+          "originalSource": "/profile"
+        },
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/api\\/review\\/add(.json)?[\\/#\\?]?$",
+          "originalSource": "/api/review/add"
+        },
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/api\\/review\\/edit(.json)?[\\/#\\?]?$",
+          "originalSource": "/api/review/edit"
+        },
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/api\\/review\\/delete(.json)?[\\/#\\?]?$",
+          "originalSource": "/api/review/delete"
+        },
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/admin(.json)?[\\/#\\?]?$",
+          "originalSource": "/admin"
+        }
+      ],
+      "wasm": [],
+      "assets": []
+    }
+  },
   "functions": {},
   "version": 2
 }

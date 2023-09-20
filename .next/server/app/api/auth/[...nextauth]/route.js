@@ -1,8 +1,8 @@
 "use strict";
 (() => {
 var exports = {};
-exports.id = 912;
-exports.ids = [912];
+exports.id = 4912;
+exports.ids = [4912];
 exports.modules = {
 
 /***/ 38013:
@@ -210,17 +210,19 @@ const handler = next_auth_default()({
         })
     ],
     callbacks: {
-        session: async ({ session, token })=>{
-            if (session?.user) {
-                session.user.id = token.uid;
-            }
-            return session;
-        },
         jwt: async ({ user, token })=>{
             if (user) {
                 token.uid = user.id;
+                token.admin = user.admin;
             }
             return token;
+        },
+        session: async ({ session, token })=>{
+            if (session?.user) {
+                session.user.id = token.uid;
+                session.user.admin = token.admin;
+            }
+            return session;
         }
     },
     session: {
@@ -276,7 +278,6 @@ const { Schema } = (mongoose__WEBPACK_IMPORTED_MODULE_0___default());
 const userSchema = new Schema({
     name: {
         type: String,
-        unique: true,
         required: true
     },
     email: {
@@ -286,6 +287,10 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
+        required: true
+    },
+    admin: {
+        type: Boolean,
         required: true
     }
 }, {
@@ -324,7 +329,7 @@ const connect = async ()=>{
 var __webpack_require__ = require("../../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [587,501,989,159], () => (__webpack_exec__(39427)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,5501,4989,6159], () => (__webpack_exec__(39427)));
 module.exports = __webpack_exports__;
 
 })();

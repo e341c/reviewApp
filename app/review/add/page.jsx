@@ -2,7 +2,6 @@
 import { InputGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Figure from "react-bootstrap/Figure";
 import { Rating } from "react-simple-star-rating";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { useState, useRef, useEffect } from "react";
@@ -11,14 +10,15 @@ import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Review from "@/components/Review";
+import Loading from "@/components/Loading";
 
 export default function AddReview() {
+    const router = useRouter();
     const inputRef = useRef(null);
     const [categories, setCategories] = useState([]);
     const [tagsOptions, setTagsOptions] = useState([]);
-    const router = useRouter();
     const [upload, setUpload] = useState(false);
-    const [preview, setPreview] = useState(null);
+    const [previewReview, setPreviewReview] = useState(null);
     const [imgPreview, setImgPreview] = useState();
 
     const [titleReview, setTitleReview] = useState();
@@ -31,6 +31,36 @@ export default function AddReview() {
 
     const [error, setError] = useState();
 
+    const { data: session, status } = useSession();
+
+    const preview = {
+        titleReview,
+        titleItem,
+        category,
+        tags: tags.map((item) => {
+            return JSON.stringify(item);
+        }),
+        desc,
+        author: session?.user.id,
+        rating,
+        likes: 0,
+        img: imgPreview,
+    };
+
+    const bodyFormData = new FormData();
+
+    bodyFormData.append("titleReview", titleReview);
+    bodyFormData.append("titleItem", titleItem);
+    bodyFormData.append("category", category);
+    bodyFormData.append("desc", desc);
+    bodyFormData.append("author", session?.user.id);
+    bodyFormData.append("rating", rating);
+    bodyFormData.append("likes", 0);
+    bodyFormData.append("file", file);
+    tags.forEach((item) => {
+        bodyFormData.append("tags", JSON.stringify(item));
+    });
+
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
         setImgPreview(URL.createObjectURL(e.target.files[0]));
@@ -40,25 +70,14 @@ export default function AddReview() {
         inputRef.current?.click();
     };
 
-    const { data: session, status } = useSession();
-
     const handleRating = (rate) => {
         setRating(rate);
     };
 
-    const bodyFormData = new FormData()
-
-    bodyFormData.append("titleReview", titleReview)
-    bodyFormData.append("titleItem", titleItem)
-    bodyFormData.append("category", category)
-    bodyFormData.append("desc", desc)
-    bodyFormData.append("author", session?.user.id)
-    bodyFormData.append("rating", rating)
-    bodyFormData.append("likes", 0)
-    bodyFormData.append("file", file)
-    tags.forEach(item => {
-        bodyFormData.append("tags", JSON.stringify(item))
-    })
+    const handlePreviewOpen = () => {
+        setPreviewReview(true);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -84,24 +103,22 @@ export default function AddReview() {
     useEffect(() => {
         const getCategory = async () => {
             try {
-                const res = await axios
-                    .get("/api/category")
-                    .then((responce) => responce.data);
+                const res = await axios.get("/api/category").then((responce) => responce.data);
                 setCategories(res);
-            } catch (error) {
-                console.log(error);
+            } catch (err) {
+                setError(err);
+                console.log(err);
             }
         };
         getCategory();
 
         const getTags = async () => {
             try {
-                const res = await axios
-                    .get("/api/tags")
-                    .then((responce) => responce.data);
+                const res = await axios.get("/api/tags").then((responce) => responce.data);
                 setTagsOptions(res);
-            } catch (error) {
-                console.log(error);
+            } catch (err) {
+                setError(err);
+                console.log(err);
             }
         };
         getTags();
@@ -109,95 +126,46 @@ export default function AddReview() {
 
     return (
         <main>
-            {preview && (
-                <div className=" position-absolute top-0 start-0 end-0 bottom-0 z-2 bg-body pb-5">
-                    <Review reviewData={body} />
-                    <Button
-                        variant="secondary"
-                        className="mb-5"
-                        onClick={(e) => setPreview(false)}
-                    >
+            {previewReview && (
+                <div className="container position-absolute top-0 start-0 end-0 bottom-0 z-2 bg-body pb-5">
+                    <Review reviewData={preview} />
+                    <Button variant="secondary" className="mb-5" onClick={(e) => setPreviewReview(false)}>
                         Close preview
                     </Button>
                 </div>
             )}
-            <Form onSubmit={handleSubmit} style={{ marginTop: "100px" }}>
-                <div className="d-flex justify-content-center">
-                    <div className="me-5 mt-2">
-                        {upload && <p>Loading...</p>}
-                        <div
-                            style={{
-                                width: "156px",
-                                height: "231px",
-                            }}
-                            className="mb-4 rounded overflow-hidden border"
-                        >
-                            <img
-                                alt=""
-                                src={imgPreview}
-                                className="object-fit-cover"
-                                style={{
-                                    width: "158px",
-                                    height: "234px",
-                                    textIndent: "100vw",
-                                    marginLeft: "-2px",
-                                    marginTop: "-2px",
-                                }}
-                            />
+            <Form onSubmit={handleSubmit}>
+                {upload && <Loading />}
+                <div className="row">
+                    <div className="col col-auto mt-2 mb-4">
+                        <div style={{ maxWidth: "150px", minHeight: "200px" }} className="mb-4 p-2 rounded overflow-hidden border">
+                            <img alt="" src={imgPreview} className="object-fit-cover w-100 h-auto" />
                         </div>
-                        <input
-                            ref={inputRef}
-                            type="file"
-                            accept="image/*"
-                            name="image"
-                            id="selectFile"
-                            hidden
-                            onChange={handleFileChange}
-                        />
-                        <Button
-                            onClick={handleButtonClick}
-                            className="w-100"
-                            variant="primary"
-                        >
+                        <input ref={inputRef} type="file" accept="image/*" name="image" id="selectFile" hidden onChange={handleFileChange} />
+                        <Button onClick={handleButtonClick} className="w-100" variant="primary">
                             Choose image
                         </Button>
                     </div>
 
-                    <div className="w-50">
+                    <div className="col" style={{ minWidth: "80%" }}>
                         <Form.Group className="mb-3">
                             <Form.Label>
                                 <h2>Title of review</h2>
                             </Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="titleReview"
-                                placeholder="Enter title of your review"
-                                onChange={(e) => setTitleReview(e.target.value)}
-                            />
+                            <Form.Control required type="text" name="titleReview" placeholder="Enter title of your review" onChange={(e) => setTitleReview(e.target.value)} />
                         </Form.Group>
 
                         <Form.Group className="mb-3">
                             <Form.Label>
                                 <h4>Title of movie, book, game, etc</h4>
                             </Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="titleItem"
-                                placeholder="Enter title of movie, book, game, etc..."
-                                onChange={(e) => setTitleItem(e.target.value)}
-                            />
+                            <Form.Control required type="text" name="titleItem" placeholder="Enter title of movie, book, game, etc..." onChange={(e) => setTitleItem(e.target.value)} />
                         </Form.Group>
 
                         <Form.Group className="mb-3">
                             <Form.Label>Choice category</Form.Label>
                             <InputGroup>
-                                <Form.Select
-                                    name="category"
-                                    aria-label="category"
-                                    onChange={(e) =>
-                                        setCategory(e.target.value)
-                                    }
-                                >
+                                <Form.Select required name="category" aria-label="category" onChange={(e) => setCategory(e.target.value)}>
                                     <option>Choose category</option>
                                     {categories.map((item) => (
                                         <option value={item._id} key={item.key}>
@@ -224,38 +192,19 @@ export default function AddReview() {
 
                         <Form.Group className="mb-3" controlId="desc">
                             <Form.Label>Your review</Form.Label>
-                            <Form.Control
-                                name="desc"
-                                as="textarea"
-                                rows={4}
-                                maxLength={4096}
-                                placeholder="Text of review"
-                                onChange={(e) => setDesc(e.target.value)}
-                            />
+                            <Form.Control name="desc" as="textarea" rows={4} required maxLength={4096} placeholder="Text of review" onChange={(e) => setDesc(e.target.value)} />
                         </Form.Group>
 
                         <Form.Group className="mb-4 d-flex flex-column">
-                            <Form.Label>Your grade from 0 - 10</Form.Label>
-                            <Rating
-                                size={25}
-                                iconsCount={10}
-                                onClick={handleRating}
-                            />
+                            <Form.Label>Your grade from 1 - 10</Form.Label>
+                            <Rating size={25} iconsCount={10} onClick={handleRating} />
                         </Form.Group>
-                        <div>
-                            <Button
-                                variant="secondary"
-                                className="me-5"
-                                onClick={(e) => setPreview(true)}
-                            >
+                        {error && <p className="text-danger">{error.message}</p>}
+                        <div className="mb-5">
+                            <Button variant="secondary" className="me-3 mb-3" onClick={handlePreviewOpen}>
                                 Preview
                             </Button>
-                            <Button
-                                type="submit"
-                                variant="primary"
-                                className="shadow-sm"
-                                style={{ width: "180px" }}
-                            >
+                            <Button type="submit" variant="primary" className="shadow-sm mb-3" style={{ width: "180px", minWidth: "120px" }}>
                                 Submit
                             </Button>
                         </div>

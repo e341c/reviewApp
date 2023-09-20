@@ -16,6 +16,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@popperjs/core": "^2.11.8",
     "aws-sdk": "^2.1450.0",
     "axios": "^1.5.0",
     "bcrypt": "^5.1.1",
@@ -47,6 +48,7 @@
     "child_process": false
   },
   "devDependencies": {
+    "@types/bootstrap": "^5.2.7",
     "prisma": "^5.2.0"
   }
 }

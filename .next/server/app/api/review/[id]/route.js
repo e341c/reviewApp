@@ -1,8 +1,8 @@
 "use strict";
 (() => {
 var exports = {};
-exports.id = 564;
-exports.ids = [564];
+exports.id = 3564;
+exports.ids = [3564,9882];
 exports.modules = {
 
 /***/ 11185:
@@ -69,10 +69,9 @@ var Tags = __webpack_require__(9597);
 
 
 
-const revalidate = 10;
+const revalidate = 1;
 const GET = async (req, { params })=>{
     const { id } = params;
-    console.log(id);
     try {
         await (0,db/* default */.Z)();
         await User/* default */.Z.find();
@@ -186,7 +185,6 @@ const { Schema } = (mongoose__WEBPACK_IMPORTED_MODULE_0___default());
 const userSchema = new Schema({
     name: {
         type: String,
-        unique: true,
         required: true
     },
     email: {
@@ -196,6 +194,10 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
+        required: true
+    },
+    admin: {
+        type: Boolean,
         required: true
     }
 }, {
@@ -213,7 +215,7 @@ const userSchema = new Schema({
 var __webpack_require__ = require("../../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [587,501,335,88], () => (__webpack_exec__(34075)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,5501,9335,88], () => (__webpack_exec__(34075)));
 module.exports = __webpack_exports__;
 
 })();

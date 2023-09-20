@@ -12,8 +12,11 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import Review from "@/components/Review";
 import useSWR from "swr";
+import Loading from "@/components/Loading";
 
 export default function EditReview({ params }) {
+    const { id } = params;
+
     const inputRef = useRef(null);
     const [categories, setCategories] = useState([]);
     const router = useRouter();
@@ -23,8 +26,7 @@ export default function EditReview({ params }) {
     const [tagsOptions, setTagsOptions] = useState([]);
 
     const [data, setData] = useState();
-    const [error, setError] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState(false);
 
     const [titleReview, setTitleReview] = useState();
     const [titleItem, setTitleItem] = useState();
@@ -33,8 +35,6 @@ export default function EditReview({ params }) {
     const [desc, setDesc] = useState();
     const [category, setCategory] = useState();
     const [file, setFile] = useState(null);
-
-    const { id } = params;
 
     const { data: session, status } = useSession();
 
@@ -51,35 +51,32 @@ export default function EditReview({ params }) {
         setRating(rate);
     };
 
+    const bodyFormData = new FormData();
 
-    const bodyFormData = new FormData()
-
-    bodyFormData.append("titleReview", titleReview)
-    bodyFormData.append("titleItem", titleItem)
-    bodyFormData.append("category", category)
-    bodyFormData.append("desc", desc)
-    bodyFormData.append("author", session?.user.id)
-    bodyFormData.append("rating", rating)
-    bodyFormData.append("likes", 0)
-    bodyFormData.append("file", file)
-    tags.forEach(item => {
-        bodyFormData.append("tags", JSON.stringify(item.name))
-    })
+    bodyFormData.append("titleReview", titleReview);
+    bodyFormData.append("titleItem", titleItem);
+    bodyFormData.append("category", category);
+    bodyFormData.append("desc", desc);
+    bodyFormData.append("rating", rating);
+    bodyFormData.append("likes", 0);
+    bodyFormData.append("file", file);
+    tags.forEach((item) => {
+        bodyFormData.append("tags", JSON.stringify(item));
+    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setUpload(true);
 
         try {
-            const res = await axios.post("/api/review/add", bodyFormData, {
+            const res = await axios.post(`/api/review/edit/${id}`, bodyFormData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     "Access-Control-Allow-Origin": "*",
                 },
             });
             setUpload(false);
-            console.log(res);
-            // if (res.status === 201) router.push("/");
+            if (res.status === 201) router.push("/");
         } catch (err) {
             setError(err);
             console.log(err);
@@ -88,148 +85,80 @@ export default function EditReview({ params }) {
     };
 
     useEffect(() => {
-        const getData = async () => {
+        const getAllData = async () => {
+            setUpload(true);
             try {
-                const res = await axios
-                    .get(`/api/review/${id}`)
-                    .then((responce) => responce.data);
+                const categoriesData = await axios.get("/api/category").then((responce) => responce.data);
+                setCategories(categoriesData);
+                const tagsData = await axios.get("/api/tags").then((responce) => responce.data);
+                setTagsOptions(tagsData);
+                const res = await axios.get(`/api/review/${id}`).then((responce) => responce.data);
                 setData(res);
-                setTitleReview(res.titleReview)
-                setTitleItem(res.titleItem)
-                setCategory(res.category)
-                setDesc(res.desc)
-                setTags(res.tags)
-                setRating(res.rating)
-            } catch (error) {
-                setError(error);
+                setTitleReview(res.titleReview);
+                setTitleItem(res.titleItem);
+                setCategory(res.category._id);
+                setDesc(res.desc);
+                setTags(res.tags.map((item) => JSON.parse(item)));
+                setRating(res.rating);
+                setImgPreview(res.img)
+                setUpload(false);
+            } catch (err) {
+                console.log(err);
+                setError(err.message);
+                setUpload(false);
             }
         };
-        getData()
 
-        const getCategory = async () => {
-            try {
-                const res = await axios
-                    .get("/api/category")
-                    .then((responce) => responce.data);
-                setCategories(res);
-            } catch (error) {
-                setError(error);
-            }
-        };
-        getCategory();
-
-        const getTags = async () => {
-            try {
-                const res = await axios
-                    .get("/api/tags")
-                    .then((responce) => responce.data);
-                setTagsOptions(res);
-            } catch (error) {
-                setError(error);
-            }
-        };
-        getTags();
+        getAllData();
     }, []);
 
     return (
         <main>
             {preview && (
-                <div className=" position-absolute top-0 start-0 end-0 bottom-0 z-2 bg-body pb-5">
+                <div className="container position-absolute top-0 start-0 end-0 bottom-0 z-2 bg-body pb-5">
                     <Review reviewData={body} />
-                    <Button
-                        variant="secondary"
-                        className="mb-5"
-                        onClick={(e) => setPreview(false)}
-                    >
+                    <Button variant="secondary" className="mb-5" onClick={(e) => setPreview(false)}>
                         Close preview
                     </Button>
                 </div>
             )}
-            <Form onSubmit={handleSubmit} style={{ marginTop: "100px" }}>
-                <div className="d-flex justify-content-center">
-                    <div className="me-5 mt-2">
-                        {upload && <p>Loading...</p>}
-                        <div
-                            style={{
-                                width: "156px",
-                                height: "231px",
-                            }}
-                            className="mb-4 rounded overflow-hidden border"
-                        >
-                            <img
-                                alt=""
-                                src={data?.img}
-                                className="object-fit-cover"
-                                style={{
-                                    width: "158px",
-                                    height: "234px",
-                                    textIndent: "100vw",
-                                    marginLeft: "-2px",
-                                    marginTop: "-2px",
-                                }}
-                            />
+            <Form onSubmit={handleSubmit}>
+                {upload && <Loading />}
+                <div className="row">
+                    <div className="col col-auto mt-2 mb-4">
+                        <div style={{ maxWidth: "150px", minHeight: "200px" }} className="mb-4 p-2 rounded overflow-hidden border">
+                            <img alt="" src={imgPreview} className="object-fit-cover w-100 h-auto" />
                         </div>
-                        <input
-                            ref={inputRef}
-                            type="file"
-                            accept="image/*"
-                            name="image"
-                            id="selectFile"
-                            hidden
-                            onChange={handleFileChange}
-                        />
-                        <Button
-                            onClick={handleButtonClick}
-                            className="w-100"
-                            variant="primary"
-                        >
+                        <input ref={inputRef} type="file" accept="image/*" name="image" id="selectFile" hidden onChange={handleFileChange} />
+                        <Button onClick={handleButtonClick} className="w-100" variant="primary">
                             Edit image
                         </Button>
                     </div>
 
-                    <div className="w-50">
+                    <div className="col" style={{ minWidth: "80%" }}>
                         <Form.Group className="mb-3">
                             <Form.Label>
                                 <h2>Title of review</h2>
                             </Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={titleReview}
-                                name="titleReview"
-                                placeholder="Enter title of your review"
-                                onChange={(e) => setTitleReview(e.target.value)}
-                            />
+                            <Form.Control type="text" value={titleReview} name="titleReview" placeholder="Enter title of your review" onChange={(e) => setTitleReview(e.target.value)} />
                         </Form.Group>
 
                         <Form.Group className="mb-3">
                             <Form.Label>
                                 <h4>Title of movie, book, game, etc</h4>
                             </Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={titleItem}
-                                name="titleItem"
-                                placeholder="Enter title of movie, book, game, etc..."
-                                onChange={(e) => setTitleItem(e.target.value)}
-                            />
+                            <Form.Control type="text" value={titleItem} name="titleItem" placeholder="Enter title of movie, book, game, etc..." onChange={(e) => setTitleItem(e.target.value)} />
                         </Form.Group>
 
                         <Form.Group className="mb-3">
                             <Form.Label>Choice category</Form.Label>
                             <InputGroup>
-                                <Form.Select
-                                    name="category"
-                                    aria-label="category"
-                                    onChange={(e) =>
-                                        setCategory(e.target.value)
-                                    }
-                                >
+                                <Form.Select name="category" aria-label="category" onChange={(e) => setCategory(e.target.value)}>
                                     {categories.map((item) => (
                                         <option selected={item._id === category} value={item._id} key={item.key}>
-                                           {item.name}{item._id}{item.key}
-                                        </option> 
+                                            {item.name}
+                                        </option>
                                     ))}
-                                    
                                 </Form.Select>
                             </InputGroup>
                         </Form.Group>
@@ -250,44 +179,22 @@ export default function EditReview({ params }) {
 
                         <Form.Group className="mb-3" controlId="desc">
                             <Form.Label>Your review</Form.Label>
-                            <Form.Control
-                                name="desc"
-                                as="textarea"
-                                rows={4}
-                                value={desc}
-                                maxLength={4096}
-                                placeholder="Text of review"
-                                onChange={(e) => setDesc(e.target.value)}
-                            />
+                            <Form.Control name="desc" as="textarea" rows={4} value={desc} maxLength={4096} placeholder="Text of review" onChange={(e) => setDesc(e.target.value)} />
                         </Form.Group>
 
                         <Form.Group className="mb-4 d-flex flex-column">
                             <Form.Label>Your grade from 0 - 10</Form.Label>
-                            <Rating
-                                size={25}
-                                iconsCount={10}
-                                initialValue={rating}
-                                onClick={handleRating}
-                            />
+                            <Rating size={25} iconsCount={10} initialValue={rating} onClick={handleRating} />
                         </Form.Group>
+                        {error && <p className="text-danger">{error.message}</p>}
                         <div>
-                            <Button
-                                variant="secondary"
-                                className="me-5"
-                                onClick={(e) => setPreview(true)}
-                            >
+                            <Button variant="secondary" className="me-3 mb-3" onClick={(e) => setPreview(true)}>
                                 Preview
                             </Button>
-                            <Button
-                                type="submit"
-                                variant="primary"
-                                className="shadow-sm"
-                                style={{ width: "180px" }}
-                            >
+                            <Button type="submit" variant="primary" className="mb-3 shadow-sm" style={{ width: "180px" }}>
                                 Submit
                             </Button>
-                            {error && <p className="text-danger mt-3">{error.message}</p> }
-                           
+                            {error && <p className="text-danger mt-3">{error.message}</p>}
                         </div>
                     </div>
                 </div>

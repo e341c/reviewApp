@@ -5,27 +5,9 @@ import User from "@/models/User";
 import Category from "@/models/Category";
 import Tags from "@/models/Tags";
 import { v4 as uuid } from "uuid";
-import { PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
-import s3Client from "@/app/lib/s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import {uploadImageToS3} from "@/utils/s3"
 
-async function uploadImageToS3(file, fileName) {
-    const params = {
-        Bucket: process.env.AWS_BUCKET_NAME,
-        Key: `${fileName}`,
-        Body: file,
-    };
-
-    const command = new PutObjectCommand(params);
-    const res = await s3Client.send(command);
-
-    const getCommand = new GetObjectCommand(params);
-    const url = await getSignedUrl(s3Client, getCommand, { expiresIn: 3600 });
-
-    return url;
-}
-
-export const revalidate = 10;
+export const revalidate = 1
 
 export const POST = async (req) => {
     const formData = await req.formData();
@@ -46,8 +28,6 @@ export const POST = async (req) => {
         const author = formData.get("author");
         const rating = formData.get("rating");
         const reviewRating = formData.get("reviewRating");
-
-        console.log(tags);
 
         if (!file) {
             return new NextResponse("File blob is required", { status: 400 });

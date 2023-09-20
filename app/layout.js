@@ -1,6 +1,5 @@
-import "./globals.css";
-import "../style/components/main.scss"
-
+import "../scss/main.scss"
+import '../style/components/rbt-token.css';
 import ThemeProvider from "@/providers/ThemeProvider";
 import AuthProvider from "@/providers/AuthProvider";
 import Header from "@/components/Header";
@@ -11,13 +10,14 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+    
     return (
         <html lang="en" >
             <body>
                 <AuthProvider>
                     <ThemeProvider>
                         <Header />
-                        <div className="container position-relative" style={{marginTop: "100px"}}>
+                        <div className="container position-relative" style={{marginTop: "80px"}}>
                             {children}
                         </div>
                     </ThemeProvider>

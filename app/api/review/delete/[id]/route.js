@@ -1,19 +1,9 @@
 import { NextResponse } from "next/server"
 import connect from "@/utils/db"
 import Review from "@/models/Review"
-import { DeleteObjectCommand } from "@aws-sdk/client-s3";
-import s3Client from "@/app/lib/s3";
+import {deleteImageFromS3} from "@/utils/s3";
 
-async function deleteImageFromS3(fileName) {
-    const params = {
-        Bucket: process.env.AWS_BUCKET_NAME,
-        Key: `${fileName}`,
-    };
-    const command = new DeleteObjectCommand(params);
-    const res = await s3Client.send(command);
-}
-
-export const revalidate = 10
+export const revalidate = 1
 
 export const DELETE = async(req, {params}) => {
     try {

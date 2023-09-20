@@ -34,10 +34,10 @@ export default function Register() {
     };
 
     return (
-        <main className="w-100 vh-100 d-flex justify-content-center align-items-center">
+        <main className="w-100 h-100 d-flex justify-content-center align-items-center">
             <Form
                 onSubmit={handleSubmit}
-                className="p-4 d-flex flex-column align-items-center bg-body shadow-lg"
+                className="mt-5 mb-5 p-4 d-flex flex-column align-items-center bg-body shadow-lg"
                 style={{ border: "0", borderRadius: "8px", minWidth: "340px" }}
             >
                 <h3 className="mb-3">Sign up</h3>
@@ -74,11 +74,10 @@ export default function Register() {
                 </Button>
 
                 <p>
-                    Alreade have an account?{" "}
+                    Alreade have an account? &nbspl;
                     <Link href={"/login"}>
-                        {" "}
-                        <strong>Login now</strong>{" "}
-                    </Link>{" "}
+                        <strong>Login now</strong>
+                    </Link>
                 </p>
             </Form>
         </main>

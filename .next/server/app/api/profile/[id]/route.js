@@ -1,8 +1,8 @@
 "use strict";
 (() => {
 var exports = {};
-exports.id = 904;
-exports.ids = [904];
+exports.id = 8904;
+exports.ids = [8904,9882];
 exports.modules = {
 
 /***/ 11185:
@@ -72,16 +72,38 @@ var Tags = __webpack_require__(9597);
 const revalidate = 10;
 const GET = async (req, { params })=>{
     const { id } = params;
-    console.log(id);
+    const { searchParams } = new URL(req.url);
+    const search = searchParams.get("search");
     try {
         await (0,db/* default */.Z)();
         await User/* default */.Z.find();
         await Category/* default */.Z.find();
         await Tags/* default */.Z.find();
-        const user = await User/* default */.Z.findById(id);
-        const review = await Review/* default */.Z.find({
+        const options = {
             author: id
-        }).populate("author").populate("category");
+        };
+        if (search?.length > 1) {
+            const category = await Category/* default */.Z.findOne({
+                name: new RegExp(search, "i")
+            });
+            const categoryOption = category?._id.toString();
+            options.$or = [
+                {
+                    titleReview: new RegExp(search, "i")
+                },
+                {
+                    titleItem: new RegExp(search, "i")
+                },
+                {
+                    desc: new RegExp(search, "i")
+                },
+                {
+                    category: categoryOption
+                }
+            ];
+        }
+        const user = await User/* default */.Z.findById(id);
+        const review = await Review/* default */.Z.find(options).populate("author").populate("category");
         const data = [
             user,
             review
@@ -193,7 +215,6 @@ const { Schema } = (mongoose__WEBPACK_IMPORTED_MODULE_0___default());
 const userSchema = new Schema({
     name: {
         type: String,
-        unique: true,
         required: true
     },
     email: {
@@ -203,6 +224,10 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
+        required: true
+    },
+    admin: {
+        type: Boolean,
         required: true
     }
 }, {
@@ -220,7 +245,7 @@ const userSchema = new Schema({
 var __webpack_require__ = require("../../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [587,501,335,88], () => (__webpack_exec__(63675)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,5501,9335,88], () => (__webpack_exec__(63675)));
 module.exports = __webpack_exports__;
 
 })();

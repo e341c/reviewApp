@@ -1,7 +1,7 @@
 (() => {
 var exports = {};
-exports.id = 536;
-exports.ids = [536];
+exports.id = 8536;
+exports.ids = [8536];
 exports.modules = {
 
 /***/ 18038:
@@ -421,8 +421,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var next_navigation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(57114);
 /* harmony import */ var next_navigation__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_navigation__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(18038);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var react_markdown__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(88543);
-/* harmony import */ var react_simple_star_rating__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(99933);
 /* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(97146);
 /* __next_internal_client_entry_do_not_use__ default auto */ 
 
@@ -434,11 +435,14 @@ __webpack_require__.r(__webpack_exports__);
 function Review({ params }) {
     const { id } = params;
     const router = (0,next_navigation__WEBPACK_IMPORTED_MODULE_2__.useRouter)();
+    const [tags, setTags] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([]);
     const { data, error, isLoading } = (0,swr__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .ZP)(`/api/review/${id}`, async ()=>{
         const res = await axios__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z.get(`/api/review/${id}`);
+        setTags(JSON.parse(JSON.stringify(res.data.tags)));
         return res.data;
+    }, {
+        refreshInterval: 100
     });
-    console.log(data);
     if (isLoading) {
         return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
             children: "Loading..."
@@ -457,23 +461,27 @@ function Review({ params }) {
         className: "mb-5",
         children: [
             /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "d-flex",
+                className: "row",
                 children: [
                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
-                        className: "me-5 mt-2",
+                        className: "col col-auto mb-3",
+                        style: {
+                            maxWidth: "150px"
+                        },
                         children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("img", {
                             src: data?.img,
                             alt: "",
+                            className: "object-fit-cover w-100 h-auto",
                             style: {
-                                width: "156px",
-                                height: "231px",
-                                background: "red"
-                            },
-                            className: "object-fit-cover"
+                                minWidth: "70px"
+                            }
                         })
                     }),
                     /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                        className: "w-75",
+                        className: "col w-75",
+                        style: {
+                            minWidth: "240px"
+                        },
                         children: [
                             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h2", {
                                 children: data?.titleReview
@@ -481,37 +489,42 @@ function Review({ params }) {
                             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
                                 children: data?.titleItem
                             }),
-                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                children: data?.category.name
+                            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
+                                children: [
+                                    "Category:\xa0",
+                                    data?.category.name
+                                ]
                             }),
                             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                children: data?.tags.map((item)=>item.name + " ")
-                            }),
-                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(react_markdown__WEBPACK_IMPORTED_MODULE_6__/* .ReactMarkdown */ .D, {
-                                children: data?.desc
+                                children: tags?.map((item)=>{
+                                    const parseItem = JSON.parse(item);
+                                    return parseItem.name + " ";
+                                })
                             }),
                             /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
                                 children: [
-                                    "Rate: ",
+                                    "Author rate: ",
                                     data?.rating
                                 ]
                             }),
                             /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                                className: "d-flex justify-content-between",
+                                className: "row",
                                 children: [
                                     /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
+                                        className: "col col-auto me-auto",
                                         children: [
-                                            "Review likes: ",
+                                            "Likes: ",
                                             data?.likes
                                         ]
                                     }),
                                     /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
+                                        className: "col col-auto",
                                         children: [
-                                            "Author: \xa0",
+                                            "Review written by\xa0",
                                             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((next_link__WEBPACK_IMPORTED_MODULE_1___default()), {
-                                                href: `/profile/${data?.author._id}`,
+                                                href: `/profile/${data?.author?._id}`,
                                                 className: "text-primary",
-                                                children: data?.author.name
+                                                children: data?.author?.name
                                             })
                                         ]
                                     })
@@ -520,6 +533,10 @@ function Review({ params }) {
                         ]
                     })
                 ]
+            }),
+            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(react_markdown__WEBPACK_IMPORTED_MODULE_6__/* .ReactMarkdown */ .D, {
+                className: "mt-4",
+                children: data?.desc
             }),
             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("hr", {
                 className: "w-100"
@@ -555,14 +572,6 @@ const __default__ = proxy.default;
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__default__);
 
-/***/ }),
-
-/***/ 57114:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-module.exports = __webpack_require__(90696)
-
-
 /***/ })
 
 };
@@ -572,7 +581,7 @@ module.exports = __webpack_require__(90696)
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [587,20,258,543,146,933,448], () => (__webpack_exec__(68447)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,9927,8543,5618], () => (__webpack_exec__(68447)));
 module.exports = __webpack_exports__;
 
 })();

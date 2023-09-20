@@ -1,8 +1,8 @@
 "use strict";
 (() => {
 var exports = {};
-exports.id = 2;
-exports.ids = [2];
+exports.id = 3002;
+exports.ids = [3002];
 exports.modules = {
 
 /***/ 11185:
@@ -77,7 +77,8 @@ const POST = async (req)=>{
     const newUser = new User/* default */.Z({
         name,
         email,
-        password: hashedPassword
+        password: hashedPassword,
+        admin: false
     });
     try {
         await newUser.save();
@@ -139,7 +140,6 @@ const { Schema } = (mongoose__WEBPACK_IMPORTED_MODULE_0___default());
 const userSchema = new Schema({
     name: {
         type: String,
-        unique: true,
         required: true
     },
     email: {
@@ -149,6 +149,10 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
+        required: true
+    },
+    admin: {
+        type: Boolean,
         required: true
     }
 }, {
@@ -187,7 +191,7 @@ const connect = async ()=>{
 var __webpack_require__ = require("../../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [587,501,335,989], () => (__webpack_exec__(50687)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,5501,9335,4989], () => (__webpack_exec__(50687)));
 module.exports = __webpack_exports__;
 
 })();

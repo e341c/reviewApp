@@ -19,6 +19,13 @@ module.exports = require("mongoose");
 
 /***/ }),
 
+/***/ 14300:
+/***/ ((module) => {
+
+module.exports = require("buffer");
+
+/***/ }),
+
 /***/ 22037:
 /***/ ((module) => {
 
@@ -63,32 +70,21 @@ var next_response = __webpack_require__(89335);
 var db = __webpack_require__(56575);
 // EXTERNAL MODULE: ./models/Review.js
 var Review = __webpack_require__(13707);
-// EXTERNAL MODULE: external "@aws-sdk/client-s3"
-var client_s3_ = __webpack_require__(21841);
-// EXTERNAL MODULE: ./app/lib/s3.js
-var s3 = __webpack_require__(99612);
+// EXTERNAL MODULE: ./utils/s3.js
+var s3 = __webpack_require__(39282);
 ;// CONCATENATED MODULE: ./app/api/review/delete/[id]/route.js
 
 
 
 
-
-async function deleteImageFromS3(fileName) {
-    const params = {
-        Bucket: process.env.AWS_BUCKET_NAME,
-        Key: `${fileName}`
-    };
-    const command = new client_s3_.DeleteObjectCommand(params);
-    const res = await s3/* default */.Z.send(command);
-}
-const revalidate = 10;
+const revalidate = 1;
 const DELETE = async (req, { params })=>{
     try {
         const { id } = params;
         await (0,db/* default */.Z)();
         const review = await Review/* default */.Z.findById(id).populate("author").populate("category");
         const file = review.img.replace("https://d2ykbx43rxyrs3.cloudfront.net/", "");
-        deleteImageFromS3(file);
+        (0,s3/* deleteImageFromS3 */.Q)(file);
         await Review/* default */.Z.deleteOne({
             _id: id
         });
@@ -134,27 +130,6 @@ const originalPathname = "/api/review/delete/[id]/route";
 
 //# sourceMappingURL=app-route.js.map
 
-/***/ }),
-
-/***/ 99612:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Z: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _aws_sdk_client_s3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(21841);
-/* harmony import */ var _aws_sdk_client_s3__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_aws_sdk_client_s3__WEBPACK_IMPORTED_MODULE_0__);
-
-const s3Client = new _aws_sdk_client_s3__WEBPACK_IMPORTED_MODULE_0__.S3Client({
-    region: process.env.AWS_REGION,
-    credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-    }
-});
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (s3Client);
-
-
 /***/ })
 
 };
@@ -164,7 +139,7 @@ const s3Client = new _aws_sdk_client_s3__WEBPACK_IMPORTED_MODULE_0__.S3Client({
 var __webpack_require__ = require("../../../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [587,501,335,88], () => (__webpack_exec__(42375)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,5501,9335,6889,88,552], () => (__webpack_exec__(42375)));
 module.exports = __webpack_exports__;
 
 })();
