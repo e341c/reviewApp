@@ -1,4 +1,6 @@
 'use client'
+import Comment from "@/components/Comments";
+import NewComment from "@/components/NewComment";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -57,8 +59,13 @@ export default function Review({params}) {
                     </div>
                 </div>
             </div> 
+                <h4>Review:</h4>
                 <ReactMarkdown className="mt-4">{data?.desc}</ReactMarkdown>
             <hr className="w-100" />
+            <div>
+                <NewComment id={id} />
+                <Comment id={id} />
+            </div>
         </div>
     );
 }

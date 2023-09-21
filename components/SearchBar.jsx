@@ -4,6 +4,10 @@ import { Form, InputGroup } from "react-bootstrap";
 import { useState } from "react";
 import useSWR from "swr";
 import axios from "axios";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faSearch, faXmark);
 
 export default function SearchBar({url}) {
     const [search, setSearch] = useState('')
