@@ -57,12 +57,9 @@ var next_response = __webpack_require__(89335);
 var db = __webpack_require__(56575);
 // EXTERNAL MODULE: ./models/User.js
 var User = __webpack_require__(24946);
-// EXTERNAL MODULE: ./models/Review.js
-var Review = __webpack_require__(13707);
 // EXTERNAL MODULE: ./models/Comment.js
 var Comment = __webpack_require__(4177);
 ;// CONCATENATED MODULE: ./app/api/comment/[id]/route.js
-
 
 
 
@@ -91,8 +88,6 @@ const POST = async (req, { params })=>{
     const newComment = new Comment/* default */.Z(body);
     try {
         await (0,db/* default */.Z)();
-        await Review/* default */.Z.find();
-        await User/* default */.Z.find();
         await newComment.save();
         return new next_response/* default */.Z("Comment created", {
             status: 200
@@ -205,6 +200,27 @@ const userSchema = new Schema({
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((mongoose__WEBPACK_IMPORTED_MODULE_0___default().models).User || mongoose__WEBPACK_IMPORTED_MODULE_0___default().model("User", userSchema));
 
 
+/***/ }),
+
+/***/ 56575:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Z: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11185);
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_0__);
+
+const connect = async ()=>{
+    try {
+        await mongoose__WEBPACK_IMPORTED_MODULE_0___default().connect(process.env.MONGODB_URI);
+    } catch (error) {
+        throw new Error("Connection failed!");
+    }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connect);
+
+
 /***/ })
 
 };
@@ -214,7 +230,7 @@ const userSchema = new Schema({
 var __webpack_require__ = require("../../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,5501,9335,88], () => (__webpack_exec__(48439)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,5501,9335], () => (__webpack_exec__(48439)));
 module.exports = __webpack_exports__;
 
 })();

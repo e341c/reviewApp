@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server"
 import connect from "@/utils/db"
 import User from "@/models/User"
-import Review from "@/models/Review"
 import Comment from "@/models/Comment"
 
 export const revalidate = 10
@@ -27,8 +26,6 @@ export const POST = async(req, {params}) => {
 
     try {
         await connect()
-        await Review.find()
-        await User.find()
 
         await newComment.save()
 

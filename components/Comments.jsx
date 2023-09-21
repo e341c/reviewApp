@@ -19,7 +19,7 @@ export default function Comment({ id }) {
             const res = await axios.get(`/api/comment/${id}`);
             return res.data;
         },
-        { refreshInterval: 100 }
+        { refreshInterval: 10 }
     );
 
     const { data: session } = useSession();
@@ -58,6 +58,13 @@ export default function Comment({ id }) {
         setCommentId("");
     };
 
+    const handleDelete = async (deleteId) => {
+        const res = await axios.delete(`/api/comment/delete/${deleteId}`)
+        console.log(res);
+        setCommentValue("");
+        setCommentId("");
+    }
+
     return (
         <div className="shadow rounded p-3">
             <p className="px-3">
@@ -70,11 +77,11 @@ export default function Comment({ id }) {
                         <div className="mb-5 row">
                             <div className="col">
                                 <div className="row">
-                                    <Link href={`/profile/${item.authorId._id}`} className="col text-decoration-none">
-                                        <strong>{item.authorId.name}</strong>
+                                    <Link href={`/profile/${item.authorId?._id}`} className="col text-decoration-none">
+                                        <strong>{item.authorId?.name}</strong>
                                     </Link>
 
-                                    {session?.user.id === item.authorId._id && (
+                                    {session?.user.id === item.authorId?._id && (
                                         <Dropdown className="col col-auto">
                                             <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
                                                 <FontAwesomeIcon icon="fa-solid fa-bars" className="me-1" />
@@ -83,7 +90,7 @@ export default function Comment({ id }) {
                                             <Dropdown.Menu>
                                                 <Dropdown.Item onClick={() => handleEdit(item._id, item.comment)}>Edit</Dropdown.Item>
                                                 <Dropdown.Divider />
-                                                <Dropdown.Item className="text-danger">Delete</Dropdown.Item>
+                                                <Dropdown.Item className="text-danger" onClick={() => handleDelete(item._id)}>Delete</Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
                                     )}

@@ -1,17 +1,18 @@
 {
   "version": 1,
   "functions": {
+    "/api/auth/register": {},
+    "/api/category": {},
     "/api/comment/[id]": {},
     "/api/comment/edit/[id]": {},
-    "/api/category": {},
-    "/api/auth/register": {},
-    "/api/admin": {},
     "/api/profile/[id]": {},
+    "/api/comment/delete/[id]": {},
     "/api/review/add": {},
-    "/api/review/[id]": {},
     "/api/review/delete/[id]": {},
     "/api/review/edit/[id]": {},
     "/api/review": {},
-    "/api/tags": {}
+    "/api/tags": {},
+    "/api/admin": {},
+    "/api/review/[id]": {}
   }
 }

@@ -465,7 +465,7 @@ function Comment({ id }) {
         const res = await axios/* default */.Z.get(`/api/comment/${id}`);
         return res.data;
     }, {
-        refreshInterval: 100
+        refreshInterval: 10
     });
     const { data: session } = (0,react.useSession)();
     const [commentId, setCommentId] = (0,react_.useState)("");
@@ -494,6 +494,12 @@ function Comment({ id }) {
     };
     const handleSubmit = async ()=>{
         const res = await axios/* default */.Z.post(`/api/comment/edit/${commentId}`, body);
+        setCommentValue("");
+        setCommentId("");
+    };
+    const handleDelete = async (deleteId)=>{
+        const res = await axios/* default */.Z.delete(`/api/comment/delete/${deleteId}`);
+        console.log(res);
         setCommentValue("");
         setCommentId("");
     };
@@ -528,13 +534,13 @@ function Comment({ id }) {
                                                 className: "row",
                                                 children: [
                                                     /*#__PURE__*/ jsx_runtime_.jsx((link_default()), {
-                                                        href: `/profile/${item.authorId._id}`,
+                                                        href: `/profile/${item.authorId?._id}`,
                                                         className: "col text-decoration-none",
                                                         children: /*#__PURE__*/ jsx_runtime_.jsx("strong", {
-                                                            children: item.authorId.name
+                                                            children: item.authorId?.name
                                                         })
                                                     }),
-                                                    session?.user.id === item.authorId._id && /*#__PURE__*/ (0,jsx_runtime_.jsxs)((Dropdown_default()), {
+                                                    session?.user.id === item.authorId?._id && /*#__PURE__*/ (0,jsx_runtime_.jsxs)((Dropdown_default()), {
                                                         className: "col col-auto",
                                                         children: [
                                                             /*#__PURE__*/ jsx_runtime_.jsx((Dropdown_default()).Toggle, {
@@ -554,6 +560,7 @@ function Comment({ id }) {
                                                                     /*#__PURE__*/ jsx_runtime_.jsx((Dropdown_default()).Divider, {}),
                                                                     /*#__PURE__*/ jsx_runtime_.jsx((Dropdown_default()).Item, {
                                                                         className: "text-danger",
+                                                                        onClick: ()=>handleDelete(item._id),
                                                                         children: "Delete"
                                                                     })
                                                                 ]
