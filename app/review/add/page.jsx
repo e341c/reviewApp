@@ -1,11 +1,11 @@
 "use client";
+import "react-bootstrap-typeahead/css/Typeahead.css";
 import { InputGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Rating } from "react-simple-star-rating";
 import { Typeahead } from "react-bootstrap-typeahead";
-import { useState, useRef, useEffect } from "react";
-import "react-bootstrap-typeahead/css/Typeahead.css";
+import { Rating } from "react-simple-star-rating";
+import { useState, useRef, useEffect, use } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -16,14 +16,16 @@ export default function AddReview() {
     const router = useRouter();
     const inputRef = useRef(null);
     const [categories, setCategories] = useState([]);
-    const [tagsOptions, setTagsOptions] = useState([]);
     const [upload, setUpload] = useState(false);
     const [previewReview, setPreviewReview] = useState(null);
     const [imgPreview, setImgPreview] = useState();
+    const [validation, setValidation] = useState();
+
+    const [tags, setTags] = useState([]);
+    const [tagsOptions, setTagsOptions] = useState([]);
 
     const [titleReview, setTitleReview] = useState();
     const [titleItem, setTitleItem] = useState();
-    const [tags, setTags] = useState([]);
     const [rating, setRating] = useState(0);
     const [desc, setDesc] = useState();
     const [category, setCategory] = useState();
@@ -43,8 +45,16 @@ export default function AddReview() {
         desc,
         author: session?.user.id,
         rating,
-        likes: 0,
         img: imgPreview,
+    };
+
+    const checkValidation = () => {
+        setValidation(false)
+        console.log("NOT VALID");
+        if (categories != "" && tags.length > 0 && rating > 0 && file != null && titleReview != "" && titleItem != "" && desc != "") {
+            setValidation(true);
+            console.log("VALID");
+        }
     };
 
     const bodyFormData = new FormData();
@@ -77,26 +87,30 @@ export default function AddReview() {
     const handlePreviewOpen = () => {
         setPreviewReview(true);
         window.scrollTo({ top: 0, behavior: "smooth" });
-    };
+    }; 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setUpload(true);
+        if (validation) {
+            setUpload(true);
 
-        try {
-            const res = await axios.post("/api/review/add", bodyFormData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "Access-Control-Allow-Origin": "*",
-                },
-            });
-            console.log(res);
-            setUpload(false);
-            if (res.status === 201) router.push("/");
-        } catch (err) {
-            setError(err);
-            console.log(err);
-            setUpload(false);
+            try {
+                const res = await axios.post("/api/review/add", bodyFormData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        "Access-Control-Allow-Origin": "*",
+                    },
+                });
+                const addTags = await axios.post("/api/tags", tags)
+                console.log(addTags);
+                console.log(res);
+                setUpload(false);
+                if (res.status === 201) router.push("/");
+            } catch (err) {
+                setError(err);
+                console.log(err);
+                setUpload(false);
+            }
         }
     };
 
@@ -181,6 +195,7 @@ export default function AddReview() {
                             <Typeahead
                                 id="basic-typeahead-multiple"
                                 labelKey="name"
+                                allowNew
                                 multiple
                                 onChange={setTags}
                                 options={tagsOptions}
@@ -200,11 +215,12 @@ export default function AddReview() {
                             <Rating size={25} iconsCount={10} onClick={handleRating} />
                         </Form.Group>
                         {error && <p className="text-danger">{error.message}</p>}
+                        {validation == false && <p className="text-danger">Fill all fields</p>}
                         <div className="mb-5">
                             <Button variant="secondary" className="me-3 mb-3" onClick={handlePreviewOpen}>
                                 Preview
                             </Button>
-                            <Button type="submit" variant="primary" className="shadow-sm mb-3" style={{ width: "180px", minWidth: "120px" }}>
+                            <Button type="submit" variant="primary" className="shadow-sm mb-3" style={{ width: "180px", minWidth: "120px" }} onClick={checkValidation}>
                                 Submit
                             </Button>
                         </div>

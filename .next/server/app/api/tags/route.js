@@ -76,27 +76,19 @@ const GET = async (req)=>{
     }
 };
 const POST = async (req)=>{
-    const data = [
-        "Mathematics",
-        "Physics",
-        "Chemistry",
-        "Geology",
-        "Astronomy",
-        "Biology",
-        "History"
-    ];
+    const body = await req.json();
     try {
         await (0,db/* default */.Z)();
-        const lentgh = await Tags/* default */.Z.count();
-        if (lentgh === 0) {
-            data.map((item, index)=>{
-                new Tags/* default */.Z({
-                    name: item,
-                    key: index
-                }).save();
+        body.map(async (item)=>{
+            const tag = await Tags/* default */.Z.find({
+                name: item.name
             });
-        }
-        console.log(lentgh);
+            if (tag[0]?.name != item.name) {
+                new Tags/* default */.Z({
+                    name: item.name
+                }).save();
+            }
+        });
         return new next_response/* default */.Z("Tags added", {
             status: 200
         });
@@ -154,10 +146,6 @@ const { Schema } = (mongoose__WEBPACK_IMPORTED_MODULE_0___default());
 const tagsSchema = new Schema({
     name: {
         type: String,
-        required: true
-    },
-    key: {
-        type: Number,
         required: true
     }
 });

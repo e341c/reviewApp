@@ -37,7 +37,7 @@ export default function NewComment({ id }) {
                         placeholder="Enter your comment"
                         onChange={(e) => setCommentValue(e.target.value)}
                     />
-                    <Button variant="primary" onClick={handleComment}>
+                    <Button variant="primary" onClick={() => handleComment}>
                         Send comment
                     </Button>
                 </Form.Group>

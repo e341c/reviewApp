@@ -1,18 +1,10 @@
 "use client";
-import Link from "next/link";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ThemeButton from "./ThemeButton";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
-import SearchBar from "./SearchBar";
 import { usePathname } from 'next/navigation'
-import { library } from "@fortawesome/fontawesome-svg-core";
-// import { faCheckSquare, faCoffee, faSearch, faCircleHalfStroke, faXmark, faBars } from "@fortawesome/free-solid-svg-icons";
-
-// library.add(faCheckSquare, faCoffee, faSearch, faCircleHalfStroke, faXmark, faBars);
+import Link from "next/link";
+import ThemeButton from "./ThemeButton";
+import SearchBar from "./SearchBar";
 
 export default function Header() {
     const path = usePathname()
@@ -20,7 +12,6 @@ export default function Header() {
     const { data: session, status } = useSession();
 
     const id = session?.user.id;
-    // console.log(path);
     useEffect(() => {
         import('bootstrap/dist/js/bootstrap.js')
     }, [])

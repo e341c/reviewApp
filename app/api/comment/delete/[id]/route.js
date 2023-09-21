@@ -6,7 +6,6 @@ export const revalidate = 10
 
 export const DELETE = async(req, {params}) => {
     const {id} = params
-    console.log(id);
     try {
         await connect()
 

@@ -8,7 +8,7 @@ export default function Review({ reviewData: data }) {
     const { data: session, status } = useSession();
 
     return (
-        <div className="mb-5">
+        <div className="mb-5" key={data._id}>
             <div className="d-flex">
                 <Link href={`/review/${data?._id}`} className="text-decoration-none text-body mt-2 me-3">
                     <div style={{ maxWidth: "150px" }}>

@@ -161,10 +161,6 @@ const tagsSchema = new Schema({
     name: {
         type: String,
         required: true
-    },
-    key: {
-        type: Number,
-        required: true
     }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((mongoose__WEBPACK_IMPORTED_MODULE_0___default().models).Tags || mongoose__WEBPACK_IMPORTED_MODULE_0___default().model("Tags", tagsSchema));

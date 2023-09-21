@@ -16,29 +16,15 @@ export const GET = async(req) => {
 }
 
 export const POST = async(req) => {
-    const data = [
-        "Mathematics",
-        "Physics",
-        "Chemistry",
-        "Geology",
-        "Astronomy",
-        "Biology",
-        "History"
-    ]
+    const body = await req.json()
     try {
         await connect()
-
-        const lentgh = await Tags.count()
-        if(lentgh === 0){
-            data.map((item, index) => {
-                new Tags({
-                    name: item,
-                    key: index
-                }).save()
-            })
-        }
-
-        console.log(lentgh);
+        body.map(async (item) => {
+            const tag = await Tags.find({name : item.name})
+            if(tag[0]?.name != item.name){
+                new Tags({name : item.name}).save()
+            }
+        })
 
         return new NextResponse("Tags added", {status:200})   
     } catch (error) {

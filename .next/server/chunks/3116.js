@@ -130,7 +130,7 @@ function ProfileReview({ reviewData: data, id }) {
                 className: "w-100"
             })
         ]
-    });
+    }, data?._id);
 }
 
 

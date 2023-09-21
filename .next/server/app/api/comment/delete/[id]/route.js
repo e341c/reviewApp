@@ -63,7 +63,6 @@ var Comment = __webpack_require__(4177);
 const revalidate = 10;
 const DELETE = async (req, { params })=>{
     const { id } = params;
-    console.log(id);
     try {
         await (0,db/* default */.Z)();
         await Comment/* default */.Z.deleteOne({

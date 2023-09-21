@@ -209,6 +209,13 @@ const handler = next_auth_default()({
             clientSecret: process.env.GOOGLE_SECRET
         })
     ],
+    session: {
+        strategy: "jwt",
+        maxAge: 600
+    },
+    jwt: {
+        maxAge: 600
+    },
     callbacks: {
         jwt: async ({ user, token })=>{
             if (user) {
@@ -224,9 +231,6 @@ const handler = next_auth_default()({
             }
             return session;
         }
-    },
-    session: {
-        strategy: "jwt"
     }
 });
 

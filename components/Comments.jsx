@@ -1,5 +1,3 @@
-import axios from "axios";
-import useSWR from "swr";
 import Link from "next/link";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
@@ -9,10 +7,14 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { Form } from "react-bootstrap";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import axios from "axios";
+import useSWR from "swr";
+import { useRouter } from "next/navigation";
 
 library.add(faBars);
 
 export default function Comment({ id }) {
+    const router = useRouter()
     const { data, isLoading, error } = useSWR(
         "/api/comment",
         async () => {
@@ -26,6 +28,15 @@ export default function Comment({ id }) {
 
     const [commentId, setCommentId] = useState("");
     const [commentValue, setCommentValue] = useState("");
+
+    if(error){
+        console.log(error);
+        router.refresh()
+    }
+
+    if(isLoading){
+        return <p>Loading comments...</p>
+    }
 
     if (data?.length === 0) {
         return (
@@ -77,7 +88,7 @@ export default function Comment({ id }) {
                         <div className="mb-5 row">
                             <div className="col">
                                 <div className="row">
-                                    <Link href={`/profile/${item.authorId?._id}`} className="col text-decoration-none">
+                                    <Link href={`/profile/${item.authorId?._id}`} className="col text-decoration-none pt-2">
                                         <strong>{item.authorId?.name}</strong>
                                     </Link>
 
@@ -101,7 +112,7 @@ export default function Comment({ id }) {
                                     <Form.Group className="mb-3" controlId="desc">
                                         <Form.Label className="d-flex justify-content-between align-items-center">
                                             <strong>Edit comment</strong>
-                                            <Button variant="danger" onClick={handleCancel}>
+                                            <Button variant="danger" onClick={() => handleCancel}>
                                                 <FontAwesomeIcon icon="fa-solid fa-xmark" /> Close
                                             </Button>
                                         </Form.Label>
@@ -116,7 +127,7 @@ export default function Comment({ id }) {
                                             placeholder="Enter your comment"
                                             onChange={(e) => setCommentValue(e.target.value)}
                                         />
-                                        <Button variant="primary" onClick={handleSubmit}>
+                                        <Button variant="primary" onClick={() => handleSubmit}>
                                             Edit comment
                                         </Button>
                                     </Form.Group>

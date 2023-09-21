@@ -12,7 +12,7 @@ export default function ProfileReview({ reviewData: data, id }) {
     const [isLoading, setIsLoading] = useState(false)
 
     return (
-        <div className="mb-5">
+        <div className="mb-5" key={data?._id}>
             <div>
                 <div className="row">
                     <Link

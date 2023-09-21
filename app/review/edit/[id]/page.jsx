@@ -2,7 +2,6 @@
 import { InputGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Figure from "react-bootstrap/Figure";
 import { Rating } from "react-simple-star-rating";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { useState, useRef, useEffect } from "react";
@@ -11,7 +10,6 @@ import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Review from "@/components/Review";
-import useSWR from "swr";
 import Loading from "@/components/Loading";
 
 export default function EditReview({ params }) {

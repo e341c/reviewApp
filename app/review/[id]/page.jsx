@@ -25,7 +25,7 @@ export default function Review({params}) {
 
     if(error){
         console.log(error);
-        return <p>{error.message}</p>
+        router.refresh()
     }
 
     if(!data){

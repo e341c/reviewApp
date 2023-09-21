@@ -114,7 +114,7 @@ function Review({ reviewData: data }) {
                 className: "w-100"
             })
         ]
-    });
+    }, data._id);
 }
 
 

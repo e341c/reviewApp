@@ -416,19 +416,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(56786);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_bootstrap_typeahead_css_Typeahead_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(72141);
+/* harmony import */ var react_bootstrap_typeahead_css_Typeahead_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_typeahead_css_Typeahead_css__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_bootstrap_InputGroup__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(9136);
 /* harmony import */ var react_bootstrap_InputGroup__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_InputGroup__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(93780);
 /* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(39486);
 /* harmony import */ var react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var react_simple_star_rating__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(99933);
 /* harmony import */ var react_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(14545);
 /* harmony import */ var react_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(18038);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_bootstrap_typeahead_css_Typeahead_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(72141);
-/* harmony import */ var react_bootstrap_typeahead_css_Typeahead_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_typeahead_css_Typeahead_css__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react_simple_star_rating__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(99933);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(18038);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var next_auth_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(74284);
 /* harmony import */ var next_auth_react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(next_auth_react__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(93258);
@@ -451,20 +451,21 @@ __webpack_require__.r(__webpack_exports__);
 
 function AddReview() {
     const router = (0,next_navigation__WEBPACK_IMPORTED_MODULE_6__.useRouter)();
-    const inputRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)(null);
-    const [categories, setCategories] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([]);
-    const [tagsOptions, setTagsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([]);
-    const [upload, setUpload] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false);
-    const [previewReview, setPreviewReview] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(null);
-    const [imgPreview, setImgPreview] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)();
-    const [titleReview, setTitleReview] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)();
-    const [titleItem, setTitleItem] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)();
-    const [tags, setTags] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([]);
-    const [rating, setRating] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(0);
-    const [desc, setDesc] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)();
-    const [category, setCategory] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)();
-    const [file, setFile] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(null);
-    const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)();
+    const inputRef = (0,react__WEBPACK_IMPORTED_MODULE_4__.useRef)(null);
+    const [categories, setCategories] = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)([]);
+    const [upload, setUpload] = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(false);
+    const [previewReview, setPreviewReview] = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(null);
+    const [imgPreview, setImgPreview] = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)();
+    const [validation, setValidation] = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)();
+    const [tags, setTags] = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)([]);
+    const [tagsOptions, setTagsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)([]);
+    const [titleReview, setTitleReview] = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)();
+    const [titleItem, setTitleItem] = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)();
+    const [rating, setRating] = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(0);
+    const [desc, setDesc] = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)();
+    const [category, setCategory] = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)();
+    const [file, setFile] = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(null);
+    const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)();
     const { data: session, status } = (0,next_auth_react__WEBPACK_IMPORTED_MODULE_5__.useSession)();
     const preview = {
         titleReview,
@@ -476,8 +477,15 @@ function AddReview() {
         desc,
         author: session?.user.id,
         rating,
-        likes: 0,
         img: imgPreview
+    };
+    const checkValidation = ()=>{
+        setValidation(false);
+        console.log("NOT VALID");
+        if (categories != "" && tags.length > 0 && rating > 0 && file != null && titleReview != "" && titleItem != "" && desc != "") {
+            setValidation(true);
+            console.log("VALID");
+        }
     };
     const bodyFormData = new FormData();
     bodyFormData.append("titleReview", titleReview);
@@ -510,24 +518,28 @@ function AddReview() {
     };
     const handleSubmit = async (e)=>{
         e.preventDefault();
-        setUpload(true);
-        try {
-            const res = await axios__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z.post("/api/review/add", bodyFormData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "Access-Control-Allow-Origin": "*"
-                }
-            });
-            console.log(res);
-            setUpload(false);
-            if (res.status === 201) router.push("/");
-        } catch (err) {
-            setError(err);
-            console.log(err);
-            setUpload(false);
+        if (validation) {
+            setUpload(true);
+            try {
+                const res = await axios__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z.post("/api/review/add", bodyFormData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        "Access-Control-Allow-Origin": "*"
+                    }
+                });
+                const addTags = await axios__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z.post("/api/tags", tags);
+                console.log(addTags);
+                console.log(res);
+                setUpload(false);
+                if (res.status === 201) router.push("/");
+            } catch (err) {
+                setError(err);
+                console.log(err);
+                setUpload(false);
+            }
         }
     };
-    (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(()=>{
+    (0,react__WEBPACK_IMPORTED_MODULE_4__.useEffect)(()=>{
         const getCategory = async ()=>{
             try {
                 const res = await axios__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z.get("/api/category").then((responce)=>responce.data);
@@ -678,6 +690,7 @@ function AddReview() {
                                             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(react_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_2__.Typeahead, {
                                                 id: "basic-typeahead-multiple",
                                                 labelKey: "name",
+                                                allowNew: true,
                                                 multiple: true,
                                                 onChange: setTags,
                                                 options: tagsOptions,
@@ -711,7 +724,7 @@ function AddReview() {
                                             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_11___default().Label), {
                                                 children: "Your grade from 1 - 10"
                                             }),
-                                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(react_simple_star_rating__WEBPACK_IMPORTED_MODULE_1__/* .Rating */ .i, {
+                                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(react_simple_star_rating__WEBPACK_IMPORTED_MODULE_3__/* .Rating */ .i, {
                                                 size: 25,
                                                 iconsCount: 10,
                                                 onClick: handleRating
@@ -721,6 +734,10 @@ function AddReview() {
                                     error && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
                                         className: "text-danger",
                                         children: error.message
+                                    }),
+                                    validation == false && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                                        className: "text-danger",
+                                        children: "Fill all fields"
                                     }),
                                     /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                                         className: "mb-5",
@@ -739,6 +756,7 @@ function AddReview() {
                                                     width: "180px",
                                                     minWidth: "120px"
                                                 },
+                                                onClick: checkValidation,
                                                 children: "Submit"
                                             })
                                         ]
@@ -770,10 +788,10 @@ function Loading() {
     return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
         className: "w-100 h-100 position-absolute z-2 d-flex justify-content-center align-items-center",
         children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
-            className: "w-75 py-4 px-5 bg-primary rounded d-flex justify-content-center align-items-center",
+            className: "py-4 px-5 bg-primary rounded d-flex justify-content-center align-items-center",
             children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
                 className: "m-0 text-light",
-                children: "Loading...please wait"
+                children: "Loading... Please wait"
             })
         })
     });
@@ -815,7 +833,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,9927,8543,1241,7802,4463,8747,7159], () => (__webpack_exec__(67953)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,7802,4463,8658,7159], () => (__webpack_exec__(67953)));
 module.exports = __webpack_exports__;
 
 })();

@@ -24,7 +24,6 @@ export const POST = async (req) => {
         const category = formData.get("category");
         const tags = formData.getAll("tags");
         const desc = formData.get("desc");
-        const likes = formData.get("likes");
         const author = formData.get("author");
         const rating = formData.get("rating");
         const reviewRating = formData.get("reviewRating");
@@ -49,7 +48,7 @@ export const POST = async (req) => {
             tags,
             img: cloudFront,
             desc,
-            likes,
+            likes: 0,
             rating,
             reviewRating,
             author,

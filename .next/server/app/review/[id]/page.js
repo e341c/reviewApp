@@ -420,10 +420,6 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: external "next/dist/compiled/react/jsx-runtime"
 var jsx_runtime_ = __webpack_require__(56786);
-// EXTERNAL MODULE: ./node_modules/axios/lib/axios.js + 46 modules
-var axios = __webpack_require__(93258);
-// EXTERNAL MODULE: ./node_modules/swr/core/dist/index.mjs + 1 modules
-var dist = __webpack_require__(97146);
 // EXTERNAL MODULE: ./node_modules/next/link.js
 var next_link = __webpack_require__(11440);
 var link_default = /*#__PURE__*/__webpack_require__.n(next_link);
@@ -446,7 +442,14 @@ var Form_default = /*#__PURE__*/__webpack_require__.n(Form);
 var react_ = __webpack_require__(18038);
 // EXTERNAL MODULE: ./node_modules/next-auth/react/index.js
 var react = __webpack_require__(74284);
+// EXTERNAL MODULE: ./node_modules/axios/lib/axios.js + 46 modules
+var axios = __webpack_require__(93258);
+// EXTERNAL MODULE: ./node_modules/swr/core/dist/index.mjs + 1 modules
+var dist = __webpack_require__(97146);
+// EXTERNAL MODULE: ./node_modules/next/navigation.js
+var navigation = __webpack_require__(57114);
 ;// CONCATENATED MODULE: ./components/Comments.jsx
+
 
 
 
@@ -461,6 +464,7 @@ var react = __webpack_require__(74284);
 
 fontawesome_svg_core.library.add(free_solid_svg_icons/* faBars */.xiG);
 function Comment({ id }) {
+    const router = (0,navigation.useRouter)();
     const { data, isLoading, error } = (0,dist/* default */.ZP)("/api/comment", async ()=>{
         const res = await axios/* default */.Z.get(`/api/comment/${id}`);
         return res.data;
@@ -470,6 +474,15 @@ function Comment({ id }) {
     const { data: session } = (0,react.useSession)();
     const [commentId, setCommentId] = (0,react_.useState)("");
     const [commentValue, setCommentValue] = (0,react_.useState)("");
+    if (error) {
+        console.log(error);
+        router.refresh();
+    }
+    if (isLoading) {
+        return /*#__PURE__*/ jsx_runtime_.jsx("p", {
+            children: "Loading comments..."
+        });
+    }
     if (data?.length === 0) {
         return /*#__PURE__*/ jsx_runtime_.jsx("div", {
             className: "shadow py-5 px-1 rounded",
@@ -535,7 +548,7 @@ function Comment({ id }) {
                                                 children: [
                                                     /*#__PURE__*/ jsx_runtime_.jsx((link_default()), {
                                                         href: `/profile/${item.authorId?._id}`,
-                                                        className: "col text-decoration-none",
+                                                        className: "col text-decoration-none pt-2",
                                                         children: /*#__PURE__*/ jsx_runtime_.jsx("strong", {
                                                             children: item.authorId?.name
                                                         })
@@ -585,7 +598,7 @@ function Comment({ id }) {
                                                             }),
                                                             /*#__PURE__*/ (0,jsx_runtime_.jsxs)((Button_default()), {
                                                                 variant: "danger",
-                                                                onClick: handleCancel,
+                                                                onClick: ()=>handleCancel,
                                                                 children: [
                                                                     /*#__PURE__*/ jsx_runtime_.jsx(react_fontawesome.FontAwesomeIcon, {
                                                                         icon: "fa-solid fa-xmark"
@@ -610,7 +623,7 @@ function Comment({ id }) {
                                                     }),
                                                     /*#__PURE__*/ jsx_runtime_.jsx((Button_default()), {
                                                         variant: "primary",
-                                                        onClick: handleSubmit,
+                                                        onClick: ()=>handleSubmit,
                                                         children: "Edit comment"
                                                     })
                                                 ]
@@ -674,7 +687,7 @@ function NewComment({ id }) {
                     }),
                     /*#__PURE__*/ jsx_runtime_.jsx((Button_default()), {
                         variant: "primary",
-                        onClick: handleComment,
+                        onClick: ()=>handleComment,
                         children: "Send comment"
                     })
                 ]
@@ -711,8 +724,6 @@ function NewComment({ id }) {
     });
 }
 
-// EXTERNAL MODULE: ./node_modules/next/navigation.js
-var navigation = __webpack_require__(57114);
 // EXTERNAL MODULE: ./node_modules/react-markdown/lib/react-markdown.js + 124 modules
 var react_markdown = __webpack_require__(88543);
 ;// CONCATENATED MODULE: ./app/review/[id]/page.jsx
@@ -743,9 +754,7 @@ function Review({ params }) {
     }
     if (error) {
         console.log(error);
-        return /*#__PURE__*/ jsx_runtime_.jsx("p", {
-            children: error.message
-        });
+        router.refresh();
     }
     if (!data) {
         router.push("/");
@@ -887,7 +896,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,9927,8543,1241,6220,8747], () => (__webpack_exec__(68447)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,8658], () => (__webpack_exec__(68447)));
 module.exports = __webpack_exports__;
 
 })();

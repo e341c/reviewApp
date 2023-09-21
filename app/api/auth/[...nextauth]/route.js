@@ -23,10 +23,7 @@ const handler = NextAuth({
                     });
 
                     if (user) {
-                        const isPasswordCorrect = await bcrypt.compare(
-                            credentials.password,
-                            user.password
-                        );
+                        const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
 
                         if (isPasswordCorrect) {
                             return user;
@@ -50,24 +47,28 @@ const handler = NextAuth({
             clientSecret: process.env.GOOGLE_SECRET,
         }),
     ],
+    session: {
+        strategy: "jwt",
+        maxAge: 600,
+    },
+    jwt: {
+        maxAge: 600,
+    },
     callbacks: {
         jwt: async ({ user, token }) => {
             if (user) {
                 token.uid = user.id;
-                token.admin = user.admin
+                token.admin = user.admin;
             }
             return token;
         },
         session: async ({ session, token }) => {
             if (session?.user) {
                 session.user.id = token.uid;
-                session.user.admin = token.admin
+                session.user.admin = token.admin;
             }
             return session;
         },
-    },
-    session: {
-        strategy: "jwt",
     },
 });
 
