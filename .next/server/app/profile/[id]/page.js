@@ -476,7 +476,7 @@ function Profile({ params }) {
                 /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                     className: "col col-md-3 mb-4",
                     children: [
-                        /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h1", {
+                        /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h3", {
                             className: "mb-4",
                             children: [
                                 data[0]?.name,
@@ -528,7 +528,7 @@ function Profile({ params }) {
                     children: [
                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
                             className: "mb-4",
-                            children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h1", {
+                            children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h3", {
                                 children: [
                                     data[0]?.name,
                                     " reviews"
@@ -585,7 +585,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,8658,7159,3116], () => (__webpack_exec__(46430)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,8747,7159,3116], () => (__webpack_exec__(46430)));
 module.exports = __webpack_exports__;
 
 })();

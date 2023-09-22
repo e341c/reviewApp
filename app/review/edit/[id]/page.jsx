@@ -166,6 +166,7 @@ export default function EditReview({ params }) {
                             <Typeahead
                                 id="basic-typeahead-multiple"
                                 labelKey="name"
+                                allowNew
                                 multiple
                                 onChange={setTags}
                                 options={tagsOptions}

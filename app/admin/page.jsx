@@ -40,19 +40,7 @@ export default function Profile({params}) {
 
                 <div className="col">
                     <div className="mb-4 d-flex justify-content-between">
-                        <h1 className="me-3">Users</h1>
-                        <div>
-                            <InputGroup>
-                                <Form.Control
-                                    placeholder="Find an user"
-                                    aria-label="Find an user"
-                                    aria-describedby="basic-addon2"
-                                />
-                                <Button variant="outline-secondary" id="button-addon2">
-                                    <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
-                                </Button>
-                            </InputGroup>
-                        </div>
+                        <h3 className="me-3">Users</h3>
                     </div>
                     {data?.length === 0 && <p>There are no users here yet</p>}
                     {data?.map(item => <User data={item} /> )}

@@ -68,7 +68,7 @@ export default function Header() {
                         </li>
                     </ul>
                     <div className="d-flex">
-                        <SearchBar url={path === '/' && '/api/review' || path === '/profile' && `/api/profile/${id}` } />
+                        <SearchBar url={path === '/' && '/api/review' || path === '/profile' && `/api/profile/${id}` || `/api${path}` } />
                         <ThemeButton />
                     </div>
                 </div>

@@ -468,7 +468,7 @@ function Profile({ params }) {
                         minWidth: "260px"
                     },
                     children: [
-                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h1", {
+                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h3", {
                             className: "mb-4",
                             children: "Your profile"
                         }),
@@ -523,7 +523,7 @@ function Profile({ params }) {
                         /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                             className: "mb-4 d-flex justify-content-between",
                             children: [
-                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h1", {
+                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h3", {
                                     children: "Your reviews"
                                 }),
                                 id === session?.user.id && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
@@ -595,7 +595,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,8658,3116], () => (__webpack_exec__(64913)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,8747,3116], () => (__webpack_exec__(64913)));
 module.exports = __webpack_exports__;
 
 })();

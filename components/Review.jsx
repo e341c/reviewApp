@@ -7,8 +7,6 @@ export default function Review({main, reviewData: data }) {
     const [tags, setTags] = useState(JSON.parse(JSON.stringify(data?.tags)));
     const { data: session, status } = useSession();
 
-    console.log(data);
-
     return (
         <div className="mb-5" key={data._id}>
             <div className="d-flex">

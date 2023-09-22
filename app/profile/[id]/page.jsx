@@ -44,7 +44,7 @@ export default function Profile({ params }) {
         <div>
             <div className="row" style={{ marginTop: "80px" }}>
                 <div className="col col-md-3 mb-4">
-                    <h1 className="mb-4">{data[0]?.name}'s profile</h1>
+                    <h3 className="mb-4">{data[0]?.name}'s profile</h3>
                     <div className="p-3 shadow rounded">
                         <p>{data[0]?.name}</p>
                         <p>{data[0]?.email}</p>
@@ -60,7 +60,7 @@ export default function Profile({ params }) {
 
                 <div className="col" style={{ minWidth: "70%" }}>
                     <div className="mb-4">
-                        <h1>{data[0]?.name} reviews</h1>
+                        <h3>{data[0]?.name} reviews</h3>
                     </div>
                     {data[1].length === 0 && <p>There are no reviews here yet</p>}
                     {data[1]?.map((item) => (

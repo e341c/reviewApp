@@ -44,7 +44,6 @@ export default function Comment({ id }) {
         );
     }
 
-
     const handleEdit = (commentId, comment) => {
         setCommentId(commentId);
         setCommentValue(comment);
@@ -58,7 +57,6 @@ export default function Comment({ id }) {
     const body = {
         comment: commentValue,
         reviewId: id,
-        authorId: session?.user.id,
     };
 
     const handleSubmit = async () => {
@@ -90,7 +88,7 @@ export default function Comment({ id }) {
                                         <strong>{item.authorId?.name}</strong>
                                     </Link>
 
-                                    {session?.user.id === item.authorId?._id && (
+                                    {((session?.user.id === item.authorId?._id) || (session?.user.admin)) && (
                                         <Dropdown className="col col-auto">
                                             <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
                                                 <FontAwesomeIcon icon="fa-solid fa-bars" className="me-1" />

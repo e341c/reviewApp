@@ -40,7 +40,7 @@ export default function Profile({ params }) {
         <div>
             <div className="row" style={{ marginTop: "80px" }}>
                 <div className="col col-md-3 mb-4" style={{minWidth:"260px"}}>
-                    <h1 className="mb-4">Your profile</h1>
+                    <h3 className="mb-4">Your profile</h3>
                     <div className="p-4 shadow rounded">
                             <p>{session?.user.name}</p>
                             <p>{session?.user.email}</p>
@@ -62,7 +62,7 @@ export default function Profile({ params }) {
 
                 <div className="col" style={{minWidth:"70%"}}>
                     <div className="mb-4 d-flex justify-content-between">
-                        <h1>Your reviews</h1>
+                        <h3>Your reviews</h3>
                         {id === session?.user.id && (
                             <div className="pt-2">
                                 <Link href={"/review/add"} className="btn btn-primary">

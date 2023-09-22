@@ -62,10 +62,23 @@ var User = __webpack_require__(24946);
 
 const revalidate = 10;
 const GET = async (req)=>{
+    const { searchParams } = new URL(req.url);
+    const search = searchParams.get("search");
     try {
         await (0,db/* default */.Z)();
         await User/* default */.Z.find();
-        const user = await User/* default */.Z.find();
+        const options = {};
+        if (search) {
+            options.$or = [
+                {
+                    name: new RegExp(search, "i")
+                },
+                {
+                    email: new RegExp(search, "i")
+                }
+            ];
+        }
+        const user = await User/* default */.Z.find(options);
         return new next_response/* default */.Z(JSON.stringify(user), {
             status: 200
         });

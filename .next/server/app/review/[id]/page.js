@@ -500,8 +500,7 @@ function Comment({ id }) {
     };
     const body = {
         comment: commentValue,
-        reviewId: id,
-        authorId: session?.user.id
+        reviewId: id
     };
     const handleSubmit = async ()=>{
         const res = await axios/* default */.Z.post(`/api/comment/edit/${commentId}`, body);
@@ -551,7 +550,7 @@ function Comment({ id }) {
                                                             children: item.authorId?.name
                                                         })
                                                     }),
-                                                    session?.user.id === item.authorId?._id && /*#__PURE__*/ (0,jsx_runtime_.jsxs)((Dropdown_default()), {
+                                                    (session?.user.id === item.authorId?._id || (session?.user.admin)) && /*#__PURE__*/ (0,jsx_runtime_.jsxs)((Dropdown_default()), {
                                                         className: "col col-auto",
                                                         children: [
                                                             /*#__PURE__*/ jsx_runtime_.jsx((Dropdown_default()).Toggle, {
@@ -955,7 +954,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,3801,8658], () => (__webpack_exec__(68447)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,3801,8747], () => (__webpack_exec__(68447)));
 module.exports = __webpack_exports__;
 
 })();

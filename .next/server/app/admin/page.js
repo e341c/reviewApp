@@ -417,12 +417,6 @@ var axios = __webpack_require__(93258);
 // EXTERNAL MODULE: ./node_modules/react-bootstrap/cjs/Button.js
 var Button = __webpack_require__(93780);
 var Button_default = /*#__PURE__*/__webpack_require__.n(Button);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/cjs/Form.js
-var Form = __webpack_require__(39486);
-var Form_default = /*#__PURE__*/__webpack_require__.n(Form);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/cjs/InputGroup.js
-var InputGroup = __webpack_require__(9136);
-var InputGroup_default = /*#__PURE__*/__webpack_require__.n(InputGroup);
 // EXTERNAL MODULE: ./node_modules/next/navigation.js
 var navigation = __webpack_require__(57114);
 ;// CONCATENATED MODULE: ./components/User.jsx
@@ -551,32 +545,12 @@ function Profile({ params }) {
                 /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
                     className: "col",
                     children: [
-                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                        /*#__PURE__*/ jsx_runtime_.jsx("div", {
                             className: "mb-4 d-flex justify-content-between",
-                            children: [
-                                /*#__PURE__*/ jsx_runtime_.jsx("h1", {
-                                    className: "me-3",
-                                    children: "Users"
-                                }),
-                                /*#__PURE__*/ jsx_runtime_.jsx("div", {
-                                    children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)((InputGroup_default()), {
-                                        children: [
-                                            /*#__PURE__*/ jsx_runtime_.jsx((Form_default()).Control, {
-                                                placeholder: "Find an user",
-                                                "aria-label": "Find an user",
-                                                "aria-describedby": "basic-addon2"
-                                            }),
-                                            /*#__PURE__*/ jsx_runtime_.jsx((Button_default()), {
-                                                variant: "outline-secondary",
-                                                id: "button-addon2",
-                                                children: /*#__PURE__*/ jsx_runtime_.jsx(react_fontawesome.FontAwesomeIcon, {
-                                                    icon: "fa-solid fa-magnifying-glass"
-                                                })
-                                            })
-                                        ]
-                                    })
-                                })
-                            ]
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("h3", {
+                                className: "me-3",
+                                children: "Users"
+                            })
                         }),
                         data?.length === 0 && /*#__PURE__*/ jsx_runtime_.jsx("p", {
                             children: "There are no users here yet"
@@ -627,7 +601,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8658], () => (__webpack_exec__(58917)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8747], () => (__webpack_exec__(58917)));
 module.exports = __webpack_exports__;
 
 })();
