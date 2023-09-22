@@ -8,7 +8,6 @@ import useSWR from "swr";
 import axios from "axios";
 import { Button } from "react-bootstrap";
 import ProfileReview from "@/components/ProfileReview";
-import { useRouter } from "next/navigation";
 
 export default function Profile({ params }) {
     const { data: session, status } = useSession();
@@ -26,8 +25,16 @@ export default function Profile({ params }) {
 
     if (error) {
         console.log(error);
-        return <p>{error.message}</p>;
+        return <p>Something went wrong. Try to reload page</p>
     }
+
+    const likes = []
+
+    data[1]?.filter(item => {
+        if(item.likes.length > 0){
+            likes.push(...item.likes) 
+        }
+    })
 
     return (
         <div>
@@ -42,7 +49,7 @@ export default function Profile({ params }) {
                             </p>
                             <p>
                                 Likes:&nbsp;
-                                <strong>120</strong>&nbsp;
+                                <strong>{likes.length}</strong>&nbsp;
                                 <FontAwesomeIcon icon={faHeart} />
                             </p>
                             {id === session?.user.id && (

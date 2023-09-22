@@ -31,7 +31,6 @@ exports.modules = {
 function ProfileReview({ reviewData: data, id }) {
     const { data: session, status } = (0,next_auth_react__WEBPACK_IMPORTED_MODULE_1__.useSession)();
     const [tags, setTags] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(JSON.parse(JSON.stringify(data?.tags)));
-    const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false);
     return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
         className: "mb-5",
         children: [
@@ -41,7 +40,7 @@ function ProfileReview({ reviewData: data, id }) {
                     children: [
                         /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((next_link__WEBPACK_IMPORTED_MODULE_2___default()), {
                             href: `/review/${data?._id}`,
-                            className: "col text-decoration-none text-body d-flex justify-content-between",
+                            className: "col text-decoration-none text-body d-flex ",
                             children: [
                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
                                     className: "mt-2 me-3",
@@ -91,7 +90,7 @@ function ProfileReview({ reviewData: data, id }) {
                                             children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
                                                 children: [
                                                     "Review likes: ",
-                                                    data?.likes
+                                                    data?.likes.length
                                                 ]
                                             })
                                         })
@@ -99,7 +98,7 @@ function ProfileReview({ reviewData: data, id }) {
                                 })
                             ]
                         }),
-                        id === session?.user.id && /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Dropdown__WEBPACK_IMPORTED_MODULE_5___default()), {
+                        (id === session?.user.id || session?.user.admin) && /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Dropdown__WEBPACK_IMPORTED_MODULE_5___default()), {
                             className: "col col-auto",
                             children: [
                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Dropdown__WEBPACK_IMPORTED_MODULE_5___default().Toggle), {

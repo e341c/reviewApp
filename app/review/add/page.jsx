@@ -43,6 +43,7 @@ export default function AddReview() {
             return JSON.stringify(item);
         }),
         desc,
+        likes: [],
         author: session?.user.id,
         rating,
         img: imgPreview,
@@ -180,7 +181,7 @@ export default function AddReview() {
                             <Form.Label>Choice category</Form.Label>
                             <InputGroup>
                                 <Form.Select required name="category" aria-label="category" onChange={(e) => setCategory(e.target.value)}>
-                                    <option>Choose category</option>
+                                    <option selected disabled>Choose category</option>
                                     {categories.map((item) => (
                                         <option value={item._id} key={item.key}>
                                             {item.name}

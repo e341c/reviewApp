@@ -23,9 +23,10 @@ exports.modules = {
 
 
 
-function Review({ reviewData: data }) {
+function Review({ main, reviewData: data }) {
     const [tags, setTags] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(JSON.parse(JSON.stringify(data?.tags)));
     const { data: session, status } = (0,next_auth_react__WEBPACK_IMPORTED_MODULE_1__.useSession)();
+    console.log(data);
     return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
         className: "mb-5",
         children: [
@@ -74,8 +75,10 @@ function Review({ reviewData: data }) {
                                             return parseItem.name + " ";
                                         })
                                     }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(react_markdown__WEBPACK_IMPORTED_MODULE_4__/* .ReactMarkdown */ .D, {
+                                    main ? /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(react_markdown__WEBPACK_IMPORTED_MODULE_4__/* .ReactMarkdown */ .D, {
                                         children: data?.desc?.substring(0, 200) + "..."
+                                    }) : /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(react_markdown__WEBPACK_IMPORTED_MODULE_4__/* .ReactMarkdown */ .D, {
+                                        children: data?.desc
                                     }),
                                     /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
                                         children: [
@@ -91,7 +94,7 @@ function Review({ reviewData: data }) {
                                     /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
                                         children: [
                                             "Review likes: ",
-                                            data?.likes
+                                            data?.likes?.length
                                         ]
                                     }),
                                     data?.author?.name && /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {

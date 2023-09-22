@@ -1,6 +1,8 @@
 {
   "version": 1,
   "functions": {
+    "/api/admin": {},
+    "/api/auth/register": {},
     "/api/category": {},
     "/api/comment/[id]": {},
     "/api/comment/delete/[id]": {},
@@ -8,11 +10,10 @@
     "/api/profile/[id]": {},
     "/api/review/[id]": {},
     "/api/review/add": {},
-    "/api/auth/register": {},
-    "/api/review": {},
-    "/api/tags": {},
-    "/api/admin": {},
     "/api/review/delete/[id]": {},
-    "/api/review/edit/[id]": {}
+    "/api/review/edit/[id]": {},
+    "/api/review/like/[id]": {},
+    "/api/review": {},
+    "/api/tags": {}
   }
 }

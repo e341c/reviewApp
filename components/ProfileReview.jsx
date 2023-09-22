@@ -9,15 +9,13 @@ export default function ProfileReview({ reviewData: data, id }) {
     const {data: session, status} = useSession()
     const [tags, setTags] = useState(JSON.parse(JSON.stringify(data?.tags)))
 
-    const [isLoading, setIsLoading] = useState(false)
-
     return (
         <div className="mb-5" key={data?._id}>
             <div>
                 <div className="row">
                     <Link
                         href={`/review/${data?._id}`}
-                        className="col text-decoration-none text-body d-flex justify-content-between"
+                        className="col text-decoration-none text-body d-flex "
                     >
                         <div className="mt-2 me-3" style={{maxWidth:"150px"}}>
                             <img
@@ -43,11 +41,11 @@ export default function ProfileReview({ reviewData: data, id }) {
                             </ReactMarkdown>
                             <p>Rate: {data?.rating}</p>
                             <div className="d-flex justify-content-between">
-                                <p>Review likes: {data?.likes}</p>
+                                <p>Review likes: {data?.likes.length}</p>
                             </div>
                         </div>
                     </Link>
-                    {id === session?.user.id && 
+                    {(id === session?.user.id || session?.user.admin) && 
                     <Dropdown className="col col-auto">
                         <Dropdown.Toggle variant="secondary" id="dropdown-basic">
                             More actions

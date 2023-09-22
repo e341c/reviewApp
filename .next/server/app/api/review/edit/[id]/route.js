@@ -122,7 +122,7 @@ const POST = async (req, { params })=>{
             category,
             tags,
             desc,
-            likes,
+            likes: [],
             rating,
             reviewRating
         };

@@ -7,7 +7,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Register() {
-    const [error, setError] = useState(null);
+    const [error, setError] = useState();
+    const [matchError, setMatchError] = useState()
 
     const router = useRouter()
 
@@ -16,22 +17,33 @@ export default function Register() {
         const name = e.target[0].value;
         const email = e.target[1].value;
         const password = e.target[2].value;
+        const matchPassword = e.target[3].value;
 
-        const body = {
-            name,
-            email,
-            password
+        if(password !== matchPassword){
+            console.log('MATCH');
+            setMatchError("Password does not match")
         }
 
-        try {
-            const res = await axios.post("/api/auth/register", body)
-            res.status === 201 &&
-                router.push("/login?success=Account has been created");
-        } catch (err) {
-            setError(err);
-            console.log(err);
+        if(password === matchPassword){
+            setMatchError()
+            const body = {
+                name,
+                email,
+                password
+            }
+    
+            try {
+                const res = await axios.post("/api/auth/register", body)
+                res.status === 201 &&
+                    router.push("/login?success=Account has been created");
+            } catch (err) {
+                setError(err);
+                console.log(err);
+            }
         }
     };
+
+    console.log(error);
 
     return (
         <main className="w-100 h-100 d-flex justify-content-center align-items-center">
@@ -44,27 +56,31 @@ export default function Register() {
 
                 <Form.Group className="mb-3 w-100">
                     <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" placeholder="Enter your name" />
+                    <Form.Control type="text" placeholder="Enter your name" required/>
                 </Form.Group>
 
                 <Form.Group className="mb-3 w-100">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
+                    <Form.Control type="email" placeholder="Enter email" required/>
                 </Form.Group>
 
                 <Form.Group className="mb-4 w-100">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
+                    <Form.Control type="password" placeholder="Password" required/>
+                    {matchError && <p style={{fontSize:"13px"}} className="text-danger m-0 mt-1"> {matchError} </p> }
                 </Form.Group>
-
+               
                 <Form.Group className="mb-4 w-100">
-                    <Form.Label>Repeat password</Form.Label>
+                    <Form.Label className="d-flex">Repeat password </Form.Label>
                     <Form.Control
+                        required
                         type="password"
                         placeholder="Repeat password"
                     />
+                    {matchError && <p style={{fontSize:"13px"}} className="text-danger m-0 mt-1"> {matchError} </p> }
                 </Form.Group>
-                {error && "Something went wrong!"}
+                
+                {error && <p className="text-danger"> Something went wrong </p> }
                 <Button
                     className="mb-4 w-100 shadow-sm"
                     variant="primary"
@@ -74,7 +90,7 @@ export default function Register() {
                 </Button>
 
                 <p>
-                    Alreade have an account? &nbspl;
+                    Alreade have an account?&nbsp;
                     <Link href={"/login"}>
                         <strong>Login now</strong>
                     </Link>

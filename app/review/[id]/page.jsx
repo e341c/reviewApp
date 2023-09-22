@@ -1,5 +1,6 @@
 'use client'
 import Comment from "@/components/Comments";
+import LikeToggle from "@/components/LikeToggle";
 import NewComment from "@/components/NewComment";
 import axios from "axios";
 import Link from "next/link";
@@ -11,10 +12,12 @@ import useSWR from "swr";
 export default function Review({params}) {
     const {id} = params
     const router = useRouter();
+    const [likes, setLikes] = useState()
     const [tags, setTags] = useState([]);
     
     const { data, error, isLoading } = useSWR(`/api/review/${id}`, async () => {
         const res = await axios.get(`/api/review/${id}`)
+        setLikes(res.data.likes)
         setTags(JSON.parse(JSON.stringify(res.data.tags)))
         return res.data
     }, { refreshInterval: 100 });
@@ -25,12 +28,13 @@ export default function Review({params}) {
 
     if(error){
         console.log(error);
-        router.refresh()
+        return <p>Something went wrong. Try to reload page</p>
     }
 
     if(!data){
         router.push('/')
     }
+
 
     return (
         <div className="mb-5">
@@ -50,7 +54,7 @@ export default function Review({params}) {
                     </p>
                     <p>Author rate: {data?.rating}</p>
                     <div className="row">
-                        <p className="col col-auto me-auto">Likes: {data?.likes}</p>
+                        <p className="col col-auto me-auto">Likes: {data?.likes.length}</p>
                         <p className="col col-auto">Review written by&nbsp;
                             <Link href={`/profile/${data?.author?._id}`} className='text-primary'>
                                 {data?.author?.name}
@@ -61,6 +65,7 @@ export default function Review({params}) {
             </div> 
                 <h4>Review:</h4>
                 <ReactMarkdown className="mt-4">{data?.desc}</ReactMarkdown>
+                <LikeToggle likes={likes} id={id} />
             <hr className="w-100" />
             <div>
                 <NewComment id={id} />

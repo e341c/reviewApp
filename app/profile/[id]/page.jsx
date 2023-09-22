@@ -4,9 +4,9 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
 import axios from "axios";
-import ProfileReview from "@/components/ProfileReview";
 import { useRouter } from "next/navigation";
 import Review from "@/components/Review";
+import ProfileReview from "@/components/ProfileReview";
 
 export default function Profile({ params }) {
     const { id } = params;
@@ -29,8 +29,16 @@ export default function Profile({ params }) {
 
     if (error) {
         console.log(error);
-        return <p>{error.message}</p>;
+        return <p>Something went wrong. Try to reload page</p>
     }
+
+    const likes = []
+
+    data[1]?.filter(item => {
+        if(item.likes.length > 0){
+            likes.push(...item.likes) 
+        }
+    })
 
     return (
         <div>
@@ -45,7 +53,7 @@ export default function Profile({ params }) {
                         </p>
                         <p>
                             <FontAwesomeIcon icon={faHeart} />
-                            &nbsp;<strong>120</strong>&nbsp;likes
+                            &nbsp;<strong>{likes.length}</strong>&nbsp;likes
                         </p>
                     </div>
                 </div>
@@ -56,7 +64,7 @@ export default function Profile({ params }) {
                     </div>
                     {data[1].length === 0 && <p>There are no reviews here yet</p>}
                     {data[1]?.map((item) => (
-                        <Review reviewData={item} id={id} />
+                        <ProfileReview reviewData={item} id={id} />
                     ))}
                 </div>
             </div>

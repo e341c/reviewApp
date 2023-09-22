@@ -3,9 +3,11 @@ import Link from "next/link";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 
-export default function Review({ reviewData: data }) {
+export default function Review({main, reviewData: data }) {
     const [tags, setTags] = useState(JSON.parse(JSON.stringify(data?.tags)));
     const { data: session, status } = useSession();
+
+    console.log(data);
 
     return (
         <div className="mb-5" key={data._id}>
@@ -26,11 +28,14 @@ export default function Review({ reviewData: data }) {
                                 return parseItem.name + " ";
                             })}
                         </p>
-                        <ReactMarkdown>{data?.desc?.substring(0, 200) + "..."}</ReactMarkdown>
+                        {main ? (<ReactMarkdown>{data?.desc?.substring(0, 200) + "..."}</ReactMarkdown>) 
+                            : (<ReactMarkdown>{data?.desc}</ReactMarkdown>)
+                        }
+                        
                         <p>Rate: {data?.rating}</p>
                     </Link>
                     <div className="d-flex justify-content-between">
-                        <p>Review likes: {data?.likes}</p>
+                        <p>Review likes: {data?.likes?.length}</p>
                         {data?.author?.name && (
                             <p>
                                 Author: &nbsp;

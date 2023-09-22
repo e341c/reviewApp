@@ -423,10 +423,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_auth_react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_auth_react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(97146);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(93258);
-/* harmony import */ var _components_ProfileReview__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(63116);
-/* harmony import */ var next_navigation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(57114);
-/* harmony import */ var next_navigation__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(next_navigation__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _components_Review__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(7159);
+/* harmony import */ var next_navigation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(57114);
+/* harmony import */ var next_navigation__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_navigation__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_Review__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7159);
+/* harmony import */ var _components_ProfileReview__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(63116);
 /* __next_internal_client_entry_do_not_use__ default auto */ 
 
 
@@ -439,7 +439,7 @@ __webpack_require__.r(__webpack_exports__);
 function Profile({ params }) {
     const { id } = params;
     const { data: session, status } = (0,next_auth_react__WEBPACK_IMPORTED_MODULE_2__.useSession)();
-    const router = (0,next_navigation__WEBPACK_IMPORTED_MODULE_5__.useRouter)();
+    const router = (0,next_navigation__WEBPACK_IMPORTED_MODULE_4__.useRouter)();
     if (id === session?.user.id) {
         router.push("/profile");
     }
@@ -457,9 +457,15 @@ function Profile({ params }) {
     if (error) {
         console.log(error);
         return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-            children: error.message
+            children: "Something went wrong. Try to reload page"
         });
     }
+    const likes = [];
+    data[1]?.filter((item)=>{
+        if (item.likes.length > 0) {
+            likes.push(...item.likes);
+        }
+    });
     return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
         children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
             className: "row",
@@ -505,7 +511,7 @@ function Profile({ params }) {
                                         }),
                                         "\xa0",
                                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("strong", {
-                                            children: "120"
+                                            children: likes.length
                                         }),
                                         "\xa0likes"
                                     ]
@@ -532,7 +538,7 @@ function Profile({ params }) {
                         data[1].length === 0 && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
                             children: "There are no reviews here yet"
                         }),
-                        data[1]?.map((item)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Review__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z, {
+                        data[1]?.map((item)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_ProfileReview__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z, {
                                 reviewData: item,
                                 id: id
                             }))
@@ -579,7 +585,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,8658,7159,3116], () => (__webpack_exec__(46430)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,8747,7159,3116], () => (__webpack_exec__(46430)));
 module.exports = __webpack_exports__;
 
 })();

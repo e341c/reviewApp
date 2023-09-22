@@ -131,7 +131,7 @@ const POST = async (req)=>{
             tags,
             img: cloudFront,
             desc,
-            likes: 0,
+            likes: [],
             rating,
             reviewRating,
             author

@@ -6,15 +6,12 @@ import useSWR from "swr";
 import axios from "axios";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/navigation";
 import Categories from "./Categories";
-import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 
 library.add(faSearch, faXmark);
 
 export default function SearchBar({ url }) {
-    const router = useRouter();
     const [search, setSearch] = useState("");
 
     const { data, error, isLoading } = useSWR(
@@ -28,7 +25,6 @@ export default function SearchBar({ url }) {
 
     if (error) {
         console.log(error);
-        router.refresh();
     }
 
     return (

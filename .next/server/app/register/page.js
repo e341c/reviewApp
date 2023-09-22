@@ -418,26 +418,36 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Register() {
-    const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null);
+    const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)();
+    const [matchError, setMatchError] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)();
     const router = (0,next_navigation__WEBPACK_IMPORTED_MODULE_3__.useRouter)();
     const handleSubmit = async (e)=>{
         e.preventDefault();
         const name = e.target[0].value;
         const email = e.target[1].value;
         const password = e.target[2].value;
-        const body = {
-            name,
-            email,
-            password
-        };
-        try {
-            const res = await axios__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z.post("/api/auth/register", body);
-            res.status === 201 && router.push("/login?success=Account has been created");
-        } catch (err) {
-            setError(err);
-            console.log(err);
+        const matchPassword = e.target[3].value;
+        if (password !== matchPassword) {
+            console.log("MATCH");
+            setMatchError("Password does not match");
+        }
+        if (password === matchPassword) {
+            setMatchError();
+            const body = {
+                name,
+                email,
+                password
+            };
+            try {
+                const res = await axios__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z.post("/api/auth/register", body);
+                res.status === 201 && router.push("/login?success=Account has been created");
+            } catch (err) {
+                setError(err);
+                console.log(err);
+            }
         }
     };
+    console.log(error);
     return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("main", {
         className: "w-100 h-100 d-flex justify-content-center align-items-center",
         children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_5___default()), {
@@ -461,7 +471,8 @@ function Register() {
                         }),
                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_5___default().Control), {
                             type: "text",
-                            placeholder: "Enter your name"
+                            placeholder: "Enter your name",
+                            required: true
                         })
                     ]
                 }),
@@ -473,7 +484,8 @@ function Register() {
                         }),
                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_5___default().Control), {
                             type: "email",
-                            placeholder: "Enter email"
+                            placeholder: "Enter email",
+                            required: true
                         })
                     ]
                 }),
@@ -485,7 +497,19 @@ function Register() {
                         }),
                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_5___default().Control), {
                             type: "password",
-                            placeholder: "Password"
+                            placeholder: "Password",
+                            required: true
+                        }),
+                        matchError && /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
+                            style: {
+                                fontSize: "13px"
+                            },
+                            className: "text-danger m-0 mt-1",
+                            children: [
+                                " ",
+                                matchError,
+                                " "
+                            ]
                         })
                     ]
                 }),
@@ -493,15 +517,31 @@ function Register() {
                     className: "mb-4 w-100",
                     children: [
                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_5___default().Label), {
-                            children: "Repeat password"
+                            className: "d-flex",
+                            children: "Repeat password "
                         }),
                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_5___default().Control), {
+                            required: true,
                             type: "password",
                             placeholder: "Repeat password"
+                        }),
+                        matchError && /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
+                            style: {
+                                fontSize: "13px"
+                            },
+                            className: "text-danger m-0 mt-1",
+                            children: [
+                                " ",
+                                matchError,
+                                " "
+                            ]
                         })
                     ]
                 }),
-                error && "Something went wrong!",
+                error && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                    className: "text-danger",
+                    children: " Something went wrong "
+                }),
                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_6___default()), {
                     className: "mb-4 w-100 shadow-sm",
                     variant: "primary",
@@ -510,7 +550,7 @@ function Register() {
                 }),
                 /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
                     children: [
-                        "Alreade have an account? &nbspl;",
+                        "Alreade have an account?\xa0",
                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((next_link__WEBPACK_IMPORTED_MODULE_1___default()), {
                             href: "/login",
                             children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("strong", {
@@ -560,7 +600,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8658], () => (__webpack_exec__(24987)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8747], () => (__webpack_exec__(24987)));
 module.exports = __webpack_exports__;
 
 })();

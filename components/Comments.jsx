@@ -9,12 +9,10 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import useSWR from "swr";
-import { useRouter } from "next/navigation";
 
 library.add(faBars);
 
 export default function Comment({ id }) {
-    const router = useRouter()
     const { data, isLoading, error } = useSWR(
         "/api/comment",
         async () => {
@@ -31,7 +29,7 @@ export default function Comment({ id }) {
 
     if(error){
         console.log(error);
-        router.refresh()
+        return <p>Something went wrong. Try to reload page</p>
     }
 
     if(isLoading){
@@ -112,7 +110,7 @@ export default function Comment({ id }) {
                                     <Form.Group className="mb-3" controlId="desc">
                                         <Form.Label className="d-flex justify-content-between align-items-center">
                                             <strong>Edit comment</strong>
-                                            <Button variant="danger" onClick={() => handleCancel}>
+                                            <Button variant="danger" onClick={handleCancel}>
                                                 <FontAwesomeIcon icon="fa-solid fa-xmark" /> Close
                                             </Button>
                                         </Form.Label>
@@ -127,7 +125,7 @@ export default function Comment({ id }) {
                                             placeholder="Enter your comment"
                                             onChange={(e) => setCommentValue(e.target.value)}
                                         />
-                                        <Button variant="primary" onClick={() => handleSubmit}>
+                                        <Button variant="primary" onClick={handleSubmit}>
                                             Edit comment
                                         </Button>
                                     </Form.Group>

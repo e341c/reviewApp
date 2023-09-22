@@ -475,6 +475,7 @@ function AddReview() {
             return JSON.stringify(item);
         }),
         desc,
+        likes: [],
         author: session?.user.id,
         rating,
         img: imgPreview
@@ -670,6 +671,8 @@ function AddReview() {
                                                     onChange: (e)=>setCategory(e.target.value),
                                                     children: [
                                                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("option", {
+                                                            selected: true,
+                                                            disabled: true,
                                                             children: "Choose category"
                                                         }),
                                                         categories.map((item)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("option", {
@@ -833,7 +836,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,7802,4463,8658,7159], () => (__webpack_exec__(67953)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,7802,4463,8747,7159], () => (__webpack_exec__(67953)));
 module.exports = __webpack_exports__;
 
 })();

@@ -402,11 +402,11 @@ const routeModule = new AppPageRouteModule({
 /***/ 14563:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 46600))
+Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 45757))
 
 /***/ }),
 
-/***/ 46600:
+/***/ 45757:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -446,10 +446,7 @@ var react = __webpack_require__(74284);
 var axios = __webpack_require__(93258);
 // EXTERNAL MODULE: ./node_modules/swr/core/dist/index.mjs + 1 modules
 var dist = __webpack_require__(97146);
-// EXTERNAL MODULE: ./node_modules/next/navigation.js
-var navigation = __webpack_require__(57114);
 ;// CONCATENATED MODULE: ./components/Comments.jsx
-
 
 
 
@@ -464,7 +461,6 @@ var navigation = __webpack_require__(57114);
 
 fontawesome_svg_core.library.add(free_solid_svg_icons/* faBars */.xiG);
 function Comment({ id }) {
-    const router = (0,navigation.useRouter)();
     const { data, isLoading, error } = (0,dist/* default */.ZP)("/api/comment", async ()=>{
         const res = await axios/* default */.Z.get(`/api/comment/${id}`);
         return res.data;
@@ -476,7 +472,9 @@ function Comment({ id }) {
     const [commentValue, setCommentValue] = (0,react_.useState)("");
     if (error) {
         console.log(error);
-        router.refresh();
+        return /*#__PURE__*/ jsx_runtime_.jsx("p", {
+            children: "Something went wrong. Try to reload page"
+        });
     }
     if (isLoading) {
         return /*#__PURE__*/ jsx_runtime_.jsx("p", {
@@ -598,7 +596,7 @@ function Comment({ id }) {
                                                             }),
                                                             /*#__PURE__*/ (0,jsx_runtime_.jsxs)((Button_default()), {
                                                                 variant: "danger",
-                                                                onClick: ()=>handleCancel,
+                                                                onClick: handleCancel,
                                                                 children: [
                                                                     /*#__PURE__*/ jsx_runtime_.jsx(react_fontawesome.FontAwesomeIcon, {
                                                                         icon: "fa-solid fa-xmark"
@@ -623,7 +621,7 @@ function Comment({ id }) {
                                                     }),
                                                     /*#__PURE__*/ jsx_runtime_.jsx((Button_default()), {
                                                         variant: "primary",
-                                                        onClick: ()=>handleSubmit,
+                                                        onClick: handleSubmit,
                                                         children: "Edit comment"
                                                     })
                                                 ]
@@ -637,6 +635,60 @@ function Comment({ id }) {
                 ]
             })
         ]
+    });
+}
+
+// EXTERNAL MODULE: ./node_modules/@fortawesome/free-regular-svg-icons/index.mjs
+var free_regular_svg_icons = __webpack_require__(38622);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/cjs/NavLink.js
+var NavLink = __webpack_require__(41954);
+var NavLink_default = /*#__PURE__*/__webpack_require__.n(NavLink);
+;// CONCATENATED MODULE: ./components/LikeToggle.jsx
+
+
+
+
+
+
+
+
+
+function LikeToggle({ id, likes }) {
+    const { data: session } = (0,react.useSession)();
+    const handleLike = async ()=>{
+        const res = await axios/* default */.Z.post(`/api/review/like/${id}`, {
+            userId: session?.user.id
+        });
+    };
+    const check = likes?.includes(session?.user.id);
+    return /*#__PURE__*/ jsx_runtime_.jsx("div", {
+        className: "d-flex",
+        children: session ? /*#__PURE__*/ (0,jsx_runtime_.jsxs)((Button_default()), {
+            className: "ms-auto",
+            onClick: handleLike,
+            children: [
+                !check && /*#__PURE__*/ (0,jsx_runtime_.jsxs)("span", {
+                    children: [
+                        /*#__PURE__*/ jsx_runtime_.jsx(react_fontawesome.FontAwesomeIcon, {
+                            icon: free_regular_svg_icons/* faHeart */.m6i
+                        }),
+                        " like"
+                    ]
+                }),
+                check && /*#__PURE__*/ (0,jsx_runtime_.jsxs)("span", {
+                    children: [
+                        /*#__PURE__*/ jsx_runtime_.jsx(react_fontawesome.FontAwesomeIcon, {
+                            icon: free_solid_svg_icons/* faHeart */.m6i
+                        }),
+                        " liked"
+                    ]
+                })
+            ]
+        }) : /*#__PURE__*/ jsx_runtime_.jsx((NavLink_default()), {
+            href: "/login",
+            className: "ms-auto p-2 px-3 rounded bg-primary",
+            children: "Login to like this review"
+        })
     });
 }
 
@@ -687,7 +739,7 @@ function NewComment({ id }) {
                     }),
                     /*#__PURE__*/ jsx_runtime_.jsx((Button_default()), {
                         variant: "primary",
-                        onClick: ()=>handleComment,
+                        onClick: handleComment,
                         children: "Send comment"
                     })
                 ]
@@ -724,6 +776,8 @@ function NewComment({ id }) {
     });
 }
 
+// EXTERNAL MODULE: ./node_modules/next/navigation.js
+var navigation = __webpack_require__(57114);
 // EXTERNAL MODULE: ./node_modules/react-markdown/lib/react-markdown.js + 124 modules
 var react_markdown = __webpack_require__(88543);
 ;// CONCATENATED MODULE: ./app/review/[id]/page.jsx
@@ -736,12 +790,15 @@ var react_markdown = __webpack_require__(88543);
 
 
 
+
 function Review({ params }) {
     const { id } = params;
     const router = (0,navigation.useRouter)();
+    const [likes, setLikes] = (0,react_.useState)();
     const [tags, setTags] = (0,react_.useState)([]);
     const { data, error, isLoading } = (0,dist/* default */.ZP)(`/api/review/${id}`, async ()=>{
         const res = await axios/* default */.Z.get(`/api/review/${id}`);
+        setLikes(res.data.likes);
         setTags(JSON.parse(JSON.stringify(res.data.tags)));
         return res.data;
     }, {
@@ -754,7 +811,9 @@ function Review({ params }) {
     }
     if (error) {
         console.log(error);
-        router.refresh();
+        return /*#__PURE__*/ jsx_runtime_.jsx("p", {
+            children: "Something went wrong. Try to reload page"
+        });
     }
     if (!data) {
         router.push("/");
@@ -816,7 +875,7 @@ function Review({ params }) {
                                         className: "col col-auto me-auto",
                                         children: [
                                             "Likes: ",
-                                            data?.likes
+                                            data?.likes.length
                                         ]
                                     }),
                                     /*#__PURE__*/ (0,jsx_runtime_.jsxs)("p", {
@@ -842,6 +901,10 @@ function Review({ params }) {
             /*#__PURE__*/ jsx_runtime_.jsx(react_markdown/* ReactMarkdown */.D, {
                 className: "mt-4",
                 children: data?.desc
+            }),
+            /*#__PURE__*/ jsx_runtime_.jsx(LikeToggle, {
+                likes: likes,
+                id: id
             }),
             /*#__PURE__*/ jsx_runtime_.jsx("hr", {
                 className: "w-100"
@@ -896,7 +959,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,8658], () => (__webpack_exec__(68447)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,3801,8747], () => (__webpack_exec__(68447)));
 module.exports = __webpack_exports__;
 
 })();
