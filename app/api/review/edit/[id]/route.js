@@ -8,7 +8,7 @@ import { v4 as uuid } from "uuid";
 import {deleteImageFromS3} from "@/utils/s3";
 import {uploadImageToS3} from "@/utils/s3"
 
-export const revalidate = 1;
+export const revalidate = 10;
 
 export const POST = async (req, {params}) => {
     const {id} = params

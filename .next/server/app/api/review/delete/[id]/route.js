@@ -77,7 +77,7 @@ var s3 = __webpack_require__(39282);
 
 
 
-const revalidate = 1;
+const revalidate = 10;
 const DELETE = async (req, { params })=>{
     try {
         const { id } = params;

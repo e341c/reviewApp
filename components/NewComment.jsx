@@ -43,16 +43,16 @@ export default function NewComment({ id }) {
                 </Form.Group>
             )}
             {!session && (
-                <div className="p-3 d-flex me-5">
-                    <p className="m-0">Only registered users can leave a comment.</p>
-                    &nbsp;
-                    <Link href={"/register"} className="nav-link text-primary">
+                <div className="p-3">
+                    <p className="m-0">Only registered users can leave a comment.&nbsp;
+                    <Link href={"/register"} className="d-inline nav-link text-primary">
                         <strong>Sign up</strong>
                     </Link>
-                    <p className="m-0">&nbsp;or&nbsp;</p>
-                    <Link href={"/login"} className="nav-link text-primary">
+                    &nbsp;or&nbsp;
+                    <Link href={"/login"} className="d-inline nav-link text-primary">
                         <strong>Login</strong>
                     </Link>
+                    </p>
                 </div>
             )}
         </div>

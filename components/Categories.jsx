@@ -1,12 +1,8 @@
-import { NavLink } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
 import axios from "axios";
 import useSWR from "swr";
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import DropdownButton from "react-bootstrap/DropdownButton";
 
 library.add(faBars);
 
@@ -17,7 +13,7 @@ export default function Categories({ getCategoryName }) {
             const res = await axios.get(`/api/category`);
             return res.data;
         },
-        { refreshInterval: 100 }
+        { refreshInterval: 1000 }
     );
 
     const handleCategory = (name) => {

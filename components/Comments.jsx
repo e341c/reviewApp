@@ -19,7 +19,7 @@ export default function Comment({ id }) {
             const res = await axios.get(`/api/comment/${id}`);
             return res.data;
         },
-        { refreshInterval: 10 }
+        { refreshInterval: 1000 }
     );
 
     const { data: session } = useSession();

@@ -20,7 +20,7 @@ export default function SearchBar({ url }) {
             const res = await axios.get(`${url}?search=${search}`);
             return res.data;
         },
-        { refreshInterval: 100 }
+        { refreshInterval: 1000 }
     );
 
     if (error) {

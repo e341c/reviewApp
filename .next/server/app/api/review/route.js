@@ -69,7 +69,7 @@ var Tags = __webpack_require__(9597);
 
 
 
-const revalidate = 1;
+const revalidate = 10;
 const GET = async (req)=>{
     const { searchParams } = new URL(req.url);
     const search = searchParams.get("search");

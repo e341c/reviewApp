@@ -465,7 +465,7 @@ function Comment({ id }) {
         const res = await axios/* default */.Z.get(`/api/comment/${id}`);
         return res.data;
     }, {
-        refreshInterval: 10
+        refreshInterval: 1000
     });
     const { data: session } = (0,react.useSession)();
     const [commentId, setCommentId] = (0,react_.useState)("");
@@ -744,33 +744,29 @@ function NewComment({ id }) {
                     })
                 ]
             }),
-            !session && /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
-                className: "p-3 d-flex me-5",
-                children: [
-                    /*#__PURE__*/ jsx_runtime_.jsx("p", {
-                        className: "m-0",
-                        children: "Only registered users can leave a comment."
-                    }),
-                    "\xa0",
-                    /*#__PURE__*/ jsx_runtime_.jsx((link_default()), {
-                        href: "/register",
-                        className: "nav-link text-primary",
-                        children: /*#__PURE__*/ jsx_runtime_.jsx("strong", {
-                            children: "Sign up"
+            !session && /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                className: "p-3",
+                children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)("p", {
+                    className: "m-0",
+                    children: [
+                        "Only registered users can leave a comment.\xa0",
+                        /*#__PURE__*/ jsx_runtime_.jsx((link_default()), {
+                            href: "/register",
+                            className: "d-inline nav-link text-primary",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("strong", {
+                                children: "Sign up"
+                            })
+                        }),
+                        "\xa0or\xa0",
+                        /*#__PURE__*/ jsx_runtime_.jsx((link_default()), {
+                            href: "/login",
+                            className: "d-inline nav-link text-primary",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("strong", {
+                                children: "Login"
+                            })
                         })
-                    }),
-                    /*#__PURE__*/ jsx_runtime_.jsx("p", {
-                        className: "m-0",
-                        children: "\xa0or\xa0"
-                    }),
-                    /*#__PURE__*/ jsx_runtime_.jsx((link_default()), {
-                        href: "/login",
-                        className: "nav-link text-primary",
-                        children: /*#__PURE__*/ jsx_runtime_.jsx("strong", {
-                            children: "Login"
-                        })
-                    })
-                ]
+                    ]
+                })
             })
         ]
     });
@@ -794,9 +790,9 @@ var react_markdown = __webpack_require__(88543);
 function Review({ params }) {
     const { id } = params;
     const router = (0,navigation.useRouter)();
-    const [likes, setLikes] = (0,react_.useState)();
+    const [likes, setLikes] = (0,react_.useState)([]);
     const [tags, setTags] = (0,react_.useState)([]);
-    const { data, error, isLoading } = (0,dist/* default */.ZP)(`/api/review/${id}`, async ()=>{
+    const { data, error, isLoading } = (0,dist/* default */.ZP)(`/api/review/`, async ()=>{
         const res = await axios/* default */.Z.get(`/api/review/${id}`);
         setLikes(res.data.likes);
         setTags(JSON.parse(JSON.stringify(res.data.tags)));
@@ -959,7 +955,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,3801,8747], () => (__webpack_exec__(68447)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,3801,8658], () => (__webpack_exec__(68447)));
 module.exports = __webpack_exports__;
 
 })();

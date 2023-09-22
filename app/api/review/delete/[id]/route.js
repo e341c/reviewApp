@@ -3,7 +3,7 @@ import connect from "@/utils/db"
 import Review from "@/models/Review"
 import {deleteImageFromS3} from "@/utils/s3";
 
-export const revalidate = 1
+export const revalidate = 10
 
 export const DELETE = async(req, {params}) => {
     try {

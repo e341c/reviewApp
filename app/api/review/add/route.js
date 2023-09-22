@@ -7,7 +7,7 @@ import Tags from "@/models/Tags";
 import { v4 as uuid } from "uuid";
 import {uploadImageToS3} from "@/utils/s3"
 
-export const revalidate = 1
+export const revalidate = 10
 
 export const POST = async (req) => {
     const formData = await req.formData();

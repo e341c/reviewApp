@@ -1,5 +1,5 @@
-exports.id = 8747;
-exports.ids = [8747];
+exports.id = 8658;
+exports.ids = [8658];
 exports.modules = {
 
 /***/ 87903:
@@ -14,7 +14,7 @@ Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_
 
 /***/ }),
 
-/***/ 81673:
+/***/ 77880:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 54041));
@@ -106,17 +106,13 @@ var Dropdown_default = /*#__PURE__*/__webpack_require__.n(Dropdown);
 
 
 
-
-
-
-
 fontawesome_svg_core.library.add(free_solid_svg_icons/* faBars */.xiG);
 function Categories({ getCategoryName }) {
     const { data, error, isLoading } = (0,core_dist/* default */.ZP)("/api/category", async ()=>{
         const res = await axios/* default */.Z.get(`/api/category`);
         return res.data;
     }, {
-        refreshInterval: 100
+        refreshInterval: 1000
     });
     const handleCategory = (name)=>{
         getCategoryName(name);
@@ -168,7 +164,7 @@ function SearchBar({ url }) {
         const res = await axios/* default */.Z.get(`${url}?search=${search}`);
         return res.data;
     }, {
-        refreshInterval: 100
+        refreshInterval: 1000
     });
     if (error) {
         console.log(error);

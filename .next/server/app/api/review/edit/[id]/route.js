@@ -97,7 +97,7 @@ var s3 = __webpack_require__(39282);
 
 
 
-const revalidate = 1;
+const revalidate = 10;
 const POST = async (req, { params })=>{
     const { id } = params;
     const formData = await req.formData();

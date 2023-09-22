@@ -12,10 +12,10 @@ import useSWR from "swr";
 export default function Review({params}) {
     const {id} = params
     const router = useRouter();
-    const [likes, setLikes] = useState()
+    const [likes, setLikes] = useState([])
     const [tags, setTags] = useState([]);
     
-    const { data, error, isLoading } = useSWR(`/api/review/${id}`, async () => {
+    const { data, error, isLoading } = useSWR(`/api/review/`, async () => {
         const res = await axios.get(`/api/review/${id}`)
         setLikes(res.data.likes)
         setTags(JSON.parse(JSON.stringify(res.data.tags)))
