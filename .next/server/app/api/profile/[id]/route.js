@@ -62,7 +62,10 @@ var Category = __webpack_require__(859);
 var User = __webpack_require__(24946);
 // EXTERNAL MODULE: ./models/Tags.js
 var Tags = __webpack_require__(9597);
+// EXTERNAL MODULE: ./models/Comment.js
+var Comment = __webpack_require__(4177);
 ;// CONCATENATED MODULE: ./app/api/profile/[id]/route.js
+
 
 
 
@@ -74,6 +77,8 @@ const GET = async (req, { params })=>{
     const { id } = params;
     const { searchParams } = new URL(req.url);
     const search = searchParams.get("search");
+    const category = searchParams.get("category");
+    const tags = searchParams.get("tags");
     try {
         await (0,db/* default */.Z)();
         await User/* default */.Z.find();
@@ -82,11 +87,26 @@ const GET = async (req, { params })=>{
         const options = {
             author: id
         };
-        if (search?.length > 1) {
-            const category = await Category/* default */.Z.findOne({
-                name: new RegExp(search, "i")
+        if (tags) {
+            const tagsOptions = tags?.split(",");
+            options.tags = {
+                $all: tagsOptions
+            };
+        }
+        if (category) {
+            const findCategory = await Category/* default */.Z.findOne({
+                name: new RegExp(category, "i")
             });
-            const categoryOption = category?._id.toString();
+            const categoryId = findCategory?._id.toString();
+            options.category = categoryId;
+        }
+        if (search) {
+            const comments = await Comment/* default */.Z.find({
+                comment: new RegExp(search, "i")
+            });
+            const commentsId = comments.map((item)=>{
+                return item.reviewId.toString();
+            });
             options.$or = [
                 {
                     titleReview: new RegExp(search, "i")
@@ -98,17 +118,13 @@ const GET = async (req, { params })=>{
                     desc: new RegExp(search, "i")
                 },
                 {
-                    category: categoryOption
+                    _id: commentsId
                 }
             ];
         }
-        const user = await User/* default */.Z.findById(id);
-        const review = await Review/* default */.Z.find(options).populate("author").populate("category");
-        const data = [
-            user,
-            review
-        ];
-        return new next_response/* default */.Z(JSON.stringify(data), {
+        console.log(options);
+        const reviews = await Review/* default */.Z.find(options).populate("author").populate("category");
+        return new next_response/* default */.Z(JSON.stringify(reviews), {
             status: 200
         });
     } catch (error) {
@@ -173,6 +189,39 @@ const categorySchema = new Schema({
     }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((mongoose__WEBPACK_IMPORTED_MODULE_0___default().models).Category || mongoose__WEBPACK_IMPORTED_MODULE_0___default().model("Category", categorySchema));
+
+
+/***/ }),
+
+/***/ 4177:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Z: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11185);
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_0__);
+
+const { Schema } = (mongoose__WEBPACK_IMPORTED_MODULE_0___default());
+const commentSchema = new Schema({
+    comment: {
+        type: String,
+        required: true
+    },
+    reviewId: {
+        type: Schema.Types.ObjectId,
+        ref: "Review",
+        required: true
+    },
+    authorId: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    }
+}, {
+    timestamps: true
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((mongoose__WEBPACK_IMPORTED_MODULE_0___default().models).Comment || mongoose__WEBPACK_IMPORTED_MODULE_0___default().model("Comment", commentSchema));
 
 
 /***/ }),

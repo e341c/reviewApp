@@ -3,11 +3,11 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 import { Dropdown } from "react-bootstrap";
+import Highlighter from "react-highlight-words";
 import ReactMarkdown from "react-markdown";
 
-export default function ProfileReview({ reviewData: data, id }) {
+export default function ProfileReview({ data, id, highlight }) {
     const {data: session, status} = useSession()
-    const [tags, setTags] = useState(JSON.parse(JSON.stringify(data?.tags)))
 
     return (
         <div className="mb-5" key={data?._id}>
@@ -31,14 +31,20 @@ export default function ProfileReview({ reviewData: data, id }) {
                             <h4>{data?.titleItem}</h4>
                             <p>{data?.category?.name}</p>
                             <p>
-                                {tags?.map(item => {
-                                    const parseItem = JSON.parse(item)
-                                    return parseItem.name + ' '
+                                {data?.tags.map((item) => {
+                                    return <span className="rbt-token p-1">{item + " "}</span>
                                 })}
                             </p>
-                            <ReactMarkdown>
-                                {data?.desc?.substring(0, 200) + "..."}
-                            </ReactMarkdown>
+
+                            <div className="mb-3">
+                                <Highlighter
+                                highlightClassName="bg-warning"
+                                searchWords={[highlight]}
+                                autoEscape={true}
+                                textToHighlight={data?.desc?.substring(0, 200) + "..."}
+                                />
+                            </div>
+
                             <p>Rate: {data?.rating}</p>
                             <div className="d-flex justify-content-between">
                                 <p>Review likes: {data?.likes.length}</p>

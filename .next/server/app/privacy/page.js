@@ -188,54 +188,6 @@ module.exports = require("next/dist/shared/lib/utils");
 
 /***/ }),
 
-/***/ 39491:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("assert");
-
-/***/ }),
-
-/***/ 82361:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("events");
-
-/***/ }),
-
-/***/ 57147:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("fs");
-
-/***/ }),
-
-/***/ 13685:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("http");
-
-/***/ }),
-
-/***/ 95687:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("https");
-
-/***/ }),
-
-/***/ 22037:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("os");
-
-/***/ }),
-
 /***/ 71017:
 /***/ ((module) => {
 
@@ -244,43 +196,11 @@ module.exports = require("path");
 
 /***/ }),
 
-/***/ 12781:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("stream");
-
-/***/ }),
-
-/***/ 76224:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("tty");
-
-/***/ }),
-
 /***/ 57310:
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("url");
-
-/***/ }),
-
-/***/ 73837:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("util");
-
-/***/ }),
-
-/***/ 59796:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("zlib");
 
 /***/ }),
 
@@ -419,7 +339,7 @@ function Privacy() {
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8747], () => (__webpack_exec__(63330)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,436,9602], () => (__webpack_exec__(63330)));
 module.exports = __webpack_exports__;
 
 })();

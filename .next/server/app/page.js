@@ -228,11 +228,27 @@ module.exports = require("https");
 
 /***/ }),
 
-/***/ 22037:
+/***/ 70612:
 /***/ ((module) => {
 
 "use strict";
-module.exports = require("os");
+module.exports = require("node:os");
+
+/***/ }),
+
+/***/ 97742:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:process");
+
+/***/ }),
+
+/***/ 25997:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:tty");
 
 /***/ }),
 
@@ -398,19 +414,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(56786);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(93258);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(93258);
 /* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(97146);
 /* harmony import */ var _components_Review__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7159);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(18038);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_Filter_Filter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(31865);
+/* harmony import */ var react_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(14545);
+/* harmony import */ var react_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_5__);
 /* __next_internal_client_entry_do_not_use__ default auto */ 
 
 
 
+
+
+
+const API_URL = "http://localhost:3000";
 function Home() {
-    const { data, error, isLoading } = (0,swr__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .ZP)("/api/review", async ()=>{
-        const res = await axios__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z.get(`/api/review/`);
+    const [reviews, setReviews] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([]);
+    const [query, setQuery] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)("");
+    const { data, error, isLoading } = (0,swr__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .ZP)(API_URL + "/api/review/", async ()=>{
+        const res = await axios__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z.get(API_URL + `/api/review/`);
+        setReviews(res.data);
         return res.data;
     }, {
-        refreshInterval: 100
+        revalidateOnMount: true,
+        revalidateOnFocus: false
     });
     if (isLoading) {
         return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
@@ -426,19 +455,33 @@ function Home() {
     return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
         className: "vh-100",
         children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-            className: "col",
             children: [
-                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h1", {
-                    className: "display-3 mb-5",
-                    children: "HOME PAGE"
+                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                    className: "row mb-4",
+                    children: [
+                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h1", {
+                            className: "display-3 col col-auto",
+                            children: "HOME PAGE"
+                        }),
+                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Filter_Filter__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z, {
+                            url: "/api/review",
+                            getQuery: (result)=>{
+                                setQuery(result);
+                            },
+                            getReviews: (result)=>{
+                                setReviews(result);
+                            }
+                        })
+                    ]
                 }),
-                data?.length === 0 && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                reviews?.length === 0 && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
                     children: "There are no reviews here yet"
                 }),
-                data && data?.map((item)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Review__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z, {
+                reviews && reviews?.map((item)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Review__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z, {
                         main: true,
-                        reviewData: item
-                    }))
+                        data: item,
+                        highlight: query
+                    }, item._id))
             ]
         })
     });
@@ -480,7 +523,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,8747,7159], () => (__webpack_exec__(12466)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,7802,8146,3555,7146,8543,9602,1865,7159], () => (__webpack_exec__(12466)));
 module.exports = __webpack_exports__;
 
 })();

@@ -1,14 +1,10 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
-import { usePathname } from 'next/navigation'
 import Link from "next/link";
 import ThemeButton from "./ThemeButton";
-import SearchBar from "./SearchBar";
 
 export default function Header() {
-    const path = usePathname()
-
     const { data: session, status } = useSession();
 
     const id = session?.user.id;
@@ -17,16 +13,16 @@ export default function Header() {
     }, [])
 
     return (
-        <nav className="navbar fixed-top navbar-expand-lg bg-body shadow z-3">
+        <nav className="navbar fixed-top navbar-expand-lg bg-body shadow" style={{zIndex:"1090"}}>
             <div className="container">
                 <Link href={"/"} className="navbar-brand">
                     <h3 className="mb-0">
                         <strong>HOME</strong>
                     </h3>
                 </Link>
-
+                
                 <button
-                    className="navbar-toggler"
+                    className="navbar-toggler ms-auto"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent"
@@ -41,7 +37,7 @@ export default function Header() {
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li className="nav-item">
                             {status === "unauthenticated" && (
-                                <div className="d-flex me-5 align-items-center">
+                                <div className="d-flex me-3 align-items-center">
                                     <Link href={"/register"} className="nav-link text-primary">
                                         <strong>Sign up</strong>
                                     </Link>
@@ -67,10 +63,8 @@ export default function Header() {
                             )}
                         </li>
                     </ul>
-                    <div className="d-flex">
-                        <SearchBar url={path === '/' && '/api/review' || path === '/profile' && `/api/profile/${id}` || `/api${path}` } />
-                        <ThemeButton />
-                    </div>
+
+                    <ThemeButton />
                 </div>
             </div>
         </nav>

@@ -4,12 +4,13 @@ import Form from "react-bootstrap/Form";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle, faFacebook } from "@fortawesome/free-brands-svg-icons";
-import { Nav } from "react-bootstrap";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from "react";
 
 export default function Login() {
+    const path = usePathname()
+    console.log(path);
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const { data: session, status } = useSession();

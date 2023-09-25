@@ -228,11 +228,27 @@ module.exports = require("https");
 
 /***/ }),
 
-/***/ 22037:
+/***/ 70612:
 /***/ ((module) => {
 
 "use strict";
-module.exports = require("os");
+module.exports = require("node:os");
+
+/***/ }),
+
+/***/ 97742:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:process");
+
+/***/ }),
+
+/***/ 25997:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:tty");
 
 /***/ }),
 
@@ -449,6 +465,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const API_URL = "http://localhost:3000";
 function AddReview() {
     const router = (0,next_navigation__WEBPACK_IMPORTED_MODULE_6__.useRouter)();
     const inputRef = (0,react__WEBPACK_IMPORTED_MODULE_4__.useRef)(null);
@@ -498,7 +515,7 @@ function AddReview() {
     bodyFormData.append("likes", 0);
     bodyFormData.append("file", file);
     tags.forEach((item)=>{
-        bodyFormData.append("tags", JSON.stringify(item));
+        bodyFormData.append("tags", item.name);
     });
     const handleFileChange = (e)=>{
         setFile(e.target.files[0]);
@@ -522,15 +539,16 @@ function AddReview() {
         if (validation) {
             setUpload(true);
             try {
-                const res = await axios__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z.post("/api/review/add", bodyFormData, {
+                const res = await axios__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z.post(API_URL + "/api/review/add", bodyFormData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                         "Access-Control-Allow-Origin": "*"
                     }
                 });
+                if (res.status === 400) {
+                    setError(res.message);
+                }
                 const addTags = await axios__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z.post("/api/tags", tags);
-                console.log(addTags);
-                console.log(res);
                 setUpload(false);
                 if (res.status === 201) router.push("/");
             } catch (err) {
@@ -777,32 +795,6 @@ function AddReview() {
 
 /***/ }),
 
-/***/ 6304:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Z: () => (/* binding */ Loading)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(56786);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
-
-function Loading() {
-    return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
-        className: "w-100 h-100 position-absolute z-2 d-flex justify-content-center align-items-center",
-        children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
-            className: "py-4 px-5 bg-primary rounded d-flex justify-content-center align-items-center",
-            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                className: "m-0 text-light",
-                children: "Loading... Please wait"
-            })
-        })
-    });
-}
-
-
-/***/ }),
-
 /***/ 45089:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -836,7 +828,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,7802,4463,8747,7159], () => (__webpack_exec__(67953)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,7802,8146,3555,8543,7093,5996,9602,6304,7159], () => (__webpack_exec__(67953)));
 module.exports = __webpack_exports__;
 
 })();

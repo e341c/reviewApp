@@ -20,7 +20,8 @@ exports.modules = {
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var react_bootstrap_Dropdown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(86220);
 /* harmony import */ var react_bootstrap_Dropdown__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Dropdown__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var react_markdown__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(88543);
+/* harmony import */ var react_highlight_words__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(99265);
+/* harmony import */ var react_highlight_words__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_highlight_words__WEBPACK_IMPORTED_MODULE_4__);
 
 
 
@@ -28,9 +29,9 @@ exports.modules = {
 
 
 
-function ProfileReview({ reviewData: data, id }) {
+
+function ProfileReview({ data, id, highlight }) {
     const { data: session, status } = (0,next_auth_react__WEBPACK_IMPORTED_MODULE_1__.useSession)();
-    const [tags, setTags] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(JSON.parse(JSON.stringify(data?.tags)));
     return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
         className: "mb-5",
         children: [
@@ -71,13 +72,23 @@ function ProfileReview({ reviewData: data, id }) {
                                             children: data?.category?.name
                                         }),
                                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                            children: tags?.map((item)=>{
-                                                const parseItem = JSON.parse(item);
-                                                return parseItem.name + " ";
+                                            children: data?.tags.map((item)=>{
+                                                return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("span", {
+                                                    className: "rbt-token p-1",
+                                                    children: item + " "
+                                                });
                                             })
                                         }),
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(react_markdown__WEBPACK_IMPORTED_MODULE_4__/* .ReactMarkdown */ .D, {
-                                            children: data?.desc?.substring(0, 200) + "..."
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
+                                            className: "mb-3",
+                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_highlight_words__WEBPACK_IMPORTED_MODULE_4___default()), {
+                                                highlightClassName: "bg-warning",
+                                                searchWords: [
+                                                    highlight
+                                                ],
+                                                autoEscape: true,
+                                                textToHighlight: data?.desc?.substring(0, 200) + "..."
+                                            })
                                         }),
                                         /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
                                             children: [

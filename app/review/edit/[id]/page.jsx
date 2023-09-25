@@ -12,6 +12,8 @@ import { useRouter } from "next/navigation";
 import Review from "@/components/Review";
 import Loading from "@/components/Loading";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL
+
 export default function EditReview({ params }) {
     const { id } = params;
 
@@ -67,7 +69,7 @@ export default function EditReview({ params }) {
         setUpload(true);
 
         try {
-            const res = await axios.post(`/api/review/edit/${id}`, bodyFormData, {
+            const res = await axios.post(API_URL + `/api/review/edit/${id}`, bodyFormData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     "Access-Control-Allow-Origin": "*",
@@ -86,11 +88,11 @@ export default function EditReview({ params }) {
         const getAllData = async () => {
             setUpload(true);
             try {
-                const categoriesData = await axios.get("/api/category").then((responce) => responce.data);
+                const categoriesData = await axios.get(API_URL + "/api/category").then((responce) => responce.data);
                 setCategories(categoriesData);
-                const tagsData = await axios.get("/api/tags").then((responce) => responce.data);
+                const tagsData = await axios.get(API_URL + "/api/tags").then((responce) => responce.data);
                 setTagsOptions(tagsData);
-                const res = await axios.get(`/api/review/${id}`).then((responce) => responce.data);
+                const res = await axios.get(API_URL + `/api/review/${id}`).then((responce) => responce.data);
                 setData(res);
                 setTitleReview(res.titleReview);
                 setTitleItem(res.titleItem);

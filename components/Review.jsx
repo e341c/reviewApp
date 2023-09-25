@@ -1,16 +1,15 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react";
+import Highlighter from "react-highlight-words";
 import ReactMarkdown from "react-markdown";
 
-export default function Review({main, reviewData: data }) {
-    const [tags, setTags] = useState(JSON.parse(JSON.stringify(data?.tags)));
+export default function Review({main, data, highlight }) {
     const { data: session, status } = useSession();
 
     return (
-        <div className="mb-5" key={data._id}>
-            <div className="d-flex">
-                <Link href={`/review/${data?._id}`} className="text-decoration-none text-body mt-2 me-3">
+        <div className="mb-5">
+            <div className="d-flex" >
+                <Link href={`/review/${data?._id}`} className="text-decoration-none text-body mt-2 me-3" >
                     <div style={{ maxWidth: "150px" }}>
                         <img src={data?.img} alt="" className="object-fit-cover w-100 h-auto" style={{ minWidth: "70px" }} />
                     </div>
@@ -21,15 +20,23 @@ export default function Review({main, reviewData: data }) {
                         <h4>{data?.titleItem}</h4>
                         <p>{data?.category?.name}</p>
                         <p>
-                            {tags?.map((item) => {
-                                const parseItem = JSON.parse(item);
-                                return parseItem.name + " ";
+                            {data?.tags.map((item) => {
+                                return <span className="rbt-token p-1">{item + " "}</span>
                             })}
                         </p>
-                        {main ? (<ReactMarkdown>{data?.desc?.substring(0, 200) + "..."}</ReactMarkdown>) 
-                            : (<ReactMarkdown>{data?.desc}</ReactMarkdown>)
-                        }
-                        
+                            {main ? (
+                                <div className="mb-3">
+                                    <Highlighter
+                                    highlightClassName="bg-warning"
+                                    searchWords={[highlight]}
+                                    autoEscape={true}
+                                    textToHighlight={data?.desc?.substring(0, 200) + "..."}
+                                    />
+                                </div>
+          
+                            ) : (
+                                <ReactMarkdown>{data?.desc}</ReactMarkdown>
+                            )}
                         <p>Rate: {data?.rating}</p>
                     </Link>
                     <div className="d-flex justify-content-between">

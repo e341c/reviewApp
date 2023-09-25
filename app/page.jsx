@@ -1,16 +1,28 @@
 "use client";
 import axios from "axios";
-import useSWR, { preload } from "swr";
+import useSWR from "swr";
 import Review from "@/components/Review";
+import { useState } from "react";
+import Filter from "@/components/Filter/Filter";
+import { Highlighter } from "react-bootstrap-typeahead";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export default function Home() {
+    const [reviews, setReviews] = useState([])
+    const [query, setQuery] = useState('')
+
     const { data, error, isLoading } = useSWR(
-        "/api/review",
+        API_URL + "/api/review/",
         async () => {
-            const res = await axios.get(`/api/review/`);
+            const res = await axios.get(API_URL + `/api/review/`);
+            setReviews(res.data)
             return res.data;
         },
-        { refreshInterval: 100 }
+        { 
+            revalidateOnMount: true,
+            revalidateOnFocus: false,
+        }
     );
 
     if (isLoading) {
@@ -24,10 +36,16 @@ export default function Home() {
 
     return (
         <div className="vh-100">
-            <div className="col">
-                <h1 className="display-3 mb-5">HOME PAGE</h1>
-                {data?.length === 0 && <p>There are no reviews here yet</p>}
-                {data && data?.map((item) => <Review main={true} reviewData={item} />)}
+            <div>
+                <div className="row mb-4">
+                    <h1 className="display-3 col col-auto" >HOME PAGE</h1>
+                    <Filter url={'/api/review'} getQuery={(result) => {setQuery(result)}} getReviews={(result) => {setReviews(result)}} />
+                </div>
+                
+                {reviews?.length === 0 && <p>There are no reviews here yet</p>}
+                
+                
+                {reviews && reviews?.map((item) => <Review main={true} data={item} key={item._id} highlight={query} />)}    
             </div>
         </div>
     );

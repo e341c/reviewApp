@@ -141,7 +141,6 @@ var mongodb_adapter = __webpack_require__(90389);
 // EXTERNAL MODULE: external "mongodb"
 var external_mongodb_ = __webpack_require__(38013);
 ;// CONCATENATED MODULE: ./app/lib/mongodb.js
-// This approach is taken from https://github.com/vercel/next.js/tree/canary/examples/with-mongodb
 
 if (!process.env.MONGODB_URI) {
     throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');

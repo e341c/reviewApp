@@ -228,11 +228,27 @@ module.exports = require("https");
 
 /***/ }),
 
-/***/ 22037:
+/***/ 70612:
 /***/ ((module) => {
 
 "use strict";
-module.exports = require("os");
+module.exports = require("node:os");
+
+/***/ }),
+
+/***/ 97742:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:process");
+
+/***/ }),
+
+/***/ 25997:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:tty");
 
 /***/ }),
 
@@ -402,11 +418,11 @@ const routeModule = new AppPageRouteModule({
 /***/ 14563:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 45757))
+Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 26946))
 
 /***/ }),
 
-/***/ 45757:
+/***/ 26946:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -446,7 +462,7 @@ var react = __webpack_require__(74284);
 var axios = __webpack_require__(93258);
 // EXTERNAL MODULE: ./node_modules/swr/core/dist/index.mjs + 1 modules
 var dist = __webpack_require__(97146);
-;// CONCATENATED MODULE: ./components/Comments.jsx
+;// CONCATENATED MODULE: ./components/Comments/Comments.jsx
 
 
 
@@ -461,6 +477,8 @@ var dist = __webpack_require__(97146);
 
 fontawesome_svg_core.library.add(free_solid_svg_icons/* faBars */.xiG);
 function Comment({ id }) {
+    const [commentId, setCommentId] = (0,react_.useState)("");
+    const [commentValue, setCommentValue] = (0,react_.useState)("");
     const { data, isLoading, error } = (0,dist/* default */.ZP)("/api/comment", async ()=>{
         const res = await axios/* default */.Z.get(`/api/comment/${id}`);
         return res.data;
@@ -468,8 +486,6 @@ function Comment({ id }) {
         refreshInterval: 1000
     });
     const { data: session } = (0,react.useSession)();
-    const [commentId, setCommentId] = (0,react_.useState)("");
-    const [commentValue, setCommentValue] = (0,react_.useState)("");
     if (error) {
         console.log(error);
         return /*#__PURE__*/ jsx_runtime_.jsx("p", {
@@ -651,7 +667,6 @@ var NavLink_default = /*#__PURE__*/__webpack_require__.n(NavLink);
 
 
 
-
 function LikeToggle({ id, likes }) {
     const { data: session } = (0,react.useSession)();
     const handleLike = async ()=>{
@@ -685,15 +700,13 @@ function LikeToggle({ id, likes }) {
             ]
         }) : /*#__PURE__*/ jsx_runtime_.jsx((NavLink_default()), {
             href: "/login",
-            className: "ms-auto p-2 px-3 rounded bg-primary",
+            className: "ms-auto p-2 px-3 rounded text-light bg-primary",
             children: "Login to like this review"
         })
     });
 }
 
-;// CONCATENATED MODULE: ./components/NewComment.jsx
-
-
+;// CONCATENATED MODULE: ./components/Comments/NewComment.jsx
 
 
 
@@ -775,6 +788,8 @@ function NewComment({ id }) {
 var navigation = __webpack_require__(57114);
 // EXTERNAL MODULE: ./node_modules/react-markdown/lib/react-markdown.js + 124 modules
 var react_markdown = __webpack_require__(88543);
+// EXTERNAL MODULE: ./components/Loading.jsx
+var Loading = __webpack_require__(6304);
 ;// CONCATENATED MODULE: ./app/review/[id]/page.jsx
 /* __next_internal_client_entry_do_not_use__ default auto */ 
 
@@ -786,22 +801,27 @@ var react_markdown = __webpack_require__(88543);
 
 
 
+
+const API_URL = "http://localhost:3000";
 function Review({ params }) {
     const { id } = params;
     const router = (0,navigation.useRouter)();
     const [likes, setLikes] = (0,react_.useState)([]);
-    const [tags, setTags] = (0,react_.useState)([]);
     const { data, error, isLoading } = (0,dist/* default */.ZP)(`/api/review/`, async ()=>{
-        const res = await axios/* default */.Z.get(`/api/review/${id}`);
+        const res = await axios/* default */.Z.get(API_URL + `/api/review/${id}`);
         setLikes(res.data.likes);
-        setTags(JSON.parse(JSON.stringify(res.data.tags)));
         return res.data;
     }, {
-        refreshInterval: 100
+        refreshInterval: 1000
     });
     if (isLoading) {
-        return /*#__PURE__*/ jsx_runtime_.jsx("p", {
-            children: "Loading..."
+        return /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+            className: "vh-100",
+            children: [
+                " ",
+                /*#__PURE__*/ jsx_runtime_.jsx(Loading/* default */.Z, {}),
+                " "
+            ]
         });
     }
     if (error) {
@@ -852,9 +872,8 @@ function Review({ params }) {
                                 ]
                             }),
                             /*#__PURE__*/ jsx_runtime_.jsx("p", {
-                                children: tags?.map((item)=>{
-                                    const parseItem = JSON.parse(item);
-                                    return parseItem.name + " ";
+                                children: data?.tags?.map((item)=>{
+                                    item + "";
                                 })
                             }),
                             /*#__PURE__*/ (0,jsx_runtime_.jsxs)("p", {
@@ -954,7 +973,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,4306,8543,3801,8747], () => (__webpack_exec__(68447)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,8146,7146,8543,7093,6220,8212,9602,6304], () => (__webpack_exec__(68447)));
 module.exports = __webpack_exports__;
 
 })();

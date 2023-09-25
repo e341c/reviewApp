@@ -4,12 +4,15 @@ import Review from "@/models/Review"
 import Category from "@/models/Category"
 import User from "@/models/User"
 import Tags from "@/models/Tags"
+import Comment from "@/models/Comment"
 
 export const revalidate = 10
 export const GET = async(req, {params}) => {
     const {id} = params
     const { searchParams } = new URL(req.url);
     const search = searchParams.get("search");
+    const category = searchParams.get("category");
+    const tags = searchParams.get("tags")
 
     try {
         await connect()
@@ -17,12 +20,30 @@ export const GET = async(req, {params}) => {
         await Category.find()
         await Tags.find()
 
-        const options = { author:id }
+        const options = { author: id };
 
-        if (search?.length > 1) {
-            const category = await Category.findOne({ name: new RegExp(search, "i") });
+        if(tags){
+            const tagsOptions = tags?.split(',')
 
-            const categoryOption = category?._id.toString()
+            options.tags = {
+                $all: tagsOptions
+            }
+        }
+
+        if (category) {
+            const findCategory = await Category.findOne({ name: new RegExp(category, "i") });
+
+            const categoryId = findCategory?._id.toString();
+
+            options.category = categoryId;
+        }
+
+        if (search) {
+            const comments = await Comment.find({comment : new RegExp(search, "i"),})
+
+            const commentsId = comments.map(item => {
+                return item.reviewId.toString()
+            })
 
             options.$or = [
                 {
@@ -35,17 +56,16 @@ export const GET = async(req, {params}) => {
                     desc: new RegExp(search, "i"),
                 },
                 {
-                    category: categoryOption
-                },
+                    _id: commentsId
+                }
             ];
         }
 
-        const user = await User.findById(id)
-        const review = await Review.find(options).populate('author').populate('category')
+        console.log(options);
 
-        const data = [user, review]
+        const reviews = await Review.find(options).populate('author').populate('category')
 
-        return new NextResponse(JSON.stringify(data), {status: 200})
+        return new NextResponse(JSON.stringify(reviews), {status: 200})
     } catch (error) {
         return new NextResponse(error, {status: 500})
     }

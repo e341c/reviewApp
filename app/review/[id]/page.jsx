@@ -1,29 +1,30 @@
 'use client'
-import Comment from "@/components/Comments";
+import Comment from "@/components/Comments/Comments";
 import LikeToggle from "@/components/LikeToggle";
-import NewComment from "@/components/NewComment";
+import NewComment from "@/components/Comments/NewComment";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import useSWR from "swr";
+import Loading from "@/components/Loading";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export default function Review({params}) {
     const {id} = params
     const router = useRouter();
     const [likes, setLikes] = useState([])
-    const [tags, setTags] = useState([]);
     
     const { data, error, isLoading } = useSWR(`/api/review/`, async () => {
-        const res = await axios.get(`/api/review/${id}`)
+        const res = await axios.get(API_URL + `/api/review/${id}`)
         setLikes(res.data.likes)
-        setTags(JSON.parse(JSON.stringify(res.data.tags)))
         return res.data
-    }, { refreshInterval: 100 });
+    }, { refreshInterval: 1000 });
 
     if(isLoading){
-        return <p>Loading...</p>
+        return <div className="vh-100"> <Loading /> </div>
     }
 
     if(error){
@@ -34,7 +35,6 @@ export default function Review({params}) {
     if(!data){
         router.push('/')
     }
-
 
     return (
         <div className="mb-5">
@@ -47,9 +47,8 @@ export default function Review({params}) {
                     <h4>{data?.titleItem}</h4>
                     <p>Category:&nbsp;{data?.category.name}</p>
                     <p>
-                        {tags?.map((item) => {
-                            const parseItem = JSON.parse(item);
-                            return parseItem.name + " ";
+                        {data?.tags?.map((item) => {
+                            item + ''
                         })}
                     </p>
                     <p>Author rate: {data?.rating}</p>

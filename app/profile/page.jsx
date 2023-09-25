@@ -8,19 +8,29 @@ import useSWR from "swr";
 import axios from "axios";
 import { Button } from "react-bootstrap";
 import ProfileReview from "@/components/ProfileReview";
+import { useState } from "react";
+import Filter from "@/components/Filter/Filter";
+import Loading from "@/components/Loading";
 
 export default function Profile({ params }) {
+    const [reviews, setReviews] = useState([])
+    const [query, setQuery] = useState('')
+    
     const { data: session, status } = useSession();
 
     const id = session?.user.id;
 
     const { data, error, isLoading } = useSWR(`/api/profile/${id}`, async () => {
         const res = await axios.get(`/api/profile/${id}`);
+        setReviews(res.data)
         return res.data;
-    }, { refreshInterval: 100 });
+    }, { 
+        revalidateOnMount: true,
+        revalidateOnFocus: false
+    });
 
     if (isLoading) {
-        return <p>Loading...</p>;
+        return <div className="vh-100"> <Loading /> </div>
     }
 
     if (error) {
@@ -30,7 +40,7 @@ export default function Profile({ params }) {
 
     const likes = []
 
-    data[1]?.filter(item => {
+    reviews?.filter(item => {
         if(item.likes.length > 0){
             likes.push(...item.likes) 
         }
@@ -39,32 +49,38 @@ export default function Profile({ params }) {
     return (
         <div>
             <div className="row" style={{ marginTop: "80px" }}>
-                <div className="col col-md-3 mb-4" style={{minWidth:"260px"}}>
+                <div className="row mb-3">
                     <h3 className="mb-4">Your profile</h3>
-                    <div className="p-4 shadow rounded">
-                            <p>{session?.user.name}</p>
-                            <p>{session?.user.email}</p>
-                            <p>
-                                Reviews:&nbsp;<strong> {data[1]?.length} </strong>
-                            </p>
-                            <p>
-                                Likes:&nbsp;
-                                <strong>{likes.length}</strong>&nbsp;
-                                <FontAwesomeIcon icon={faHeart} />
-                            </p>
-                            {id === session?.user.id && (
-                                <Button variant="outline-danger" onClick={() => signOut()}>
-                                    Log Out
-                                </Button>
-                            )}
+                    <div className="col col-md-3 mb-4" style={{minWidth:"260px"}}>
+                        
+                        <div className="p-4 shadow rounded">
+                                <p>{session?.user.name}</p>
+                                <p>{session?.user.email}</p>
+                                <p>
+                                    Reviews:&nbsp;<strong> {reviews?.length} </strong>
+                                </p>
+                                <p>
+                                    Likes:&nbsp;
+                                    <strong>{likes.length}</strong>&nbsp;
+                                    <FontAwesomeIcon icon={faHeart} />
+                                </p>
+                                {id === session?.user.id && (
+                                    <Button variant="outline-danger" onClick={() => signOut()}>
+                                        Log Out
+                                    </Button>
+                                )}
+                        </div>
+                    </div>
+                    <div className="col">
+                        <Filter url={`/api/profile/${id}`} getQuery={(result) => {setQuery(result)}} getReviews={(result) => {setReviews(result)}} />
                     </div>
                 </div>
-
+            
                 <div className="col" style={{minWidth:"70%"}}>
                     <div className="mb-4 d-flex justify-content-between">
                         <h3>Your reviews</h3>
                         {id === session?.user.id && (
-                            <div className="pt-2">
+                            <div className="">
                                 <Link href={"/review/add"} className="btn btn-primary">
                                     <FontAwesomeIcon icon={faPlus} style={{ width: "14px", height: "16px" }} />
                                     &nbsp; Add new
@@ -72,9 +88,9 @@ export default function Profile({ params }) {
                             </div>
                         )}
                     </div>
-                    {data[1].length === 0 && <p>There are no reviews here yet</p>}
-                    {data[1]?.map((item) => (
-                        <ProfileReview reviewData={item} id={id} />
+                    {reviews.length === 0 && <p>There are no reviews here yet</p>}
+                    {reviews?.map((item) => (
+                        <ProfileReview data={item} id={id} highlight={query} />
                     ))}
                 </div>
             </div>

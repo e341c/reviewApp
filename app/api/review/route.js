@@ -4,11 +4,19 @@ import Review from "@/models/Review";
 import Category from "@/models/Category";
 import User from "@/models/User";
 import Tags from "@/models/Tags";
+import Comment from "@/models/Comment";
 
 export const revalidate = 10;
 export const GET = async (req) => {
     const { searchParams } = new URL(req.url);
     const search = searchParams.get("search");
+    const category = searchParams.get("category");
+    const tags = searchParams.get("tags")
+
+    console.log(search);
+    console.log(category);
+    console.log(tags);
+
     try {
         await connect();
         await User.find();
@@ -16,18 +24,40 @@ export const GET = async (req) => {
         await Tags.find();
 
         const options = {};
-        if (search?.length > 1) {
-            const category = await Category.findOne({ name: new RegExp(search, "i") });
 
-            const categoryOption = category?._id.toString()
+        if(tags){
+            const tagsOptions = tags?.split(',')
 
+            options.tags = {
+                $all: tagsOptions
+            }
+        }
+
+        if (category) {
+            const findCategory = await Category.findOne({ name: new RegExp(category, "i") });
+
+            const categoryId = findCategory?._id.toString();
+
+            options.category = categoryId;
+        }
+
+        if (search) {
             const author = await User.find({ name: new RegExp(search, "i") });
 
             const authorOption = author?.map((item) => {
-                return (item._id.toString())
+                return item._id.toString();
             });
 
+            const comments = await Comment.find({comment : new RegExp(search, "i"),})
+
+            const commentsId = comments.map(item => {
+                return item.reviewId.toString()
+            })
+
             options.$or = [
+                {
+                    author: authorOption,
+                },
                 {
                     titleReview: new RegExp(search, "i"),
                 },
@@ -38,13 +68,12 @@ export const GET = async (req) => {
                     desc: new RegExp(search, "i"),
                 },
                 {
-                    category: categoryOption
-                },
-                {
-                    author: authorOption,
-                },
+                    _id: commentsId
+                }
             ];
         }
+
+        console.log(options);
 
         const reviews = await Review.find(options).populate("author").populate("category");
 

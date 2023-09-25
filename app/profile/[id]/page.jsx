@@ -5,10 +5,15 @@ import { useSession } from "next-auth/react";
 import useSWR from "swr";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import Review from "@/components/Review";
 import ProfileReview from "@/components/ProfileReview";
+import { useState } from "react";
+import Filter from "@/components/Filter/Filter";
 
 export default function Profile({ params }) {
+    const [reviews, setReviews] = useState([])
+    const [user, setUser] = useState()
+    const [query, setQuery] = useState('')
+
     const { id } = params;
     const { data: session, status } = useSession();
 
@@ -20,8 +25,14 @@ export default function Profile({ params }) {
 
     const { data, error, isLoading } = useSWR(`/api/profile/${id}`, async () => {
         const res = await axios.get(`/api/profile/${id}`);
+        const user = await axios.get(`/api/profile/user/${id}`)
+        setReviews(res.data)
+        setUser(user.data)
         return res.data;
-    }, { refreshInterval: 100 });
+    }, {
+        revalidateOnFocus: false,
+        revalidateOnMount: true
+    });
 
     if (isLoading) {
         return <p>Loading...</p>;
@@ -34,7 +45,7 @@ export default function Profile({ params }) {
 
     const likes = []
 
-    data[1]?.filter(item => {
+    reviews?.filter(item => {
         if(item.likes.length > 0){
             likes.push(...item.likes) 
         }
@@ -43,28 +54,33 @@ export default function Profile({ params }) {
     return (
         <div>
             <div className="row" style={{ marginTop: "80px" }}>
-                <div className="col col-md-3 mb-4">
-                    <h3 className="mb-4">{data[0]?.name}'s profile</h3>
-                    <div className="p-3 shadow rounded">
-                        <p>{data[0]?.name}</p>
-                        <p>{data[0]?.email}</p>
-                        <p>
-                            <strong> {data[1]?.length} </strong> reviews
-                        </p>
-                        <p>
-                            <FontAwesomeIcon icon={faHeart} />
-                            &nbsp;<strong>{likes.length}</strong>&nbsp;likes
-                        </p>
+                <div className="row">
+                    <h3 className="mb-4">{user?.name}'s profile</h3>
+                    <div className="col col-md-3 mb-4">
+                        <div className="p-3 shadow rounded">
+                            <p>{user?.name}</p>
+                            <p>{user?.email}</p>
+                            <p>
+                                <strong> {reviews?.length} </strong> reviews
+                            </p>
+                            <p>
+                                <FontAwesomeIcon icon={faHeart} />
+                                &nbsp;<strong>{likes.length}</strong>&nbsp;likes
+                            </p>
+                        </div>
+                    </div>
+                    <div className="col">
+                        <Filter url={`/api/profile/${id}`} getQuery={(result) => {setQuery(result)}} getReviews={(result) => {setReviews(result)}} />
                     </div>
                 </div>
 
                 <div className="col" style={{ minWidth: "70%" }}>
                     <div className="mb-4">
-                        <h3>{data[0]?.name} reviews</h3>
+                        <h3>{user?.name} reviews</h3>
                     </div>
-                    {data[1].length === 0 && <p>There are no reviews here yet</p>}
-                    {data[1]?.map((item) => (
-                        <ProfileReview reviewData={item} id={id} />
+                    {reviews.length === 0 && <p>There are no reviews here yet</p>}
+                    {reviews?.map((item) => (
+                        <ProfileReview data={item} id={id} highlight={query}/>
                     ))}
                 </div>
             </div>

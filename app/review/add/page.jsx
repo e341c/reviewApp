@@ -12,6 +12,8 @@ import { useRouter } from "next/navigation";
 import Review from "@/components/Review";
 import Loading from "@/components/Loading";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL
+
 export default function AddReview() {
     const router = useRouter();
     const inputRef = useRef(null);
@@ -69,7 +71,7 @@ export default function AddReview() {
     bodyFormData.append("likes", 0);
     bodyFormData.append("file", file);
     tags.forEach((item) => {
-        bodyFormData.append("tags", JSON.stringify(item));
+        bodyFormData.append("tags", item.name);
     });
 
     const handleFileChange = (e) => {
@@ -96,15 +98,16 @@ export default function AddReview() {
             setUpload(true);
 
             try {
-                const res = await axios.post("/api/review/add", bodyFormData, {
+                const res = await axios.post(API_URL + "/api/review/add", bodyFormData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                         "Access-Control-Allow-Origin": "*",
                     },
                 });
+                if(res.status === 400){
+                    setError(res.message)
+                }
                 const addTags = await axios.post("/api/tags", tags)
-                console.log(addTags);
-                console.log(res);
                 setUpload(false);
                 if (res.status === 201) router.push("/");
             } catch (err) {
