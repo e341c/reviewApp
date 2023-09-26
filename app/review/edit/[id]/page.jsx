@@ -79,6 +79,7 @@ export default function EditReview({ params }) {
                     "Access-Control-Allow-Origin": "*",
                 },
             });
+            const addTags = await axios.post("/api/tags", tags)
             setUpload(false);
             if (res.status === 201) router.push("/");
         } catch (err) {

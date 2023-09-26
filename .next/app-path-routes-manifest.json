@@ -1,6 +1,6 @@
 {
-  "/page": "/",
   "/favicon.ico/route": "/favicon.ico",
+  "/page": "/",
   "/admin/page": "/admin",
   "/login/page": "/login",
   "/register/page": "/register",
@@ -19,10 +19,10 @@
   "/api/review/[id]/route": "/api/review/[id]",
   "/api/profile/[id]/route": "/api/profile/[id]",
   "/api/review/add/route": "/api/review/add",
-  "/api/comment/delete/[id]/route": "/api/comment/delete/[id]",
-  "/api/profile/user/[id]/route": "/api/profile/user/[id]",
   "/api/comment/edit/[id]/route": "/api/comment/edit/[id]",
   "/api/review/delete/[id]/route": "/api/review/delete/[id]",
+  "/api/comment/delete/[id]/route": "/api/comment/delete/[id]",
+  "/api/profile/user/[id]/route": "/api/profile/user/[id]",
   "/api/review/like/[id]/route": "/api/review/like/[id]",
   "/api/review/edit/[id]/route": "/api/review/edit/[id]"
 }

@@ -1,6 +1,6 @@
 {
-  "/page": "app/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/page": "app/page.js",
   "/admin/page": "app/admin/page.js",
   "/login/page": "app/login/page.js",
   "/register/page": "app/register/page.js",
@@ -19,10 +19,10 @@
   "/api/review/[id]/route": "app/api/review/[id]/route.js",
   "/api/profile/[id]/route": "app/api/profile/[id]/route.js",
   "/api/review/add/route": "app/api/review/add/route.js",
-  "/api/comment/delete/[id]/route": "app/api/comment/delete/[id]/route.js",
-  "/api/profile/user/[id]/route": "app/api/profile/user/[id]/route.js",
   "/api/comment/edit/[id]/route": "app/api/comment/edit/[id]/route.js",
   "/api/review/delete/[id]/route": "app/api/review/delete/[id]/route.js",
+  "/api/comment/delete/[id]/route": "app/api/comment/delete/[id]/route.js",
+  "/api/profile/user/[id]/route": "app/api/profile/user/[id]/route.js",
   "/api/review/like/[id]/route": "app/api/review/like/[id]/route.js",
   "/api/review/edit/[id]/route": "app/api/review/edit/[id]/route.js"
 }

@@ -530,6 +530,7 @@ function EditReview({ params }) {
                     "Access-Control-Allow-Origin": "*"
                 }
             });
+            const addTags = await axios__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z.post("/api/tags", tags);
             setUpload(false);
             if (res.status === 201) router.push("/");
         } catch (err) {
@@ -804,7 +805,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,7802,8146,3555,8543,7093,5996,6038,6304,7159], () => (__webpack_exec__(5132)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,7802,8146,3555,8543,7093,5996,5618,6304,7159], () => (__webpack_exec__(5132)));
 module.exports = __webpack_exports__;
 
 })();
