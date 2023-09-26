@@ -4,13 +4,14 @@ import useSWR from "swr";
 import Review from "@/components/Review";
 import { useState } from "react";
 import Filter from "@/components/Filter/Filter";
-import { Highlighter } from "react-bootstrap-typeahead";
+import Sort from "@/components/Sort/Sort";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export default function Home() {
     const [reviews, setReviews] = useState([])
     const [query, setQuery] = useState('')
+    const [sortedItems, setSortedItems] = useState()
 
     const { data, error, isLoading } = useSWR(
         API_URL + "/api/review/",
@@ -39,13 +40,14 @@ export default function Home() {
             <div>
                 <div className="row mb-4">
                     <h1 className="display-3 col col-auto" >HOME PAGE</h1>
-                    <Filter url={'/api/review'} getQuery={(result) => {setQuery(result)}} getReviews={(result) => {setReviews(result)}} />
+                    <div className="col col-auto">
+                        <Filter url={'/api/review'} getQuery={(result) => {setQuery(result)}} getReviews={(result) => {setReviews(result)}} />
+                    </div>
+                    <Sort reviews={reviews} getSort={(result) => {setSortedItems(result)}}/>
                 </div>
                 
-                {reviews?.length === 0 && <p>There are no reviews here yet</p>}
-                
-                
-                {reviews && reviews?.map((item) => <Review main={true} data={item} key={item._id} highlight={query} />)}    
+                {sortedItems?.length === 0 && <p>There are no reviews here yet</p>}
+                {sortedItems && sortedItems?.map((item) => <Review main={true} data={item} key={item._id} highlight={query} />)}    
             </div>
         </div>
     );

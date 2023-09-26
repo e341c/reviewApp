@@ -1,16 +1,14 @@
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import Highlighter from "react-highlight-words";
-import ReactMarkdown from "react-markdown";
 
 export default function ProfileReview({ data, id, highlight }) {
     const {data: session, status} = useSession()
 
     return (
-        <div className="mb-5" key={data?._id}>
+        <div className="mb-5" >
             <div>
                 <div className="row">
                     <Link

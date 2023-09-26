@@ -493,7 +493,6 @@ function EditReview({ params }) {
     const [desc, setDesc] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)();
     const [category, setCategory] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)();
     const [file, setFile] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(null);
-    const { data: session, status } = (0,next_auth_react__WEBPACK_IMPORTED_MODULE_5__.useSession)();
     const handleFileChange = (e)=>{
         setFile(e.target.files[0]);
         setImgPreview(URL.createObjectURL(e.target.files[0]));
@@ -513,7 +512,13 @@ function EditReview({ params }) {
     bodyFormData.append("likes", 0);
     bodyFormData.append("file", file);
     tags.forEach((item)=>{
-        bodyFormData.append("tags", JSON.stringify(item));
+        if (item.name) {
+            console.log(item.name);
+            bodyFormData.append("tags", item.name);
+        } else {
+            console.log(item);
+            bodyFormData.append("tags", item);
+        }
     });
     const handleSubmit = async (e)=>{
         e.preventDefault();
@@ -547,9 +552,10 @@ function EditReview({ params }) {
                 setTitleItem(res.titleItem);
                 setCategory(res.category._id);
                 setDesc(res.desc);
-                setTags(res.tags.map((item)=>JSON.parse(item)));
+                setTags(res.tags);
                 setRating(res.rating);
                 setImgPreview(res.img);
+                console.log(res);
                 setUpload(false);
             } catch (err) {
                 console.log(err);
@@ -565,7 +571,7 @@ function EditReview({ params }) {
                 className: "container position-absolute top-0 start-0 end-0 bottom-0 z-2 bg-body pb-5",
                 children: [
                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Review__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .Z, {
-                        reviewData: body
+                        data: data
                     }),
                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_10___default()), {
                         variant: "secondary",
@@ -798,7 +804,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,7802,8146,3555,8543,7093,5996,9602,6304,7159], () => (__webpack_exec__(5132)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,7802,8146,3555,8543,7093,5996,6038,6304,7159], () => (__webpack_exec__(5132)));
 module.exports = __webpack_exports__;
 
 })();

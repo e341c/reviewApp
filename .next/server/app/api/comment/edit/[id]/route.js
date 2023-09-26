@@ -71,9 +71,6 @@ const POST = async (req, { params })=>{
     const comment = await Comment/* default */.Z.findById(id);
     try {
         await (0,db/* default */.Z)();
-        // await Review.find()
-        // await User.find()
-        // test without find review and user, if error occurs then include it to code
         await Comment/* default */.Z.findOneAndUpdate(comment, body);
         return new next_response/* default */.Z("Comment updated", {
             status: 200

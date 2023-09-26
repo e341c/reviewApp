@@ -61,8 +61,6 @@ export const GET = async(req, {params}) => {
             ];
         }
 
-        console.log(options);
-
         const reviews = await Review.find(options).populate('author').populate('category')
 
         return new NextResponse(JSON.stringify(reviews), {status: 200})

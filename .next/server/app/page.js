@@ -420,8 +420,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(18038);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _components_Filter_Filter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(31865);
-/* harmony import */ var react_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(14545);
-/* harmony import */ var react_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_Sort_Sort__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(3836);
 /* __next_internal_client_entry_do_not_use__ default auto */ 
 
 
@@ -433,6 +432,7 @@ const API_URL = "http://localhost:3000";
 function Home() {
     const [reviews, setReviews] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([]);
     const [query, setQuery] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)("");
+    const [sortedItems, setSortedItems] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)();
     const { data, error, isLoading } = (0,swr__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .ZP)(API_URL + "/api/review/", async ()=>{
         const res = await axios__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z.get(API_URL + `/api/review/`);
         setReviews(res.data);
@@ -463,21 +463,30 @@ function Home() {
                             className: "display-3 col col-auto",
                             children: "HOME PAGE"
                         }),
-                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Filter_Filter__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z, {
-                            url: "/api/review",
-                            getQuery: (result)=>{
-                                setQuery(result);
-                            },
-                            getReviews: (result)=>{
-                                setReviews(result);
+                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
+                            className: "col col-auto",
+                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Filter_Filter__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z, {
+                                url: "/api/review",
+                                getQuery: (result)=>{
+                                    setQuery(result);
+                                },
+                                getReviews: (result)=>{
+                                    setReviews(result);
+                                }
+                            })
+                        }),
+                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Sort_Sort__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z, {
+                            reviews: reviews,
+                            getSort: (result)=>{
+                                setSortedItems(result);
                             }
                         })
                     ]
                 }),
-                reviews?.length === 0 && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                sortedItems?.length === 0 && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
                     children: "There are no reviews here yet"
                 }),
-                reviews && reviews?.map((item)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Review__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z, {
+                sortedItems && sortedItems?.map((item)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Review__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z, {
                         main: true,
                         data: item,
                         highlight: query
@@ -523,7 +532,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,7802,8146,3555,7146,8543,9602,1865,7159], () => (__webpack_exec__(12466)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,7802,8146,3555,7146,8543,6038,6813,7159], () => (__webpack_exec__(12466)));
 module.exports = __webpack_exports__;
 
 })();

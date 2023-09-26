@@ -12,20 +12,18 @@ export default function Filter({ url, getReviews, getQuery }) {
     const [search, setSearch] = useState("");
     const [tags, setTags] = useState([]);
 
-    console.log(tags, search, category);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const res = await axios.get(API_URL + `${url}?category=${category}&search=${search}&tags=${tags}`);
-
+        
         getReviews(res.data);
 
         getQuery(search)
     };
 
     return (
-        <div className="col col-auto">
+        <div className="col col-auto mb-3">
             <Form onSubmit={handleSubmit} className="row">
                 <Tags getTags={(result) => {setTags(result)}} />
                 <Categories getCategory={(result) => {setCategory(result)}} />

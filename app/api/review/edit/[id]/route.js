@@ -28,9 +28,7 @@ export const POST = async (req, {params}) => {
         const category = formData.get("category");
         const tags = formData.getAll("tags");
         const desc = formData.get("desc");
-        const likes = formData.get("likes");
         const rating = formData.get("rating");
-        const reviewRating = formData.get("reviewRating");
 
         const editReview = {
             titleReview,
@@ -38,13 +36,10 @@ export const POST = async (req, {params}) => {
             category,
             tags,
             desc,
-            likes: [],
             rating,
-            reviewRating,
         }
 
         if (file === "null") {
-            console.log(1);
             await Review.findOneAndUpdate(review, editReview)
             return new NextResponse("Review updated, without image", { status: 201 });
         }else{

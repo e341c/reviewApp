@@ -26,7 +26,6 @@ export const POST = async (req) => {
         const desc = formData.get("desc");
         const author = formData.get("author");
         const rating = formData.get("rating");
-        const reviewRating = formData.get("reviewRating");
 
         if (!file) {
             return new NextResponse("File blob is required", { status: 400 });
@@ -50,7 +49,6 @@ export const POST = async (req) => {
             desc,
             likes: [],
             rating,
-            reviewRating,
             author,
         });
 

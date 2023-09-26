@@ -11,10 +11,12 @@ import ProfileReview from "@/components/ProfileReview";
 import { useState } from "react";
 import Filter from "@/components/Filter/Filter";
 import Loading from "@/components/Loading";
+import Sort from "@/components/Sort/Sort";
 
 export default function Profile({ params }) {
     const [reviews, setReviews] = useState([])
     const [query, setQuery] = useState('')
+    const [sortedItems, setSortedItems] = useState()
     
     const { data: session, status } = useSession();
 
@@ -73,6 +75,7 @@ export default function Profile({ params }) {
                     </div>
                     <div className="col">
                         <Filter url={`/api/profile/${id}`} getQuery={(result) => {setQuery(result)}} getReviews={(result) => {setReviews(result)}} />
+                        <Sort reviews={reviews} getSort={(result) => {setSortedItems(result)}}/>
                     </div>
                 </div>
             
@@ -89,8 +92,8 @@ export default function Profile({ params }) {
                         )}
                     </div>
                     {reviews.length === 0 && <p>There are no reviews here yet</p>}
-                    {reviews?.map((item) => (
-                        <ProfileReview data={item} id={id} highlight={query} />
+                    {sortedItems?.map((item) => (
+                        <ProfileReview data={item} key={item._id} id={id} highlight={query} />
                     ))}
                 </div>
             </div>

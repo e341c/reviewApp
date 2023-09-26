@@ -12,11 +12,7 @@ export const GET = async (req) => {
     const search = searchParams.get("search");
     const category = searchParams.get("category");
     const tags = searchParams.get("tags")
-
-    console.log(search);
-    console.log(category);
-    console.log(tags);
-
+    
     try {
         await connect();
         await User.find();
@@ -72,8 +68,6 @@ export const GET = async (req) => {
                 }
             ];
         }
-
-        console.log(options);
 
         const reviews = await Review.find(options).populate("author").populate("category");
 

@@ -447,8 +447,6 @@ var Button = __webpack_require__(93780);
 var Button_default = /*#__PURE__*/__webpack_require__.n(Button);
 // EXTERNAL MODULE: ./node_modules/@fortawesome/react-fontawesome/index.js
 var react_fontawesome = __webpack_require__(52196);
-// EXTERNAL MODULE: ./node_modules/@fortawesome/fontawesome-svg-core/index.mjs
-var fontawesome_svg_core = __webpack_require__(69024);
 // EXTERNAL MODULE: ./node_modules/@fortawesome/free-solid-svg-icons/index.mjs
 var free_solid_svg_icons = __webpack_require__(42050);
 // EXTERNAL MODULE: ./node_modules/react-bootstrap/cjs/Form.js
@@ -474,8 +472,6 @@ var dist = __webpack_require__(97146);
 
 
 
-
-fontawesome_svg_core.library.add(free_solid_svg_icons/* faBars */.xiG);
 function Comment({ id }) {
     const [commentId, setCommentId] = (0,react_.useState)("");
     const [commentValue, setCommentValue] = (0,react_.useState)("");
@@ -573,7 +569,7 @@ function Comment({ id }) {
                                                                 variant: "outline-secondary",
                                                                 id: "dropdown-basic",
                                                                 children: /*#__PURE__*/ jsx_runtime_.jsx(react_fontawesome.FontAwesomeIcon, {
-                                                                    icon: "fa-solid fa-bars",
+                                                                    icon: free_solid_svg_icons/* faBars */.xiG,
                                                                     className: "me-1"
                                                                 })
                                                             }),
@@ -973,7 +969,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,8146,7146,8543,7093,6220,8212,9602,6304], () => (__webpack_exec__(68447)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,8146,7146,8543,7093,6220,8212,6038,6304], () => (__webpack_exec__(68447)));
 module.exports = __webpack_exports__;
 
 })();

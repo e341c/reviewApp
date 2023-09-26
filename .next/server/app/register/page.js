@@ -444,7 +444,6 @@ function Register() {
         const password = e.target[2].value;
         const matchPassword = e.target[3].value;
         if (password !== matchPassword) {
-            console.log("MATCH");
             setMatchError("Password does not match");
         }
         if (password === matchPassword) {
@@ -463,7 +462,6 @@ function Register() {
             }
         }
     };
-    console.log(error);
     return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("main", {
         className: "w-100 h-100 d-flex justify-content-center align-items-center",
         children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_5___default()), {
@@ -624,7 +622,7 @@ module.exports = __webpack_require__(90696)
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,9602], () => (__webpack_exec__(24987)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,6038], () => (__webpack_exec__(24987)));
 module.exports = __webpack_exports__;
 
 })();

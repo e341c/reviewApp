@@ -78,9 +78,6 @@ const GET = async (req)=>{
     const search = searchParams.get("search");
     const category = searchParams.get("category");
     const tags = searchParams.get("tags");
-    console.log(search);
-    console.log(category);
-    console.log(tags);
     try {
         await (0,db/* default */.Z)();
         await User/* default */.Z.find();
@@ -131,7 +128,6 @@ const GET = async (req)=>{
                 }
             ];
         }
-        console.log(options);
         const reviews = await Review/* default */.Z.find(options).populate("author").populate("category");
         return new next_response/* default */.Z(JSON.stringify(reviews), {
             status: 200

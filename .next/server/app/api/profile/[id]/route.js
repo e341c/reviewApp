@@ -122,7 +122,6 @@ const GET = async (req, { params })=>{
                 }
             ];
         }
-        console.log(options);
         const reviews = await Review/* default */.Z.find(options).populate("author").populate("category");
         return new next_response/* default */.Z(JSON.stringify(reviews), {
             status: 200

@@ -9,8 +9,6 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useState } from "react";
 
 export default function Login() {
-    const path = usePathname()
-    console.log(path);
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const { data: session, status } = useSession();

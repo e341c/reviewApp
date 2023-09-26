@@ -37,7 +37,7 @@ export default function Categories({ url, getCategory }) {
                         All categories
                     </option>
                     {categories?.map((item) => (
-                        <option value={item.name} key={item.key}>
+                        <option value={item.name} key={item._id}>
                             {item.name}
                         </option>
                     ))}

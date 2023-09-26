@@ -12,9 +12,6 @@ export const POST = async(req, {params}) => {
 
     try {
         await connect()
-        // await Review.find()
-        // await User.find()
-        // test without find review and user, if error occurs then include it to code
 
         await Comment.findOneAndUpdate(comment, body)
 

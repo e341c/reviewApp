@@ -417,21 +417,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(52196);
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(42050);
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(42050);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11440);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var next_auth_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(74284);
 /* harmony import */ var next_auth_react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_auth_react__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(97146);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(93258);
-/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(93780);
-/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(93258);
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(93780);
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var _components_ProfileReview__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(63116);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(18038);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _components_Filter_Filter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(31865);
 /* harmony import */ var _components_Loading__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(6304);
+/* harmony import */ var _components_Sort_Sort__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(3836);
 /* __next_internal_client_entry_do_not_use__ default auto */ 
+
 
 
 
@@ -447,10 +449,11 @@ __webpack_require__.r(__webpack_exports__);
 function Profile({ params }) {
     const [reviews, setReviews] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)([]);
     const [query, setQuery] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)("");
+    const [sortedItems, setSortedItems] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)();
     const { data: session, status } = (0,next_auth_react__WEBPACK_IMPORTED_MODULE_3__.useSession)();
     const id = session?.user.id;
     const { data, error, isLoading } = (0,swr__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .ZP)(`/api/profile/${id}`, async ()=>{
-        const res = await axios__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z.get(`/api/profile/${id}`);
+        const res = await axios__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .Z.get(`/api/profile/${id}`);
         setReviews(res.data);
         return res.data;
     }, {
@@ -527,11 +530,11 @@ function Profile({ params }) {
                                             }),
                                             "\xa0",
                                             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__.FontAwesomeIcon, {
-                                                icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_10__/* .faHeart */ .m6i
+                                                icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_11__/* .faHeart */ .m6i
                                             })
                                         ]
                                     }),
-                                    id === session?.user.id && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_11___default()), {
+                                    id === session?.user.id && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_12___default()), {
                                         variant: "outline-danger",
                                         onClick: ()=>(0,next_auth_react__WEBPACK_IMPORTED_MODULE_3__.signOut)(),
                                         children: "Log Out"
@@ -539,17 +542,25 @@ function Profile({ params }) {
                                 ]
                             })
                         }),
-                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
+                        /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                             className: "col",
-                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Filter_Filter__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .Z, {
-                                url: `/api/profile/${id}`,
-                                getQuery: (result)=>{
-                                    setQuery(result);
-                                },
-                                getReviews: (result)=>{
-                                    setReviews(result);
-                                }
-                            })
+                            children: [
+                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Filter_Filter__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .Z, {
+                                    url: `/api/profile/${id}`,
+                                    getQuery: (result)=>{
+                                        setQuery(result);
+                                    },
+                                    getReviews: (result)=>{
+                                        setReviews(result);
+                                    }
+                                }),
+                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Sort_Sort__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z, {
+                                    reviews: reviews,
+                                    getSort: (result)=>{
+                                        setSortedItems(result);
+                                    }
+                                })
+                            ]
                         })
                     ]
                 }),
@@ -572,7 +583,7 @@ function Profile({ params }) {
                                         className: "btn btn-primary",
                                         children: [
                                             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__.FontAwesomeIcon, {
-                                                icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_10__/* .faPlus */ .r8p,
+                                                icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_11__/* .faPlus */ .r8p,
                                                 style: {
                                                     width: "14px",
                                                     height: "16px"
@@ -587,11 +598,11 @@ function Profile({ params }) {
                         reviews.length === 0 && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
                             children: "There are no reviews here yet"
                         }),
-                        reviews?.map((item)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_ProfileReview__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z, {
+                        sortedItems?.map((item)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_ProfileReview__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z, {
                                 data: item,
                                 id: id,
                                 highlight: query
-                            }))
+                            }, item._id))
                     ]
                 })
             ]
@@ -635,7 +646,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,7802,8146,3555,7146,7093,6220,9602,6304,1865,3116], () => (__webpack_exec__(64913)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,7802,8146,3555,7146,7093,6220,6038,6304,6813,3116], () => (__webpack_exec__(64913)));
 module.exports = __webpack_exports__;
 
 })();

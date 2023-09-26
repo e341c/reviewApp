@@ -344,8 +344,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Login() {
-    const path = (0,next_navigation__WEBPACK_IMPORTED_MODULE_4__.usePathname)();
-    console.log(path);
     const [email, setEmail] = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)();
     const [password, setPassword] = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)();
     const { data: session, status } = (0,next_auth_react__WEBPACK_IMPORTED_MODULE_3__.useSession)();
@@ -512,7 +510,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,436,9486,665,9602], () => (__webpack_exec__(76407)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,436,9486,665,6038], () => (__webpack_exec__(76407)));
 module.exports = __webpack_exports__;
 
 })();

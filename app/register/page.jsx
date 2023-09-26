@@ -20,7 +20,6 @@ export default function Register() {
         const matchPassword = e.target[3].value;
 
         if(password !== matchPassword){
-            console.log('MATCH');
             setMatchError("Password does not match")
         }
 
@@ -42,8 +41,6 @@ export default function Register() {
             }
         }
     };
-
-    console.log(error);
 
     return (
         <main className="w-100 h-100 d-flex justify-content-center align-items-center">

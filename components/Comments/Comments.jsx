@@ -2,15 +2,12 @@ import Link from "next/link";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { Form } from "react-bootstrap";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import useSWR from "swr";
-
-library.add(faBars);
 
 export default function Comment({ id }) {
     const [commentId, setCommentId] = useState("");
@@ -91,7 +88,7 @@ export default function Comment({ id }) {
                                     {((session?.user.id === item.authorId?._id) || (session?.user.admin)) && (
                                         <Dropdown className="col col-auto">
                                             <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
-                                                <FontAwesomeIcon icon="fa-solid fa-bars" className="me-1" />
+                                                <FontAwesomeIcon icon={faBars} className="me-1" />
                                             </Dropdown.Toggle>
 
                                             <Dropdown.Menu>

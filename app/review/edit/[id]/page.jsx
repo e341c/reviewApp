@@ -36,8 +36,6 @@ export default function EditReview({ params }) {
     const [category, setCategory] = useState();
     const [file, setFile] = useState(null);
 
-    const { data: session, status } = useSession();
-
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
         setImgPreview(URL.createObjectURL(e.target.files[0]));
@@ -60,8 +58,14 @@ export default function EditReview({ params }) {
     bodyFormData.append("rating", rating);
     bodyFormData.append("likes", 0);
     bodyFormData.append("file", file);
-    tags.forEach((item) => {
-        bodyFormData.append("tags", JSON.stringify(item));
+    tags.forEach((item) => {        
+        if(item.name) {
+            console.log(item.name);
+            bodyFormData.append("tags", item.name)
+        }else{
+            console.log(item);
+            bodyFormData.append("tags", item)
+        }
     });
 
     const handleSubmit = async (e) => {
@@ -98,9 +102,10 @@ export default function EditReview({ params }) {
                 setTitleItem(res.titleItem);
                 setCategory(res.category._id);
                 setDesc(res.desc);
-                setTags(res.tags.map((item) => JSON.parse(item)));
+                setTags(res.tags);
                 setRating(res.rating);
                 setImgPreview(res.img)
+                console.log(res);
                 setUpload(false);
             } catch (err) {
                 console.log(err);
@@ -116,7 +121,7 @@ export default function EditReview({ params }) {
         <main>
             {preview && (
                 <div className="container position-absolute top-0 start-0 end-0 bottom-0 z-2 bg-body pb-5">
-                    <Review reviewData={body} />
+                    <Review data={data} />
                     <Button variant="secondary" className="mb-5" onClick={(e) => setPreview(false)}>
                         Close preview
                     </Button>

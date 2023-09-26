@@ -17,6 +17,10 @@
           "originalSource": "/review/add"
         },
         {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/review\\/edit(.json)?[\\/#\\?]?$",
+          "originalSource": "/review/edit"
+        },
+        {
           "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/profile(.json)?[\\/#\\?]?$",
           "originalSource": "/profile"
         },
@@ -31,6 +35,18 @@
         {
           "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/api\\/review\\/delete(.json)?[\\/#\\?]?$",
           "originalSource": "/api/review/delete"
+        },
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/api\\/review\\/like(.json)?[\\/#\\?]?$",
+          "originalSource": "/api/review/like"
+        },
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/api\\/comment\\/edit(.json)?[\\/#\\?]?$",
+          "originalSource": "/api/comment/edit"
+        },
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/api\\/comment\\/delete(.json)?[\\/#\\?]?$",
+          "originalSource": "/api/comment/delete"
         },
         {
           "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/admin(.json)?[\\/#\\?]?$",

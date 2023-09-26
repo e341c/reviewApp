@@ -2,7 +2,7 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 import axios from "axios";
 import useSWR from "swr";
 import { Form } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Typeahead } from "react-bootstrap-typeahead";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;

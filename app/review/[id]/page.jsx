@@ -21,7 +21,9 @@ export default function Review({params}) {
         const res = await axios.get(API_URL + `/api/review/${id}`)
         setLikes(res.data.likes)
         return res.data
-    }, { refreshInterval: 1000 });
+    }, { 
+        refreshInterval: 1000
+    });
 
     if(isLoading){
         return <div className="vh-100"> <Loading /> </div>

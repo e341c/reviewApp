@@ -41,9 +41,7 @@ export default function AddReview() {
         titleReview,
         titleItem,
         category,
-        tags: tags.map((item) => {
-            return JSON.stringify(item);
-        }),
+        tags,
         desc,
         likes: [],
         author: session?.user.id,
@@ -53,10 +51,9 @@ export default function AddReview() {
 
     const checkValidation = () => {
         setValidation(false)
-        console.log("NOT VALID");
+
         if (categories != "" && tags.length > 0 && rating > 0 && file != null && titleReview != "" && titleItem != "" && desc != "") {
             setValidation(true);
-            console.log("VALID");
         }
     };
 
