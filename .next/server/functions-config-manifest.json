@@ -3,18 +3,18 @@
   "functions": {
     "/api/admin": {},
     "/api/category": {},
-    "/api/comment/[id]": {},
     "/api/auth/register": {},
+    "/api/comment/[id]": {},
     "/api/comment/delete/[id]": {},
+    "/api/comment/edit/[id]": {},
     "/api/profile/[id]": {},
     "/api/profile/user/[id]": {},
-    "/api/comment/edit/[id]": {},
     "/api/review/[id]": {},
     "/api/review/add": {},
     "/api/review/delete/[id]": {},
-    "/api/tags": {},
+    "/api/review/edit/[id]": {},
     "/api/review/like/[id]": {},
     "/api/review": {},
-    "/api/review/edit/[id]": {}
+    "/api/tags": {}
   }
 }

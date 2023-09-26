@@ -9,7 +9,7 @@ import { useState, useRef, useEffect, use } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import Review from "@/components/Review";
+import Preview from "@/components/Preview"
 import Loading from "@/components/Loading";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
@@ -41,7 +41,7 @@ export default function AddReview() {
         titleReview,
         titleItem,
         category,
-        tags,
+        tags: tags.map(item => {return item.name}),
         desc,
         likes: [],
         author: session?.user.id,
@@ -143,7 +143,7 @@ export default function AddReview() {
         <main>
             {previewReview && (
                 <div className="container position-absolute top-0 start-0 end-0 bottom-0 z-2 bg-body pb-5">
-                    <Review reviewData={preview} />
+                    <Preview data={preview} />
                     <Button variant="secondary" className="mb-5" onClick={(e) => setPreviewReview(false)}>
                         Close preview
                     </Button>

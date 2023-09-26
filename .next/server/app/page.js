@@ -400,27 +400,156 @@ const routeModule = new AppPageRouteModule({
 /***/ 27754:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 90394))
+Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 69013))
 
 /***/ }),
 
-/***/ 90394:
+/***/ 69013:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Home)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(56786);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(93258);
-/* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(97146);
-/* harmony import */ var _components_Review__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7159);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(18038);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components_Filter_Filter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(31865);
-/* harmony import */ var _components_Sort_Sort__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(3836);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ Home)
+});
+
+// EXTERNAL MODULE: external "next/dist/compiled/react/jsx-runtime"
+var jsx_runtime_ = __webpack_require__(56786);
+// EXTERNAL MODULE: ./node_modules/axios/lib/axios.js + 46 modules
+var axios = __webpack_require__(93258);
+// EXTERNAL MODULE: ./node_modules/swr/core/dist/index.mjs + 1 modules
+var dist = __webpack_require__(97146);
+// EXTERNAL MODULE: ./node_modules/next-auth/react/index.js
+var react = __webpack_require__(74284);
+// EXTERNAL MODULE: ./node_modules/next/link.js
+var next_link = __webpack_require__(11440);
+var link_default = /*#__PURE__*/__webpack_require__.n(next_link);
+// EXTERNAL MODULE: ./node_modules/react-highlight-words/dist/main.js
+var dist_main = __webpack_require__(99265);
+var main_default = /*#__PURE__*/__webpack_require__.n(dist_main);
+// EXTERNAL MODULE: ./node_modules/react-markdown/lib/react-markdown.js + 124 modules
+var react_markdown = __webpack_require__(88543);
+;// CONCATENATED MODULE: ./components/Review.jsx
+
+
+
+
+
+function Review({ main, data, highlight }) {
+    const { data: session, status } = (0,react.useSession)();
+    return /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+        className: "mb-5",
+        children: [
+            /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                className: "d-flex",
+                children: [
+                    /*#__PURE__*/ jsx_runtime_.jsx((link_default()), {
+                        href: `/review/${data?._id}`,
+                        className: "text-decoration-none text-body mt-2 me-3",
+                        children: /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                            style: {
+                                maxWidth: "150px"
+                            },
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("img", {
+                                src: data?.img,
+                                alt: "",
+                                className: "object-fit-cover w-100 h-auto",
+                                style: {
+                                    minWidth: "70px"
+                                }
+                            })
+                        })
+                    }),
+                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                        className: "w-75",
+                        style: {
+                            minWidth: "180px"
+                        },
+                        children: [
+                            /*#__PURE__*/ (0,jsx_runtime_.jsxs)((link_default()), {
+                                href: `/review/${data._id}`,
+                                className: "text-decoration-none text-body",
+                                children: [
+                                    /*#__PURE__*/ jsx_runtime_.jsx("h2", {
+                                        children: data?.titleReview
+                                    }),
+                                    /*#__PURE__*/ jsx_runtime_.jsx("h4", {
+                                        children: data?.titleItem
+                                    }),
+                                    /*#__PURE__*/ jsx_runtime_.jsx("p", {
+                                        children: data?.category?.name
+                                    }),
+                                    /*#__PURE__*/ jsx_runtime_.jsx("p", {
+                                        children: data?.tags.map((item)=>{
+                                            return /*#__PURE__*/ jsx_runtime_.jsx("span", {
+                                                className: "rbt-token p-1",
+                                                children: item + " "
+                                            });
+                                        })
+                                    }),
+                                    main ? /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                                        className: "mb-3",
+                                        children: /*#__PURE__*/ jsx_runtime_.jsx((main_default()), {
+                                            highlightClassName: "bg-warning",
+                                            searchWords: [
+                                                highlight
+                                            ],
+                                            autoEscape: true,
+                                            textToHighlight: data?.desc?.substring(0, 200) + "..."
+                                        })
+                                    }) : /*#__PURE__*/ jsx_runtime_.jsx(react_markdown/* ReactMarkdown */.D, {
+                                        children: data?.desc
+                                    }),
+                                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)("p", {
+                                        children: [
+                                            "Rate: ",
+                                            data?.rating
+                                        ]
+                                    })
+                                ]
+                            }),
+                            /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                                className: "d-flex justify-content-between",
+                                children: [
+                                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)("p", {
+                                        children: [
+                                            "Review likes: ",
+                                            data?.likes?.length
+                                        ]
+                                    }),
+                                    data?.author?.name && /*#__PURE__*/ (0,jsx_runtime_.jsxs)("p", {
+                                        children: [
+                                            "Author: \xa0",
+                                            /*#__PURE__*/ jsx_runtime_.jsx((link_default()), {
+                                                href: data?.author?._id === session?.user?.id ? "/profile" : `/profile/${data?.author?._id}`,
+                                                className: "text-primary",
+                                                children: data?.author.name
+                                            })
+                                        ]
+                                    })
+                                ]
+                            })
+                        ]
+                    })
+                ]
+            }),
+            /*#__PURE__*/ jsx_runtime_.jsx("hr", {
+                className: "w-100"
+            })
+        ]
+    });
+}
+
+// EXTERNAL MODULE: external "next/dist/compiled/react"
+var react_ = __webpack_require__(18038);
+// EXTERNAL MODULE: ./components/Filter/Filter.jsx + 3 modules
+var Filter = __webpack_require__(31865);
+// EXTERNAL MODULE: ./components/Sort/Sort.jsx
+var Sort = __webpack_require__(3836);
+;// CONCATENATED MODULE: ./app/page.jsx
 /* __next_internal_client_entry_do_not_use__ default auto */ 
 
 
@@ -430,11 +559,11 @@ __webpack_require__.r(__webpack_exports__);
 
 const API_URL = "http://localhost:3000";
 function Home() {
-    const [reviews, setReviews] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([]);
-    const [query, setQuery] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)("");
-    const [sortedItems, setSortedItems] = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)();
-    const { data, error, isLoading } = (0,swr__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .ZP)(API_URL + "/api/review/", async ()=>{
-        const res = await axios__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z.get(API_URL + `/api/review/`);
+    const [reviews, setReviews] = (0,react_.useState)([]);
+    const [query, setQuery] = (0,react_.useState)("");
+    const [sortedItems, setSortedItems] = (0,react_.useState)();
+    const { data, error, isLoading } = (0,dist/* default */.ZP)(API_URL + "/api/review/", async ()=>{
+        const res = await axios/* default */.Z.get(API_URL + `/api/review/`);
         setReviews(res.data);
         return res.data;
     }, {
@@ -442,30 +571,30 @@ function Home() {
         revalidateOnFocus: false
     });
     if (isLoading) {
-        return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+        return /*#__PURE__*/ jsx_runtime_.jsx("p", {
             children: "Loading..."
         });
     }
     if (error) {
         console.log(error);
-        return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+        return /*#__PURE__*/ jsx_runtime_.jsx("p", {
             children: "Something went wrong. Try to reload page"
         });
     }
-    return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
+    return /*#__PURE__*/ jsx_runtime_.jsx("div", {
         className: "vh-100",
-        children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
             children: [
-                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
                     className: "row mb-4",
                     children: [
-                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h1", {
+                        /*#__PURE__*/ jsx_runtime_.jsx("h1", {
                             className: "display-3 col col-auto",
                             children: "HOME PAGE"
                         }),
-                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
+                        /*#__PURE__*/ jsx_runtime_.jsx("div", {
                             className: "col col-auto",
-                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Filter_Filter__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z, {
+                            children: /*#__PURE__*/ jsx_runtime_.jsx(Filter/* default */.Z, {
                                 url: "/api/review",
                                 getQuery: (result)=>{
                                     setQuery(result);
@@ -475,7 +604,7 @@ function Home() {
                                 }
                             })
                         }),
-                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Sort_Sort__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z, {
+                        /*#__PURE__*/ jsx_runtime_.jsx(Sort/* default */.Z, {
                             reviews: reviews,
                             getSort: (result)=>{
                                 setSortedItems(result);
@@ -483,10 +612,10 @@ function Home() {
                         })
                     ]
                 }),
-                sortedItems?.length === 0 && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                sortedItems?.length === 0 && /*#__PURE__*/ jsx_runtime_.jsx("p", {
                     children: "There are no reviews here yet"
                 }),
-                sortedItems && sortedItems?.map((item)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Review__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z, {
+                sortedItems && sortedItems?.map((item)=>/*#__PURE__*/ jsx_runtime_.jsx(Review, {
                         main: true,
                         data: item,
                         highlight: query
@@ -532,7 +661,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,7802,8146,3555,7146,8543,5618,6813,7159], () => (__webpack_exec__(12466)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,7802,8146,7234,7146,8543,9265,8658,6813], () => (__webpack_exec__(12466)));
 module.exports = __webpack_exports__;
 
 })();

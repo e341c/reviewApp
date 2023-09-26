@@ -20,7 +20,7 @@ export const POST = async (req, {params}) => {
         await Category.find();
         await Tags.find();
 
-        const review = await Review.findById(id)
+        const review = await Review.findById(id).populate('author')
 
         const file = formData.get("file");
         const titleReview = formData.get("titleReview");

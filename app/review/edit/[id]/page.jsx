@@ -6,20 +6,19 @@ import { Rating } from "react-simple-star-rating";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { useState, useRef, useEffect } from "react";
 import "react-bootstrap-typeahead/css/Typeahead.css";
-import { useSession } from "next-auth/react";
+import Preview from "@/components/Preview"
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import Review from "@/components/Review";
 import Loading from "@/components/Loading";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export default function EditReview({ params }) {
     const { id } = params;
+    const router = useRouter();
 
     const inputRef = useRef(null);
     const [categories, setCategories] = useState([]);
-    const router = useRouter();
     const [upload, setUpload] = useState(false);
     const [preview, setPreview] = useState(null);
     const [imgPreview, setImgPreview] = useState();
@@ -60,10 +59,8 @@ export default function EditReview({ params }) {
     bodyFormData.append("file", file);
     tags.forEach((item) => {        
         if(item.name) {
-            console.log(item.name);
             bodyFormData.append("tags", item.name)
         }else{
-            console.log(item);
             bodyFormData.append("tags", item)
         }
     });
@@ -106,7 +103,6 @@ export default function EditReview({ params }) {
                 setTags(res.tags);
                 setRating(res.rating);
                 setImgPreview(res.img)
-                console.log(res);
                 setUpload(false);
             } catch (err) {
                 console.log(err);
@@ -122,7 +118,7 @@ export default function EditReview({ params }) {
         <main>
             {preview && (
                 <div className="container position-absolute top-0 start-0 end-0 bottom-0 z-2 bg-body pb-5">
-                    <Review data={data} />
+                    <Preview data={data} />
                     <Button variant="secondary" className="mb-5" onClick={(e) => setPreview(false)}>
                         Close preview
                     </Button>

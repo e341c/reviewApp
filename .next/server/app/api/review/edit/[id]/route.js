@@ -106,7 +106,7 @@ const POST = async (req, { params })=>{
         await User/* default */.Z.find();
         await Category/* default */.Z.find();
         await Tags/* default */.Z.find();
-        const review = await Review/* default */.Z.findById(id);
+        const review = await Review/* default */.Z.findById(id).populate("author");
         const file = formData.get("file");
         const titleReview = formData.get("titleReview");
         const titleItem = formData.get("titleItem");

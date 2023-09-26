@@ -450,7 +450,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(93258);
 /* harmony import */ var next_navigation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(57114);
 /* harmony import */ var next_navigation__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(next_navigation__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_Review__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(7159);
+/* harmony import */ var _components_Preview__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(16198);
 /* harmony import */ var _components_Loading__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(6304);
 /* __next_internal_client_entry_do_not_use__ default auto */ 
 
@@ -488,7 +488,9 @@ function AddReview() {
         titleReview,
         titleItem,
         category,
-        tags,
+        tags: tags.map((item)=>{
+            return item.name;
+        }),
         desc,
         likes: [],
         author: session?.user.id,
@@ -581,8 +583,8 @@ function AddReview() {
             previewReview && /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                 className: "container position-absolute top-0 start-0 end-0 bottom-0 z-2 bg-body pb-5",
                 children: [
-                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Review__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .Z, {
-                        reviewData: preview
+                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Preview__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .Z, {
+                        data: preview
                     }),
                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_10___default()), {
                         variant: "secondary",
@@ -824,7 +826,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,7802,8146,3555,8543,7093,5996,5618,6304,7159], () => (__webpack_exec__(67953)));
+var __webpack_exports__ = __webpack_require__.X(0, [3587,436,3258,9486,7802,8146,7234,8543,7093,5996,8658,6304,6198], () => (__webpack_exec__(67953)));
 module.exports = __webpack_exports__;
 
 })();
